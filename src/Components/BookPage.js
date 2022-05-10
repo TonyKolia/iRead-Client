@@ -67,7 +67,8 @@ export default function BookPage() {
                                     {book.ratings.map(rating => <li className="list-group-item"><Rating key={rating.username} rating={rating} /></li>)}
                                 </ul>
                                 :
-                                <h5 style={{textAlign:"center",paddingTop:"2rem"}}>Δεν υπάρχουν σχόλια χρηστών</h5>
+                                <h5 style={{textAlign:"center",paddingTop:"2rem"}}>Δεν υπάρχουν σχόλια χρηστών.</h5>
+                                
                         }
 
 
