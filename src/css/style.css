@@ -166,10 +166,15 @@ nav{
     cursor: pointer;
 }
 
-.book-title:hover{
+.book-title > a:hover{
     color: var(--main-detail-color);
     text-decoration: underline;
     cursor: pointer;
+}
+
+.book-title > a{
+    color: inherit;
+    text-decoration: none;
 }
 
 .btn-custom{
@@ -786,6 +791,21 @@ input[type="checkbox"]:hover{
     justify-content: center;
 }
 
-.comment-user .fa-star{
+.comment-user .filled-star{
     color: var(--main-detail-color);
+}
+
+.comment-user .empty-star{
+    color: gray;
+}
+
+.loading-spinner{
+    align-items: center;
+    min-height: 280px;
+}
+
+.loading-spinner > div{
+    color: var(--main-header-color);
+    height: 3rem;
+    width: 3rem;
 }
