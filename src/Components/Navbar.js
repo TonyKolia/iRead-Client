@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/style.css";
 
-export default function Header() {
+export default function Navbar(props) {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-fixed-top">
@@ -27,7 +27,7 @@ export default function Header() {
                     <li>
                         <div className="cart">
                             <a className="nav-link" href="/basket"><i className="fa-solid fa-basket-shopping"></i>Καλάθι</a>
-                            <span className="badge">0</span>
+                            <span className="badge">{props.numberOfItems}</span>
                         </div>
                     </li>
                 </ul>

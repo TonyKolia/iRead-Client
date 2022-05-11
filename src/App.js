@@ -12,13 +12,33 @@ import LoginModal from "./Components/LoginModal";
 import Error from "./Components/Error";
 
 export default function App() {
+
+  const [basket, setBasket] = React.useState({ userId: null, items: [] });
+
+  const addItemToBasket = function (itemId) {
+    //save to local storage to persist through reload
+    if(basket.items.includes(itemId)){
+      alert("this is not allowed")
+      return;
+    }
+
+    let currentItems = basket.items;
+    currentItems.push(itemId);
+    setBasket((prevBasket) => {
+      return {
+        ...prevBasket,
+        items: currentItems
+      }
+    });
+  }
+
   return (
     <Router>
       <div>
         <div className="container-fluid">
-          <Navbar />
+          <Navbar numberOfItems={basket.items.length} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
             <Route path="/books" element={<Main />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/book/:id" element={<BookPage />} />

@@ -4,7 +4,7 @@ import logo from "../Images/test-book-img.jpeg";
 import carouselTemp from "../Images/test-image.png";
 import BookItems from "./BookItems";
 
-export default function Home() {
+export default function Home(props) {
     return (
         <div>
             <div id="carouselExampleIndicators" className="carousel slide home-page-carousel" data-ride="carousel">
@@ -41,7 +41,7 @@ export default function Home() {
             </div>
 
             <div style={{ marginTop: "10px" }}>
-                <BookItems />
+                <BookItems addItemToBasket = {props.addItemToBasket} />
             </div>
         </div>
     );

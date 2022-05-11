@@ -5,7 +5,7 @@ import logo from "../Images/test-book-img.jpeg";
 export default function Basket() {
     return (
         <div className="cart-container">
-            <h4><i className="fa-solid fa-cart-shopping"></i>Το καλάθι μου</h4>
+            <h4><i className="fa-solid fa-basket-shopping"></i>Το καλάθι μου</h4>
             <table className="table">
                 <thead>
                     <th></th>
