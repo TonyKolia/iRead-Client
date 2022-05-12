@@ -6,7 +6,7 @@ import "../css/style.css";
 import Helpers from "../Helpers/Helpers";
 import API from "../Helpers/API";
 
-export default function BookPage() {
+export default function BookPage(props) {
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});
@@ -47,7 +47,7 @@ export default function BookPage() {
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
-                                    <button type="button" className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
+                                    <button type="button" onClick={() => props.addItemToBasket(book.id)} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
                                 </div>
                             </div>
 

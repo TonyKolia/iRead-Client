@@ -177,15 +177,16 @@ nav{
     text-decoration: none;
 }
 
-.btn-custom{
+.btn-custom,
+.btn-custom:focus{
     background-color: var(--main-detail-color);
     color: #ffffff;
     border-color: var(--main-detail-color);  
     border-radius: var(--global-button-border-radius);
 }
 
-.btn-custom:active,
-.btn-custom:focus{
+
+.btn-custom:active{
     background-color: transparent !important;
     border-color: var(--main-detail-color) !important;
     color: var(--main-detail-color) !important;;
@@ -572,6 +573,7 @@ input[type="checkbox"]:hover{
 }
 
 .cart-container > h4,
+.cart-container > h5,
 .library-container > h4{
     text-align: center;
     padding: 50px;

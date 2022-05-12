@@ -9,9 +9,9 @@ export default function Home(props) {
         <div>
             <div id="carouselExampleIndicators" className="carousel slide home-page-carousel" data-ride="carousel">
                 <ol className="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li key="img1" data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+                    <li key="img2" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li key="img3" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
@@ -28,13 +28,13 @@ export default function Home(props) {
 
             <div style={{ marginTop: "10px" }}>
                 <ul className="nav justify-content-center nav-tabs">
-                    <li className="nav-item active">
+                    <li key="recommended" className="nav-item active">
                         <a className="nav-link home-page-mini-menu active" href="#">Προτεινόμενα</a>
                     </li>
-                    <li className="nav-item">
+                    <li key="new" className="nav-item">
                         <a className="nav-link home-page-mini-menu" href="#">Νεότερα</a>
                     </li>
-                    <li className="nav-item">
+                    <li key="hot" className="nav-item">
                         <a className="nav-link home-page-mini-menu" href="#">Δημοφιλή</a>
                     </li>
                 </ul>

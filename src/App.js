@@ -15,9 +15,28 @@ export default function App() {
 
   const [basket, setBasket] = React.useState({ userId: null, items: [] });
 
-  const addItemToBasket = function (itemId) {
-    //save to local storage to persist through reload
-    if(basket.items.includes(itemId)){
+  React.useEffect(initializeBasket, [])
+
+  React.useEffect(() => {
+    localStorage.setItem('basketItems', JSON.stringify(basket.items));
+  }, [basket]);
+
+  function initializeBasket() {
+    var basketItemsString = localStorage.getItem('basketItems');
+    if (basketItemsString !== null)
+      var basketItems = JSON.parse(basketItemsString);
+
+    setBasket((prevBasket) => {
+      return {
+        ...prevBasket,
+        items: basketItems
+      };
+    });
+  }
+
+  function addItemToBasket(itemId) {
+
+    if (basket.items.includes(itemId)) {
       alert("this is not allowed")
       return;
     }
@@ -32,6 +51,27 @@ export default function App() {
     });
   }
 
+  function removeItemFromBasket(itemId) {
+    let currentItems = basket.items;
+    currentItems.splice(currentItems.indexOf(itemId), 1);
+    setBasket((prevBasket) => {
+      return {
+        ...prevBasket,
+        items: currentItems
+      }
+    });
+  }
+
+  function clearBakset() {
+    setBasket((prevBasket) => {
+      return {
+        ...prevBasket,
+        items: []
+      }
+    });
+  }
+
+
   return (
     <Router>
       <div>
@@ -40,8 +80,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
             <Route path="/books" element={<Main />} />
-            <Route path="/basket" element={<Basket />} />
-            <Route path="/book/:id" element={<BookPage />} />
+            <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} />} />
+            <Route path="/book/:id" element={<BookPage addItemToBasket={addItemToBasket} />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>

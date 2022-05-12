@@ -5,8 +5,6 @@ import API from "../Helpers/API";
 
 export default function BookItem(props) {
 
-    console.log(props);
-
     return (
         <div className="col">
             <div className="card card-custom">
