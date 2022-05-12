@@ -1,7 +1,7 @@
 import React from "react";
-import "../css/style.css";
-import API from "../Helpers/API";
-import BasketItem from "./Basket/BasketItem";
+import "../../css/style.css";
+import API from "../../Helpers/API";
+import BasketItem from "./BasketItem";
 
 export default function Basket(props) {
 
@@ -38,7 +38,7 @@ export default function Basket(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {basketBooks?.map(book => <BasketItem id={book.id} title={book.title} imagePath={book.imagePath} removeItemFromBasket={props.removeItemFromBasket} />)}
+                            {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} removeItemFromBasket={props.removeItemFromBasket} />)}
                         </tbody>
                     </table>
             }
@@ -48,7 +48,7 @@ export default function Basket(props) {
                 <div className="cart-btn-container">
                     <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
                     {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => props.clearBasket()} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
-                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
+                    {((basketBooks !== undefined && basketBooks.length > 0) && props.user.userId !== "") && <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import React from "react";
 
 export default class Helpers {
     
@@ -15,6 +16,19 @@ export default class Helpers {
 
     static addCommaIfNeeded = function(index, array){
         return (index + 1 < array.length) ? ", " : "";
+    }
+
+    static performPost = async (url, data) => {
+
+        let response = await fetch(url, {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        let responseJson = await response.json();
+        return  responseJson;
     }
 }
 

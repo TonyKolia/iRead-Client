@@ -1,10 +1,10 @@
 import React from "react";
-import "../css/style.css";
-import API from "../Helpers/API";
-import Categories from "./Sidebar/Categories";
-import Publishers from "./Sidebar/Publishers";
-import Authors from "./Sidebar/Authors";
-import Years from "./Sidebar/Year";
+import "../../css/style.css";
+import API from "../../Helpers/API";
+import Categories from "./Categories";
+import Publishers from "./Publishers";
+import Authors from "./Authors";
+import Years from "./Year";
 
 export default function Sidebar() {
 

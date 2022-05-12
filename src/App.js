@@ -4,7 +4,7 @@ import "./css/style.css";
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import Main from "./Components/Main";
-import Basket from "./Components/Basket";
+import Basket from "./Components/Basket/Basket";
 import BookPage from "./Components/BookPage";
 import Footer from "./Components/Footer";
 import LoginModal from "./Components/LoginModal";
@@ -14,12 +14,50 @@ import Error from "./Components/Error";
 export default function App() {
 
   const [basket, setBasket] = React.useState({ userId: null, items: [] });
+  const [basketAddition, setBasketAddition] = React.useState({});
+  const [user, setUser] = React.useState({
+    userId: "",
+    username: "",
+    token: ""
+  });
 
-  React.useEffect(initializeBasket, [])
+  console.log(user);
+
+  React.useEffect(initializeBasket, []);
+  React.useEffect(checkForLoggedUser, []);
 
   React.useEffect(() => {
     localStorage.setItem('basketItems', JSON.stringify(basket.items));
   }, [basket]);
+
+  React.useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
+
+  function checkForLoggedUser() {
+    var user = localStorage.getItem('user');
+    if (user !== null) {
+      var user = JSON.parse(user);
+      setUser(user);
+    }
+  }
+
+  function loginUser(user) {
+    setUser({
+      userId: user.userId,
+      username: user.username,
+      token: user.token
+    });
+  }
+
+  function logoutUser() {
+    setUser({
+      userId: "",
+      username: "",
+      token: ""
+    });
+    localStorage.removeItem('user');
+  }
 
   function initializeBasket() {
     var basketItemsString = localStorage.getItem('basketItems');
@@ -37,18 +75,25 @@ export default function App() {
   function addItemToBasket(itemId) {
 
     if (basket.items.includes(itemId)) {
-      alert("this is not allowed")
-      return;
+      setBasketAddition({
+        failed: true,
+        message: "Το συγκεκριμένο βιβλίο υπάρχει ήδη στο καλάθι."
+      });
     }
-
-    let currentItems = basket.items;
-    currentItems.push(itemId);
-    setBasket((prevBasket) => {
-      return {
-        ...prevBasket,
-        items: currentItems
-      }
-    });
+    else {
+      let currentItems = basket.items;
+      currentItems.push(itemId);
+      setBasket((prevBasket) => {
+        return {
+          ...prevBasket,
+          items: currentItems
+        }
+      });
+      setBasketAddition({
+        failed: false,
+        message: "Προστέθηκε στο καλάθι!"
+      });
+    }
   }
 
   function removeItemFromBasket(itemId) {
@@ -76,20 +121,18 @@ export default function App() {
     <Router>
       <div>
         <div className="container-fluid">
-          <Navbar numberOfItems={basket.items.length} />
+          <Navbar user={user} numberOfItems={basket.items.length} basketAddition={basketAddition} />
           <Routes>
             <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
             <Route path="/books" element={<Main />} />
-            <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} />} />
+            <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} user={user} />} />
             <Route path="/book/:id" element={<BookPage addItemToBasket={addItemToBasket} />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
         <Footer />
-        <LoginModal />
+        <LoginModal loginUser={loginUser} />
       </div>
     </Router>
-
-
   );
 }

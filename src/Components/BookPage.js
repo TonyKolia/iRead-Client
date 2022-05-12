@@ -34,10 +34,10 @@ export default function BookPage(props) {
                             <div className="card-body">
                                 <h4>{book.title}</h4>
                                 <ul className="list-group">
-                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span><a href={"/author/" + author.id}>{author.name + " " + author.surname}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
-                                    <li key="categories" className="list-group-item">Κατηγορίες: {book.categories?.map((category, i, arr) => <span><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
+                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span key={author.id}><a href={"/author/" + author.id}>{author.name + " " + author.surname}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
+                                    <li key="categories" className="list-group-item">Κατηγορίες: {book.categories?.map((category, i, arr) => <span key={category.id}><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
                                     <li key="isbn" className="list-group-item">ISBN: {book.isbn}</li>
-                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span><a href="#">{publisher.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
+                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span key={publisher.id}><a href="#">{publisher.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
                                     <li key="publishDate" className="list-group-item">Ημερομηνία έκδοσης: {Helpers.formatDate(book.publishDate)}</li>
                                     <li key="pages" className="list-group-item">Σελίδες: {book.pageCount}</li>
                                     <li key="description" className="list-group-item" style={{ textAlign: "justify", height: "240px" }}>{book.description}</li>
@@ -66,7 +66,7 @@ export default function BookPage(props) {
                         {
                             book.ratings.length > 0 ?
                                 <ul className="list-group">
-                                    {book.ratings.map(rating => <li className="list-group-item"><Rating key={rating.username} rating={rating} /></li>)}
+                                    {book.ratings.map(rating => <li key={rating.username} className="list-group-item"><Rating key={rating.username} rating={rating} /></li>)}
                                 </ul>
                                 :
                                 <h5 style={{ textAlign: "center", paddingTop: "2rem" }}>Δεν υπάρχουν σχόλια χρηστών.</h5>
