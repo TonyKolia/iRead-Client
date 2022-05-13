@@ -1,11 +1,15 @@
 import React from "react";
 import "../../css/style.css";
 import API from "../../Helpers/API";
+import Helpers from "../../Helpers/Helpers";
 import BasketItem from "./BasketItem";
+import { useNavigate } from "react-router-dom";
 
 export default function Basket(props) {
 
     const [basketBooks, setbasketBooks] = React.useState([]);
+    let navigate = useNavigate();
+
 
     function constructUrl(basketItems) {
         var bookIds = "";
@@ -22,6 +26,24 @@ export default function Basket(props) {
             .then(res => res.json())
             .then(res => setbasketBooks(res.data));
     }, [props.basketItems, basketBooks]);
+
+    async function submitOrder(){
+        var order = { 
+            userId: props.user.userId,
+            books: props.basketItems
+        }
+        
+        var response = await Helpers.performPost(API.API_URL_ORDER, order);
+        if(response.success){
+            props.clearBasket();
+            console.log(response);
+            return navigate(`/order-completed/${response.data.orderId}`, {state: true});
+        }
+        else{
+            alert(response.message);
+        }
+
+    }
 
     return (
         <div className="cart-container">
@@ -48,7 +70,7 @@ export default function Basket(props) {
                 <div className="cart-btn-container">
                     <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
                     {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => props.clearBasket()} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
-                    {((basketBooks !== undefined && basketBooks.length > 0) && props.user.userId !== "") && <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
+                    {((basketBooks !== undefined && basketBooks.length > 0) && props.user.userId !== "") && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                 </div>
             </div>
         </div>

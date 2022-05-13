@@ -8,6 +8,8 @@ import Basket from "./Components/Basket/Basket";
 import BookPage from "./Components/BookPage";
 import Footer from "./Components/Footer";
 import LoginModal from "./Components/LoginModal";
+import OrderCompleted from "./Components/OrderCompleted";
+import Register from "./Components/Register";
 
 import Error from "./Components/Error";
 
@@ -121,12 +123,14 @@ export default function App() {
     <Router>
       <div>
         <div className="container-fluid">
-          <Navbar user={user} numberOfItems={basket.items.length} basketAddition={basketAddition} />
+          <Navbar user={user} logoutUser = {logoutUser} numberOfItems={basket.items.length} basketAddition={basketAddition}  />
           <Routes>
             <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
             <Route path="/books" element={<Main />} />
             <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} user={user} />} />
             <Route path="/book/:id" element={<BookPage addItemToBasket={addItemToBasket} />} />
+            <Route path="/order-completed/:id" element={<OrderCompleted />} />
+            <Route path="/register" element = {<Register />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/style.css";
+import DropdownMenu from "./Navbar/DropdownMenu";
 
 export default function Navbar(props) {
 
@@ -32,7 +33,7 @@ export default function Navbar(props) {
             <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
                     <li key="login">
-                        {props.user.userId !== "" ? <span><i className="fa-solid fa-user"></i>{props.user.username}</span> :
+                        {props.user.userId !== "" ? <DropdownMenu user = {props.user} logoutUser = {props.logoutUser} /> :
                             <a className="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
                         }
                     </li>

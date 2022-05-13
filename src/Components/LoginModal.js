@@ -6,19 +6,20 @@ import Helpers from "../Helpers/Helpers";
 export default function LoginModal(props) {
 
     const [loginForm, setLoginForm] = React.useState({ username: "", password: "" });
-    const [loginStatus, setLoginStatus] = React.useState({failed: null, message: ""});
+    const [loginStatus, setLoginStatus] = React.useState({ failed: null, message: "" });
 
     async function submitLoginForm(e) {
         e.preventDefault();
         let response = await Helpers.performPost(API.API_URL_LOGIN, loginForm);
         if (!response.success) {
-            setLoginStatus({failed: true, message: response.message});
+            setLoginStatus({ failed: true, message: response.message });
         }
-        else{
+        else {
             props.loginUser(response.data);
             var closeButton = document.getElementById("closeModal");
-            if(closeButton)
+            if (closeButton)
                 closeButton.click();
+            setLoginForm({username: "", password: ""});
         }
     }
 
@@ -47,11 +48,11 @@ export default function LoginModal(props) {
                             <form>
                                 <div className="form-control-container">
                                     <i className="fa-solid fa-user"></i>
-                                    <input type="text" onChange={handleChange} name="username" placeholder="Όνομα χρήστη" />
+                                    <input type="text" onChange={handleChange} value={loginForm.username}  name="username" placeholder="Όνομα χρήστη" />
                                 </div>
                                 <div className="form-control-container">
                                     <i className="fa-solid fa-lock"></i>
-                                    <input type="password" onChange={handleChange} name="password" placeholder="Κωδικός πρόσβασης" />
+                                    <input type="password" onChange={handleChange} value={loginForm.password} name="password" placeholder="Κωδικός πρόσβασης" />
                                 </div>
                                 <div style={{ marginBottom: "10px", textAlign: "right" }}>
                                     <a className="register-link" href="#">Ξέχασες τον κωδικό;</a>

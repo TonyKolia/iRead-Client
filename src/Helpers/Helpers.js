@@ -18,6 +18,12 @@ export default class Helpers {
         return (index + 1 < array.length) ? ", " : "";
     }
 
+    static performGet = async (url) => {
+        let response = await fetch(url);
+        let responseJson = await response.json();
+        return  responseJson;
+    }
+
     static performPost = async (url, data) => {
 
         let response = await fetch(url, {
