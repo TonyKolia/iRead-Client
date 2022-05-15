@@ -8,7 +8,10 @@ const ENDPOINTS = {
     LOGIN: "Account/Login",
     ORDER: "Order",
     GET_GENDERS: "Gender",
-    GET_ID_TYPES: "Identification"
+    GET_ID_TYPES: "Identification",
+    REGISTER: "Account/Register",
+    GET_USER_ORDERS: "Order/User/"
+
 };
 
 
@@ -20,7 +23,9 @@ const development = {
     API_URL_LOGIN: `${API_BASE_URL}${ENDPOINTS.LOGIN}`,
     API_URL_ORDER: `${API_BASE_URL}${ENDPOINTS.ORDER}`,
     API_URL_GET_GENDERS: `${API_BASE_URL}${ENDPOINTS.GET_GENDERS}`,
-    API_URL_GET_ID_TYPES: `${API_BASE_URL}${ENDPOINTS.GET_ID_TYPES}`
+    API_URL_GET_ID_TYPES: `${API_BASE_URL}${ENDPOINTS.GET_ID_TYPES}`,
+    API_URL_REGISTER: `${API_BASE_URL}${ENDPOINTS.REGISTER}`,
+    API_URL_GET_USER_ORDERS: `${API_BASE_URL}${ENDPOINTS.GET_USER_ORDERS}`
 };
 
 const API = development;

@@ -25,7 +25,7 @@ export default function Footer(){
                         <h5>Χρήσιμοι σύνδεσμοι</h5>
                         <ul style={{listStyle: "none"}}>
                             <li key="terms">
-                                <span><a href="https://twitter.com/iceuniwa">Όροι χρήσης</a></span>
+                                <span><a href="/terms">Όροι χρήσης</a></span>
                             </li>
                             <li key="faq">
                                 <span><a href="https://twitter.com/iceuniwa">Συχνές ερωτήσεις</a></span>

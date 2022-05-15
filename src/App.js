@@ -10,10 +10,15 @@ import Footer from "./Components/Footer";
 import LoginModal from "./Components/LoginModal";
 import OrderCompleted from "./Components/OrderCompleted";
 import Register from "./Components/Register";
+import Terms from "./Components/Terms";
+import UserOrders from "./Components/UserOrders";
+import { useNavigate } from "react-router-dom";
 
 import Error from "./Components/Error";
 
 export default function App() {
+
+
 
   const [basket, setBasket] = React.useState({ userId: null, items: [] });
   const [basketAddition, setBasketAddition] = React.useState({});
@@ -22,8 +27,6 @@ export default function App() {
     username: "",
     token: ""
   });
-
-  console.log(user);
 
   React.useEffect(initializeBasket, []);
   React.useEffect(checkForLoggedUser, []);
@@ -123,14 +126,16 @@ export default function App() {
     <Router>
       <div>
         <div className="container-fluid">
-          <Navbar user={user} logoutUser = {logoutUser} numberOfItems={basket.items.length} basketAddition={basketAddition}  />
+          <Navbar user={user} logoutUser={logoutUser} numberOfItems={basket.items.length} basketAddition={basketAddition} />
           <Routes>
             <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
             <Route path="/books" element={<Main />} />
             <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} user={user} />} />
             <Route path="/book/:id" element={<BookPage addItemToBasket={addItemToBasket} />} />
             <Route path="/order-completed/:id" element={<OrderCompleted />} />
-            <Route path="/register" element = {<Register />} />
+            <Route path="/register" element={<Register loginUser={loginUser} />} />
+            <Route path="/orders/user/:id" element={<UserOrders />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>

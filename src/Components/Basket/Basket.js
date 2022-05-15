@@ -27,22 +27,23 @@ export default function Basket(props) {
             .then(res => setbasketBooks(res.data));
     }, [props.basketItems, basketBooks]);
 
-    async function submitOrder(){
-        var order = { 
+    function submitOrder() {
+        var order = {
             userId: props.user.userId,
             books: props.basketItems
         }
-        
-        var response = await Helpers.performPost(API.API_URL_ORDER, order);
-        if(response.success){
-            props.clearBasket();
-            console.log(response);
-            return navigate(`/order-completed/${response.data.orderId}`, {state: true});
-        }
-        else{
-            alert(response.message);
-        }
 
+        Helpers.performPost(API.API_URL_ORDER, order, props.user.token)
+            .then(response => {
+                if (response.success) {
+                    props.clearBasket();
+                    console.log(response);
+                    return navigate(`/order-completed/${response.data.orderId}`, { state: true });
+                }
+                else {
+                    return navigate("/error");
+                }
+            });
     }
 
     return (

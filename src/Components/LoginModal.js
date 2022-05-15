@@ -8,19 +8,23 @@ export default function LoginModal(props) {
     const [loginForm, setLoginForm] = React.useState({ username: "", password: "" });
     const [loginStatus, setLoginStatus] = React.useState({ failed: null, message: "" });
 
-    async function submitLoginForm(e) {
+    function submitLoginForm(e) {
         e.preventDefault();
-        let response = await Helpers.performPost(API.API_URL_LOGIN, loginForm);
-        if (!response.success) {
-            setLoginStatus({ failed: true, message: response.message });
-        }
-        else {
-            props.loginUser(response.data);
-            var closeButton = document.getElementById("closeModal");
-            if (closeButton)
-                closeButton.click();
-            setLoginForm({username: "", password: ""});
-        }
+        
+        Helpers.performPost(API.API_URL_LOGIN, loginForm)
+        .then(response => {
+            if (!response.success) {
+                return setLoginStatus({ failed: true, message: response.message });
+            }
+            else {
+                props.loginUser(response.data);
+                var closeButton = document.getElementById("closeModal");
+                if (closeButton)
+                    closeButton.click();
+                setLoginStatus({ failed: null, message: "" });
+                return setLoginForm({username: "", password: ""});
+            }
+        });
     }
 
     function handleChange(e) {

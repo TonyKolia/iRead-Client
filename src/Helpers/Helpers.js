@@ -18,23 +18,21 @@ export default class Helpers {
         return (index + 1 < array.length) ? ", " : "";
     }
 
-    static performGet = async (url) => {
-        let response = await fetch(url);
-        let responseJson = await response.json();
-        return  responseJson;
+    static performGet = (url, token) => {
+        return fetch(url, {
+            method: "GET",
+            headers: { "Authorization": token !== "" ? `Bearer ${token}` : token }
+        }).then(res => res.json());
     }
 
-    static performPost = async (url, data) => {
-
-        let response = await fetch(url, {
+    static performPost = (url, data, token = "") => {
+        return fetch(url, {
             method: "POST",
             headers:{
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token !== "" ? `Bearer ${token}` : token
             },
             body: JSON.stringify(data)
-        });
-        let responseJson = await response.json();
-        return  responseJson;
+        }).then(res => res.json());
     }
 }
-
