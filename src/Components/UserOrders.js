@@ -23,6 +23,8 @@ export default function UserOrders(props) {
                 {orders.map(order => <Orders key={order.id} order={order} />)}
             </div>
         </div>
+
+        
     );
 
 }

@@ -615,7 +615,8 @@ nav>.alert {
 
 .cart-container>h4,
 .cart-container>h5,
-.library-container>h4 {
+.library-container>h4,
+.library-container>h5 {
     text-align: center;
     padding: 50px;
 }

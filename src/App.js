@@ -12,7 +12,9 @@ import OrderCompleted from "./Components/OrderCompleted";
 import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import UserOrders from "./Components/UserOrders";
+import Favorites from "./Components/Favorites";
 import { useNavigate } from "react-router-dom";
+
 
 import Error from "./Components/Error";
 
@@ -135,6 +137,7 @@ export default function App() {
             <Route path="/order-completed/:id" element={<OrderCompleted />} />
             <Route path="/register" element={<Register loginUser={loginUser} />} />
             <Route path="/orders/user/:id" element={<UserOrders />} />
+            <Route path="/bookmarks/users/:id" element={<Favorites />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<Error />} />
           </Routes>
