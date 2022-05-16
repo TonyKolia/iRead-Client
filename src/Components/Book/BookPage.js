@@ -7,7 +7,7 @@ import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { BasketContext, BASKET_ACTIONS } from "../../App";
 
-export default function BookPage(props) {
+export default function BookPage() {
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});

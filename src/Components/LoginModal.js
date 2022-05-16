@@ -2,29 +2,31 @@ import React from "react";
 import "../css/style.css";
 import API from "../Helpers/API";
 import Helpers from "../Helpers/Helpers";
+import { UserContext, USER_ACTIONS } from "../App";
 
-export default function LoginModal(props) {
+export default function LoginModal() {
 
+    const user = React.useContext(UserContext);
     const [loginForm, setLoginForm] = React.useState({ username: "", password: "" });
     const [loginStatus, setLoginStatus] = React.useState({ failed: null, message: "" });
 
     function submitLoginForm(e) {
         e.preventDefault();
-        
+
         Helpers.performPost(API.API_URL_LOGIN, loginForm)
-        .then(response => {
-            if (!response.success) {
-                return setLoginStatus({ failed: true, message: response.message });
-            }
-            else {
-                props.loginUser(response.data);
-                var closeButton = document.getElementById("closeModal");
-                if (closeButton)
-                    closeButton.click();
-                setLoginStatus({ failed: null, message: "" });
-                return setLoginForm({username: "", password: ""});
-            }
-        });
+            .then(response => {
+                if (!response.success) {
+                    return setLoginStatus({ failed: true, message: response.message });
+                }
+                else {
+                    user.dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: response.data } })
+                    var closeButton = document.getElementById("closeModal");
+                    if (closeButton)
+                        closeButton.click();
+                    setLoginStatus({ failed: null, message: "" });
+                    return setLoginForm({ username: "", password: "" });
+                }
+            });
     }
 
     function handleChange(e) {
@@ -52,7 +54,7 @@ export default function LoginModal(props) {
                             <form>
                                 <div className="form-control-container">
                                     <i className="fa-solid fa-user"></i>
-                                    <input type="text" onChange={handleChange} value={loginForm.username}  name="username" placeholder="Όνομα χρήστη" />
+                                    <input type="text" onChange={handleChange} value={loginForm.username} name="username" placeholder="Όνομα χρήστη" />
                                 </div>
                                 <div className="form-control-container">
                                     <i className="fa-solid fa-lock"></i>

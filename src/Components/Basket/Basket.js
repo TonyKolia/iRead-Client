@@ -4,11 +4,9 @@ import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import BasketItem from "./BasketItem";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../App";
-import { BasketContext } from "../../App";
-import { BASKET_ACTIONS } from "../../App";
+import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
 
-export default function Basket(props) {
+export default function Basket() {
 
     const [basketBooks, setbasketBooks] = React.useState([]);
     let navigate = useNavigate();
@@ -26,22 +24,19 @@ export default function Basket(props) {
     }
 
     React.useEffect(() => {
-        fetch(constructUrl(basket.basket))
-            .then(res => res.json())
-            .then(res => setbasketBooks(res.data));
+        Helpers.performGet(constructUrl(basket.basket)).then(res => setbasketBooks(res.data));
     }, [basket, basketBooks]);
 
     function submitOrder() {
         var order = {
-            userId: user.userId,
+            userId: user.user.userId,
             books: basket.basket
         }
 
-        Helpers.performPost(API.API_URL_ORDER, order, user.token)
+        Helpers.performPost(API.API_URL_ORDER, order, user.user.token)
             .then(response => {
                 if (response.success) {
-                    props.clearBasket();
-                    console.log(response);
+                    basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR });
                     return navigate(`/order-completed/${response.data.orderId}`, { state: true });
                 }
                 else {
@@ -73,7 +68,7 @@ export default function Basket(props) {
             <div>
                 <div className="cart-btn-container">
                     <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
-                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({type: BASKET_ACTIONS.CLEAR})} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
+                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR })} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
                     {((basketBooks !== undefined && basketBooks.length > 0) && user.userId !== "") && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                 </div>
             </div>

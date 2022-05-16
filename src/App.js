@@ -27,6 +27,25 @@ export const BASKET_ACTIONS = {
   INITIALIZE: "initialize"
 }
 
+export const USER_ACTIONS = {
+  LOGIN: "login",
+  LOGOUT: "logout"
+}
+
+function userReducer(user, action) {
+  switch (action.type) {
+    case USER_ACTIONS.LOGIN:
+      return { userId: action.payload.user.userId, username: action.payload.user.username, token: action.payload.user.token };
+      break;
+    case USER_ACTIONS.LOGOUT:
+      return { userId: "", username: "", token: "" };
+      break;
+    default:
+      return user;
+      break;
+  }
+}
+
 function basketReducer(basket, action) {
   switch (action.type) {
     case BASKET_ACTIONS.INITIALIZE:
@@ -40,18 +59,17 @@ function basketReducer(basket, action) {
     case BASKET_ACTIONS.CLEAR:
       return [];
       break;
+    default:
+      return basket;
+      break;
   }
 }
 
 export default function App() {
 
   const [basket, dispatchBasket] = React.useReducer(basketReducer, []);
+  const [user, dispatchUser] = React.useReducer(userReducer, { userId: "", username: "", token: "" });
   const [basketAddition, setBasketAddition] = React.useState({});
-  const [user, setUser] = React.useState({
-    userId: "",
-    username: "",
-    token: ""
-  });
 
   React.useEffect(initializeBasket, []);
   React.useEffect(checkForLoggedUser, []);
@@ -66,27 +84,9 @@ export default function App() {
 
   function checkForLoggedUser() {
     let user = localStorage.getItem('user');
-    if (user !== null) {
+    if (user !== null)
       user = JSON.parse(user);
-      setUser(user);
-    }
-  }
-
-  function loginUser(user) {
-    setUser({
-      userId: user.userId,
-      username: user.username,
-      token: user.token
-    });
-  }
-
-  function logoutUser() {
-    setUser({
-      userId: "",
-      username: "",
-      token: ""
-    });
-    localStorage.removeItem('user');
+    dispatchUser({type: USER_ACTIONS.LOGIN, payload: {user: user} });
   }
 
   function initializeBasket() {
@@ -149,10 +149,10 @@ let currentItems = basket.items;
   return (
     <Router>
       <div>
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={{user, dispatchUser}}>
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
             <div className="container-fluid">
-              <Navbar logoutUser={logoutUser} basketAddition={basketAddition} />
+              <Navbar basketAddition={basketAddition} />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />
@@ -160,14 +160,14 @@ let currentItems = basket.items;
                 <Route path="/book/:id" element={<BookPage />} />
                 <Route path="/bookmarks" element={<Favorites />} />
                 <Route path="/order-completed/:id" element={<OrderCompleted />} />
-                <Route path="/register" element={<Register loginUser={loginUser} />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/orders" element={<UserOrders />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="*" element={<Error />} />
               </Routes>
             </div>
             <Footer />
-            <LoginModal loginUser={loginUser} />
+            <LoginModal />
           </BasketContext.Provider>
         </UserContext.Provider>
       </div>

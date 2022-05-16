@@ -3,7 +3,7 @@ import "../css/style.css";
 import carouselTemp from "../Images/test-image.png";
 import BookItems from "./Book/BookItems";
 
-export default function Home(props) {
+export default function Home() {
     return (
         <div>
             <div id="carouselExampleIndicators" className="carousel slide home-page-carousel" data-ride="carousel">
@@ -40,7 +40,7 @@ export default function Home(props) {
             </div>
 
             <div style={{ marginTop: "10px" }}>
-                <BookItems dispatchBasket = {props.dispatchBasket} />
+                <BookItems />
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ export default function UserOrders() {
 
     React.useEffect(() => {
         if(user.userId !== "")
-            Helpers.performGet(`${API.API_URL_GET_USER_ORDERS}${user.userId}`, user.token).then(response => setOrders(response.data));
+            Helpers.performGet(`${API.API_URL_GET_USER_ORDERS}${user.user.userId}`, user.user.token).then(response => setOrders(response.data));
     }, [user]);
 
     return (
@@ -23,8 +23,6 @@ export default function UserOrders() {
                 {orders.map(order => <Orders key={order.id} order={order} />)}
             </div>
         </div>
-
-        
     );
 
 }

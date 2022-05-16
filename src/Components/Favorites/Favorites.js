@@ -11,7 +11,7 @@ export default function Favorites() {
     const user = React.useContext(UserContext);
 
     React.useEffect(() => {
-        Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.userId}`, user.token).then(response => setFavorites(response.data));
+        Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token).then(response => setFavorites(response.data));
     }, [favorites, user]);
 
     const deleteFavorite = (bookId) => {
