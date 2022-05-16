@@ -1,9 +1,12 @@
 import React from "react";
-import "../css/style.css";
-import DropdownMenu from "./Navbar/DropdownMenu";
+import "../../css/style.css";
+import DropdownMenu from "./DropdownMenu";
+import { BasketContext, UserContext } from "../../App";
 
 export default function Navbar(props) {
 
+    const basket = React.useContext(BasketContext);
+    const user = React.useContext(UserContext);
     let alert = null;
     let cssClass = "";
     let alertText = "";
@@ -33,14 +36,14 @@ export default function Navbar(props) {
             <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
                     <li key="login">
-                        {props.user.userId !== "" ? <DropdownMenu user = {props.user} logoutUser = {props.logoutUser} /> :
+                        {user.userId !== "" ? <DropdownMenu logoutUser = {props.logoutUser} /> :
                             <a className="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
                         }
                     </li>
                     <li key="basket">
                         <div className="cart">
                             <a className="nav-link" href="/basket"><i className="fa-solid fa-basket-shopping"></i>Καλάθι</a>
-                            <span className="badge">{props.numberOfItems}</span>
+                            <span className="badge">{basket.basket.length}</span>
                         </div>
                     </li>
                 </ul>

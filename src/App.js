@@ -1,28 +1,51 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import "./css/style.css";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home";
 import Main from "./Components/Main";
 import Basket from "./Components/Basket/Basket";
-import BookPage from "./Components/BookPage";
+import BookPage from "./Components/Book/BookPage";
 import Footer from "./Components/Footer";
 import LoginModal from "./Components/LoginModal";
 import OrderCompleted from "./Components/OrderCompleted";
 import Register from "./Components/Register";
 import Terms from "./Components/Terms";
-import UserOrders from "./Components/UserOrders";
-import Favorites from "./Components/Favorites";
-import { useNavigate } from "react-router-dom";
+import UserOrders from "./Components/UserOrders/UserOrders";
+import Favorites from "./Components/Favorites/Favorites";
 
 
 import Error from "./Components/Error";
 
+export const UserContext = React.createContext();
+export const BasketContext = React.createContext();
+
+export const BASKET_ACTIONS = {
+  ADD_ITEM: "add-item",
+  DELETE_ITEM: "delete-item",
+  CLEAR: "clear",
+  INITIALIZE: "initialize"
+}
+
+function basketReducer(basket, action) {
+  switch (action.type) {
+    case BASKET_ACTIONS.INITIALIZE:
+      return [...action.payload.items];
+    case BASKET_ACTIONS.ADD_ITEM:
+      return [...basket, action.payload.itemId];
+      break;
+    case BASKET_ACTIONS.DELETE_ITEM:
+      return basket.filter(item => item != action.payload.itemId);
+      break;
+    case BASKET_ACTIONS.CLEAR:
+      return [];
+      break;
+  }
+}
+
 export default function App() {
 
-
-
-  const [basket, setBasket] = React.useState({ userId: null, items: [] });
+  const [basket, dispatchBasket] = React.useReducer(basketReducer, []);
   const [basketAddition, setBasketAddition] = React.useState({});
   const [user, setUser] = React.useState({
     userId: "",
@@ -34,7 +57,7 @@ export default function App() {
   React.useEffect(checkForLoggedUser, []);
 
   React.useEffect(() => {
-    localStorage.setItem('basketItems', JSON.stringify(basket.items));
+    localStorage.setItem('basketItems', JSON.stringify(basket));
   }, [basket]);
 
   React.useEffect(() => {
@@ -42,9 +65,9 @@ export default function App() {
   }, [user]);
 
   function checkForLoggedUser() {
-    var user = localStorage.getItem('user');
+    let user = localStorage.getItem('user');
     if (user !== null) {
-      var user = JSON.parse(user);
+      user = JSON.parse(user);
       setUser(user);
     }
   }
@@ -67,20 +90,15 @@ export default function App() {
   }
 
   function initializeBasket() {
-    var basketItemsString = localStorage.getItem('basketItems');
+    let basketItemsString = localStorage.getItem('basketItems');
+    let basketItems = [];
     if (basketItemsString !== null)
-      var basketItems = JSON.parse(basketItemsString);
-
-    setBasket((prevBasket) => {
-      return {
-        ...prevBasket,
-        items: basketItems
-      };
-    });
+      basketItems = JSON.parse(basketItemsString);
+    dispatchBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
   }
 
   function addItemToBasket(itemId) {
-
+    /*
     if (basket.items.includes(itemId)) {
       setBasketAddition({
         failed: true,
@@ -101,10 +119,12 @@ export default function App() {
         message: "Προστέθηκε στο καλάθι!"
       });
     }
+    */
   }
 
   function removeItemFromBasket(itemId) {
-    let currentItems = basket.items;
+    /*
+let currentItems = basket.items;
     currentItems.splice(currentItems.indexOf(itemId), 1);
     setBasket((prevBasket) => {
       return {
@@ -112,38 +132,44 @@ export default function App() {
         items: currentItems
       }
     });
-  }
+     */
 
-  function clearBakset() {
+  }
+  /*   function clearBakset() {
     setBasket((prevBasket) => {
       return {
         ...prevBasket,
         items: []
       }
     });
-  }
+  }*/
+
 
 
   return (
     <Router>
       <div>
-        <div className="container-fluid">
-          <Navbar user={user} logoutUser={logoutUser} numberOfItems={basket.items.length} basketAddition={basketAddition} />
-          <Routes>
-            <Route path="/" element={<Home addItemToBasket={addItemToBasket} />} />
-            <Route path="/books" element={<Main />} />
-            <Route path="/basket" element={<Basket basketItems={basket.items} removeItemFromBasket={removeItemFromBasket} clearBasket={clearBakset} user={user} />} />
-            <Route path="/book/:id" element={<BookPage addItemToBasket={addItemToBasket} />} />
-            <Route path="/order-completed/:id" element={<OrderCompleted />} />
-            <Route path="/register" element={<Register loginUser={loginUser} />} />
-            <Route path="/orders/user/:id" element={<UserOrders />} />
-            <Route path="/bookmarks/users/:id" element={<Favorites />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </div>
-        <Footer />
-        <LoginModal loginUser={loginUser} />
+        <UserContext.Provider value={user}>
+          <BasketContext.Provider value={{ basket, dispatchBasket }}>
+            <div className="container-fluid">
+              <Navbar logoutUser={logoutUser} basketAddition={basketAddition} />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/books" element={<Main />} />
+                <Route path="/basket" element={<Basket />} />
+                <Route path="/book/:id" element={<BookPage />} />
+                <Route path="/bookmarks" element={<Favorites />} />
+                <Route path="/order-completed/:id" element={<OrderCompleted />} />
+                <Route path="/register" element={<Register loginUser={loginUser} />} />
+                <Route path="/orders" element={<UserOrders />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="*" element={<Error />} />
+              </Routes>
+            </div>
+            <Footer />
+            <LoginModal loginUser={loginUser} />
+          </BasketContext.Provider>
+        </UserContext.Provider>
       </div>
     </Router>
   );

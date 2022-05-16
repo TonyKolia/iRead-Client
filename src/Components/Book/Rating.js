@@ -1,6 +1,6 @@
 import React from "react";
-import "../css/style.css";
-import Helpers from "../Helpers/Helpers";
+import "../../css/style.css";
+import Helpers from "../../Helpers/Helpers";
 
 export default function Rating(props) {
 
@@ -16,7 +16,7 @@ export default function Rating(props) {
     return (
         <div>
             <div className="comment-user">
-                <img className="profile-img-avatar" src={require("../Images/avatar.png")} />
+                <img className="profile-img-avatar" src={require("../../Images/avatar.png")} />
                 <div style={{ padding: "1rem" }}>
                     {stars}
                     <div>

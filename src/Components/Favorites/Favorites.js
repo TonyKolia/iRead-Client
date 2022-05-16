@@ -1,19 +1,18 @@
 import React from "react";
-import "../css/style.css";
-import API from "../Helpers/API";
-import Helpers from "../Helpers/Helpers";
+import "../../css/style.css";
+import API from "../../Helpers/API";
+import Helpers from "../../Helpers/Helpers";
 import FavoriteItem from "./FavoriteItem";
-import { useParams } from "react-router-dom";
+import { UserContext } from "../../App";
 
 export default function Favorites() {
 
     const [favorites, setFavorites] = React.useState([]);
-    const { id } = useParams();
+    const user = React.useContext(UserContext);
 
     React.useEffect(() => {
-        let token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidG9ueWtvbGlhNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMzMiLCJleHAiOjE2NTI3MTA1NzZ9.pTJJm7vYpo9EfGnWCE8l4JciUf6nFyQ29FGDYF2JdC_Z7Iiig5EaThBr5efBOOGcByIheeq6xsg6XCLyrt6rUw";
-        Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${id}`, token).then(response => setFavorites(response.data));
-    }, [favorites]);
+        Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.userId}`, user.token).then(response => setFavorites(response.data));
+    }, [favorites, user]);
 
     const deleteFavorite = (bookId) => {
         
@@ -38,7 +37,7 @@ export default function Favorites() {
                             </tr>
                         </thead>
                         <tbody>
-                            {favorites.map(favorite => <FavoriteItem favorite={favorite} />)}
+                            {favorites.map(favorite => <FavoriteItem key={favorite.book.bookId} favorite={favorite} />)}
                         </tbody>
                     </table>
             }

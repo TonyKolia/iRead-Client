@@ -1,8 +1,7 @@
 import React from "react";
 import "../css/style.css";
-import logo from "../Images/test-book-img.jpeg";
 import carouselTemp from "../Images/test-image.png";
-import BookItems from "./BookItems";
+import BookItems from "./Book/BookItems";
 
 export default function Home(props) {
     return (
@@ -41,7 +40,7 @@ export default function Home(props) {
             </div>
 
             <div style={{ marginTop: "10px" }}>
-                <BookItems addItemToBasket = {props.addItemToBasket} />
+                <BookItems dispatchBasket = {props.dispatchBasket} />
             </div>
         </div>
     );

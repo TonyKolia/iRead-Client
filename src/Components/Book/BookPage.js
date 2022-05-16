@@ -1,15 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Rating from "./Rating";
-import Loading from "./Loading";
-import "../css/style.css";
-import Helpers from "../Helpers/Helpers";
-import API from "../Helpers/API";
+import Loading from "../Loading";
+import "../../css/style.css";
+import Helpers from "../../Helpers/Helpers";
+import API from "../../Helpers/API";
+import { BasketContext, BASKET_ACTIONS } from "../../App";
 
 export default function BookPage(props) {
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});
+    const basket = React.useContext(BasketContext);
 
     const url = `${API.API_URL_GET_BOOK}${id}`;
 
@@ -47,7 +49,7 @@ export default function BookPage(props) {
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
-                                    <button type="button" onClick={() => props.addItemToBasket(book.id)} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
+                                    <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
                                 </div>
                             </div>
 

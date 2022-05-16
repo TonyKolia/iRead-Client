@@ -1,7 +1,7 @@
 import React from "react";
-import "../css/style.css";
-import API from "../Helpers/API";
-import Helpers from "../Helpers/Helpers";
+import "../../css/style.css";
+import API from "../../Helpers/API";
+import Helpers from "../../Helpers/Helpers";
 
 export default function Orders(props) {
 
@@ -21,7 +21,7 @@ export default function Orders(props) {
                         <tbody>
                             {props.order.books.map(book => {
                                 return (
-                                    <tr className="cart-item">
+                                    <tr key={book.id} className="cart-item">
                                         <td><img className="cart-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} /></td>
                                         <td className="align-middle"><a href={`/Book/${book.id}`}><h6>{book.title}</h6></a></td>
                                     </tr>

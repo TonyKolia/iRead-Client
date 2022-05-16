@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../css/style.css";
 import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import BasketItem from "./BasketItem";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
+import { BasketContext } from "../../App";
+import { BASKET_ACTIONS } from "../../App";
 
 export default function Basket(props) {
 
     const [basketBooks, setbasketBooks] = React.useState([]);
     let navigate = useNavigate();
-
+    const user = useContext(UserContext);
+    const basket = useContext(BasketContext);
 
     function constructUrl(basketItems) {
         var bookIds = "";
@@ -22,18 +26,18 @@ export default function Basket(props) {
     }
 
     React.useEffect(() => {
-        fetch(constructUrl(props.basketItems))
+        fetch(constructUrl(basket.basket))
             .then(res => res.json())
             .then(res => setbasketBooks(res.data));
-    }, [props.basketItems, basketBooks]);
+    }, [basket, basketBooks]);
 
     function submitOrder() {
         var order = {
-            userId: props.user.userId,
-            books: props.basketItems
+            userId: user.userId,
+            books: basket.basket
         }
 
-        Helpers.performPost(API.API_URL_ORDER, order, props.user.token)
+        Helpers.performPost(API.API_URL_ORDER, order, user.token)
             .then(response => {
                 if (response.success) {
                     props.clearBasket();
@@ -61,17 +65,16 @@ export default function Basket(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} removeItemFromBasket={props.removeItemFromBasket} />)}
+                            {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} />)}
                         </tbody>
                     </table>
             }
 
-
             <div>
                 <div className="cart-btn-container">
                     <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
-                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => props.clearBasket()} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
-                    {((basketBooks !== undefined && basketBooks.length > 0) && props.user.userId !== "") && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
+                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({type: BASKET_ACTIONS.CLEAR})} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
+                    {((basketBooks !== undefined && basketBooks.length > 0) && user.userId !== "") && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
-import BookItems from "./BookItems";
+import BookItems from "./Book/BookItems";
 import "../css/style.css";
 
 export default function Main() {
