@@ -13,6 +13,7 @@ import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import UserOrders from "./Components/UserOrders/UserOrders";
 import Favorites from "./Components/Favorites/Favorites";
+import Alert from "./Components/Alert";
 
 
 import Error from "./Components/Error";
@@ -32,44 +33,85 @@ export const USER_ACTIONS = {
   LOGOUT: "logout"
 }
 
-function userReducer(user, action) {
-  switch (action.type) {
-    case USER_ACTIONS.LOGIN:
-      return { userId: action.payload.user.userId, username: action.payload.user.username, token: action.payload.user.token };
-      break;
-    case USER_ACTIONS.LOGOUT:
-      return { userId: "", username: "", token: "" };
-      break;
-    default:
-      return user;
-      break;
-  }
-}
-
-function basketReducer(basket, action) {
-  switch (action.type) {
-    case BASKET_ACTIONS.INITIALIZE:
-      return [...action.payload.items];
-    case BASKET_ACTIONS.ADD_ITEM:
-      return [...basket, action.payload.itemId];
-      break;
-    case BASKET_ACTIONS.DELETE_ITEM:
-      return basket.filter(item => item != action.payload.itemId);
-      break;
-    case BASKET_ACTIONS.CLEAR:
-      return [];
-      break;
-    default:
-      return basket;
-      break;
-  }
+export const ALERT_TYPES = {
+  SUCCESS: "success",
+  FAIL: "fail"
 }
 
 export default function App() {
 
+  const [alert, setAlert] = React.useState(null);
+
+  const addItemToCart = (basket, item) => {
+    if (basket.includes(item)) {
+      setAlert({ type: ALERT_TYPES.FAIL, text: "Το συγκεκριμένο βιβλίο υπάρχει ήδη στο καλάθι." });
+      return basket;
+    }
+    else if (basket.length == 3) {
+      setAlert({ type: ALERT_TYPES.FAIL, text: "Μπορείτε να έχετε μέχρι 3 βιβλία στο καλάθι." });
+      return basket;
+    }
+    else {
+      setAlert({ type: ALERT_TYPES.SUCCESS, text: "Προστέθηκε στο καλάθι!" });
+      return [...basket, item];
+    }
+  }
+
+  const removeItemFromCart = (basket, itemId) => {
+    setAlert({ type: ALERT_TYPES.SUCCESS, text: "Αφαιρέθηκε επιτυχώς!" });
+    return basket.filter(item => item != itemId);
+  }
+
+  const userReducer = (user, action) => {
+    switch (action.type) {
+      case USER_ACTIONS.LOGIN:
+        return { userId: action.payload.user.userId, username: action.payload.user.username, token: action.payload.user.token };
+        break;
+      case USER_ACTIONS.LOGOUT:
+        return { userId: "", username: "", token: "" };
+        break;
+      default:
+        return user;
+        break;
+    }
+  }
+
+  const basketReducer = (basket, action) => {
+    switch (action.type) {
+      case BASKET_ACTIONS.INITIALIZE:
+        return [...action.payload.items];
+      case BASKET_ACTIONS.ADD_ITEM:
+        return addItemToCart(basket, action.payload.itemId);
+        break;
+      case BASKET_ACTIONS.DELETE_ITEM:
+        return removeItemFromCart(basket, action.payload.itemId);
+        break;
+      case BASKET_ACTIONS.CLEAR:
+        return [];
+        break;
+      default:
+        return basket;
+        break;
+    }
+  }
+
+  const checkForLoggedUser = () => {
+    let user = localStorage.getItem('user');
+    if (user !== null)
+      user = JSON.parse(user);
+    dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: user } });
+  }
+
   const [basket, dispatchBasket] = React.useReducer(basketReducer, []);
   const [user, dispatchUser] = React.useReducer(userReducer, { userId: "", username: "", token: "" });
-  const [basketAddition, setBasketAddition] = React.useState({});
+
+  const initializeBasket = () => {
+    let basketItemsString = localStorage.getItem('basketItems');
+    let basketItems = [];
+    if (basketItemsString !== null)
+      basketItems = JSON.parse(basketItemsString);
+    dispatchBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
+  }
 
   React.useEffect(initializeBasket, []);
   React.useEffect(checkForLoggedUser, []);
@@ -82,77 +124,14 @@ export default function App() {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
 
-  function checkForLoggedUser() {
-    let user = localStorage.getItem('user');
-    if (user !== null)
-      user = JSON.parse(user);
-    dispatchUser({type: USER_ACTIONS.LOGIN, payload: {user: user} });
-  }
-
-  function initializeBasket() {
-    let basketItemsString = localStorage.getItem('basketItems');
-    let basketItems = [];
-    if (basketItemsString !== null)
-      basketItems = JSON.parse(basketItemsString);
-    dispatchBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
-  }
-
-  function addItemToBasket(itemId) {
-    /*
-    if (basket.items.includes(itemId)) {
-      setBasketAddition({
-        failed: true,
-        message: "Το συγκεκριμένο βιβλίο υπάρχει ήδη στο καλάθι."
-      });
-    }
-    else {
-      let currentItems = basket.items;
-      currentItems.push(itemId);
-      setBasket((prevBasket) => {
-        return {
-          ...prevBasket,
-          items: currentItems
-        }
-      });
-      setBasketAddition({
-        failed: false,
-        message: "Προστέθηκε στο καλάθι!"
-      });
-    }
-    */
-  }
-
-  function removeItemFromBasket(itemId) {
-    /*
-let currentItems = basket.items;
-    currentItems.splice(currentItems.indexOf(itemId), 1);
-    setBasket((prevBasket) => {
-      return {
-        ...prevBasket,
-        items: currentItems
-      }
-    });
-     */
-
-  }
-  /*   function clearBakset() {
-    setBasket((prevBasket) => {
-      return {
-        ...prevBasket,
-        items: []
-      }
-    });
-  }*/
-
-
-
   return (
     <Router>
       <div>
-        <UserContext.Provider value={{user, dispatchUser}}>
+        <UserContext.Provider value={{ user, dispatchUser }}>
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
             <div className="container-fluid">
-              <Navbar basketAddition={basketAddition} />
+              <Navbar />
+              {alert != null && <Alert alert={alert} fromTimeout={false} />}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />

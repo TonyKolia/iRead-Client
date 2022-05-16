@@ -492,8 +492,9 @@ input[type="checkbox"]:hover {
     text-align: center;
 }
 
-nav>.alert {
-    position: absolute;
+.alert-custom {
+    position: fixed;
+    z-index: 1032;
     right: 0;
     top: 60px;
     margin-right: 10px;
