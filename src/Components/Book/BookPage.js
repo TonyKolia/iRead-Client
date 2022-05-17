@@ -5,13 +5,15 @@ import Loading from "../Loading";
 import "../../css/style.css";
 import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
-import { BasketContext, BASKET_ACTIONS } from "../../App";
+import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
 
 export default function BookPage() {
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});
     const basket = React.useContext(BasketContext);
+    const user = React.useContext(UserContext);
+    const [favorite, setFavorite] = React.useState(false);
 
     const url = `${API.API_URL_GET_BOOK}${id}`;
 
@@ -21,6 +23,35 @@ export default function BookPage() {
             .then(res => setBook(res.data));
     }, []);
 
+    React.useEffect(() => {
+
+        if (user.user.userId !== "" && book.id !== undefined) {
+            let url = API.API_URL_GET_FAVORITE_EXISTS.replace(":userId", user.user.userId).replace(":bookId", book.id);
+            Helpers.performGet(url, user.user.token).then(response => {
+                if (response.data) {
+                    return setFavorite(true);
+                }
+                else {
+                    return setFavorite(false);
+                }
+            });
+        }
+    }, [user, book, favorite])
+
+    const addFavorite = (bookId) => {
+
+        if (user.user.userId == "")
+            return alert("login man");
+
+        Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
+            .then(response => {
+                if (response.success)
+                    return setFavorite(true);
+                else
+                    return alert("lol");
+            });
+    }
+
     return (
 
         Object.keys(book).length === 0 ? <Loading /> :
@@ -29,7 +60,7 @@ export default function BookPage() {
                 <div className="card book-container mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <i className="fa-solid fa-bookmark"></i>
+                            <i onClick={favorite ? null : () => addFavorite(book.id)} className={`fa-solid fa-bookmark ${favorite ? "favorite" : ""}`}></i>
                             <img src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} className="img-fluid book-img" alt="..." />
                         </div>
                         <div className="col-md-8">
@@ -49,7 +80,7 @@ export default function BookPage() {
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
-                                    <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
+                                    <button type="button" disabled={book.stock == 0} onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
                                 </div>
                             </div>
 
@@ -75,9 +106,7 @@ export default function BookPage() {
 
                         }
 
-
                     </div>
-
                 </div>
             </div >
     );

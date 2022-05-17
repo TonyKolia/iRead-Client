@@ -141,7 +141,7 @@ nav {
 }
 
 .card-img {
-    height: auto;
+    height: 450px;
     max-width: 350px;
     margin-left: auto;
     margin-right: auto;
@@ -178,6 +178,15 @@ nav {
     z-index: 1031;
 }
 
+.favorite:hover{
+    cursor:default !important;
+}
+
+.fa-bookmark.favorite {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 .fa-bookmark:hover {
     cursor: pointer;
 }
@@ -209,6 +218,13 @@ nav {
     ;
     box-shadow: none !important;
     outline: none !important;
+}
+
+.btn-custom:disabled{
+    background-color: var(--main-detail-color);
+    color: #ffffff;
+    border-color: var(--main-detail-color);
+    border-radius: var(--global-button-border-radius);
 }
 
 *:focus:not(:focus-visible) {
@@ -789,6 +805,7 @@ input[type="checkbox"]:hover {
     top: auto;
     font-size: 70px;
     opacity: 0.5;
+    left: 15px;
 }
 
 .book-container .fa-bookmark:hover {

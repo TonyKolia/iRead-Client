@@ -35,4 +35,14 @@ export default class Helpers {
             body: JSON.stringify(data)
         }).then(res => res.json());
     }
+
+    static performDelete = (url, token="") => {
+        return fetch(url, {
+            method: "DELETE",
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": token !== "" ? `Bearer ${token}` : token
+            }
+        }).then(res => res.json());
+    }
 }

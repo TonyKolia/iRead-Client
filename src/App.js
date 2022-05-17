@@ -131,7 +131,7 @@ export default function App() {
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
             <div className="container-fluid">
               <Navbar />
-              {alert != null && <Alert alert={alert} fromTimeout={false} />}
+              {alert != null && <Alert alert={alert} />}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />
