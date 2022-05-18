@@ -4,14 +4,19 @@ import { UserContext } from "../../App";
 import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import { useNavigate } from "react-router-dom";
+import { RATING_ACTIONS } from "./BookPage";
 
 export default function RatingModal(props) {
 
     const navigate = useNavigate();
     const user = React.useContext(UserContext);
-    const [rating, setRating] = React.useState({ rating: 0, comment: "" });
+    const [rating, setRating] = React.useState({});
 
     const ratings = [5, 4, 3, 2, 1];
+
+    React.useEffect(() => {
+        setRating({...props.rating});
+    }, [props.rating]);
 
     const handleChange = (e) => {
         setRating((oldRating) => {
@@ -34,8 +39,13 @@ export default function RatingModal(props) {
             comment: rating.comment
         }, user.user.token)
         .then(response => {
-            if(response.success)
-                return navigate(`/Book/${props.book.id}`);
+            if(response.success){
+                let closeButton = document.getElementById("closeRatingModal");
+                    if (closeButton)
+                        closeButton.click();
+                return props.dispatchRating({type: RATING_ACTIONS.ADD_RATING, payload:{...rating}});
+            }
+               
             else
                 alert("lololo");
         })
@@ -47,7 +57,7 @@ export default function RatingModal(props) {
                 <div className="modal-content login-modal">
                     <div className="modal-header">
                         <h5 style={{ textAlign: "center", width: "100%" }}>{props.book.title}</h5>
-                        <button type="button" id="closeModal" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="closeRatingModal" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body" style={{ paddingLeft: "50px", paddingRight: "50px", textAlign: "center" }}>
                         <div className="rating-container">

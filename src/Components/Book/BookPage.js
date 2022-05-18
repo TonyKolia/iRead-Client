@@ -8,13 +8,33 @@ import API from "../../Helpers/API";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
 import RatingModal from "./RatingModal";
 
+export const RATING_ACTIONS = {
+    ADD_RATING: "add-rating",
+    DELETE_RATING: "delete-rating",
+    UPDATE_RATING: "update-rating",
+    INITIALIZE_RATING: "init-rating"
+  }
+
 export default function BookPage() {
+
+    const ratingReducer = (rating, action) =>{
+        switch(action.type){
+            case RATING_ACTIONS.ADD_RATING:
+            case RATING_ACTIONS.INITIALIZE_RATING:
+                return {...action.payload};
+                break;
+        }
+    }
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
     const [favorite, setFavorite] = React.useState(false);
+    const [rating, dispatchRating] = React.useReducer(ratingReducer, {rating: 0, comment: ""});
+
+
+    console.log(rating);
 
     const url = `${API.API_URL_GET_BOOK}${id}`;
 
@@ -23,6 +43,15 @@ export default function BookPage() {
             .then(res => res.json())
             .then(res => setBook(res.data));
     }, []);
+
+    React.useEffect(() => {
+
+        if(user.user.username != "" && book.ratings?.some(r => r.username === user.user.username))
+        {
+            let userRating = book.ratings.find(r => r.username === user.user.username);
+            dispatchRating({type: RATING_ACTIONS.INITIALIZE_RATING, payload: { rating: userRating.rating, comment: userRating.comment }});
+        }
+    }, [user, book]);
 
     React.useEffect(() => {
 
@@ -111,7 +140,7 @@ export default function BookPage() {
                     </div>
                 </div>
 
-                <RatingModal book = {book} />
+                <RatingModal book = {book} rating={rating} dispatchRating = {dispatchRating} />
 
             </div >
     );
