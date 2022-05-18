@@ -7,31 +7,41 @@ export default function Orders(props) {
 
 
     return (
-        <div className="accordion-item">
-            <h2 className="accordion-header" id="headingOne">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#order${props.order.id}`} aria-expanded="false" aria-controls={`order${props.order.id}`}>
-                    <div><span><h6>{`Αριθμός κράτησης: #${props.order.id}`}</h6></span><span><h6>{`Ημερομηνία κράτησης: ${Helpers.formatDate(props.order.orderDate)}`}</h6></span></div>
-                </button>
-            </h2>
-            <div id={`order${props.order.id}`} className="accordion-collapse collapse" aria-labelledby={`order${props.order.id}`} data-bs-parent="#accordionExample">
-                <div className="accordion-body">
-                    <table className="table">
-                        <thead>
-                        </thead>
-                        <tbody>
-                            {props.order.books.map(book => {
-                                return (
-                                    <tr key={book.id} className="cart-item">
-                                        <td><img className="cart-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} /></td>
-                                        <td className="align-middle"><a href={`/Book/${book.id}`}><h6>{book.title}</h6></a></td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <>
+            <tr className="order-tr" style={{verticalAlign: "middle"}}>
+                <td>{`#${props.order.id}`}</td>
+                <td>{Helpers.formatDate(props.order.orderDate)}</td>
+                <td>{props.order.status}</td>
+                <td style={{width: "1%"}}>
+                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#order${props.order.id}`} aria-expanded="false" aria-controls={`order${props.order.id}`}>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td className="hidden-td" colSpan={4}>
+                    <div id={`order${props.order.id}`} className="accordion-collapse collapse" aria-labelledby={`order${props.order.id}`}>
+                        <div className="accordion-body">
+                            <table className="table">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    {props.order.books.map(book => {
+                                        return (
+                                            <tr key={book.id} className="order-item">
+                                                <td><img className="cart-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} /></td>
+                                                <td style={{verticalAlign: "middle", width: "100%"}}><a href={`/Book/${book.id}`}><h6>{book.title}</h6></a></td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        </>
+
 
     );
 }

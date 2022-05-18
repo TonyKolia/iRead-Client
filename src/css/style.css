@@ -623,7 +623,8 @@ input[type="checkbox"]:hover {
 }
 
 .cart-container>table,
-.library-container>table {
+.library-container>table,
+.orders > table {
     color: inherit;
     width: 50%;
     margin-left: auto;
@@ -644,7 +645,8 @@ input[type="checkbox"]:hover {
 }
 
 .cart-container .align-middle,
-.library-container .align-middle {
+.library-container .align-middle,
+.orders .align-middle {
     text-align: center;
     vertical-align: middle;
 }
@@ -665,6 +667,10 @@ input[type="checkbox"]:hover {
 .cart-container .cart-item:hover,
 .library-container .cart-item:hover {
     background-color: #FF00AA08;
+}
+
+.order-item{
+    border-color: transparent;
 }
 
 .cart-btn-container {
@@ -715,7 +721,7 @@ input[type="checkbox"]:hover {
 
 .book-img {
     border-radius: var(--global-item-border-radius);
-    height: auto;
+    height: 600px;
     width: 1200px;
 }
 
@@ -744,8 +750,13 @@ input[type="checkbox"]:hover {
 
 .rating-container {
     color: lightgray;
-    direction: rtl;
-    font-size: larger;
+    direction: rtl !important;
+    font-size:xx-large;
+    margin-bottom: 1.5rem;
+}
+
+.rating-container .filled-star{
+    color: var(--main-detail-color);
 }
 
 .rating-container:hover {
@@ -915,4 +926,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     align-items: center;
     padding-top: 3rem;
+}
+
+.order-tr{
+    border-color: transparent;
+}
+
+.hidden-td{
+    padding: 0 !important;
 }

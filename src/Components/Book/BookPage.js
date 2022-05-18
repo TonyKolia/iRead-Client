@@ -6,6 +6,7 @@ import "../../css/style.css";
 import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
+import RatingModal from "./RatingModal";
 
 export default function BookPage() {
 
@@ -80,6 +81,7 @@ export default function BookPage() {
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#rating-modal" className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-star"></i>Αξιολόγηση βιβλίου</button>
                                     <button type="button" disabled={book.stock == 0} onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
                                 </div>
                             </div>
@@ -108,6 +110,9 @@ export default function BookPage() {
 
                     </div>
                 </div>
+
+                <RatingModal book = {book} />
+
             </div >
     );
 
