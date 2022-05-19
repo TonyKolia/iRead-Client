@@ -935,3 +935,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .hidden-td{
     padding: 0 !important;
 }
+
+.rating-actions-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

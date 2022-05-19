@@ -45,4 +45,15 @@ export default class Helpers {
             }
         }).then(res => res.json());
     }
+
+    static performPut = (url, data, token = "") => {
+        return fetch(url, {
+            method: "PUT",
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": token !== "" ? `Bearer ${token}` : token
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json());
+    }
 }

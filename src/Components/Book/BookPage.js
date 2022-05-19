@@ -1,40 +1,20 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Rating from "./Rating";
 import Loading from "../Loading";
 import "../../css/style.css";
 import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
-import RatingModal from "./RatingModal";
+import Ratings from "../Ratings/Ratings";
 
-export const RATING_ACTIONS = {
-    ADD_RATING: "add-rating",
-    DELETE_RATING: "delete-rating",
-    UPDATE_RATING: "update-rating",
-    INITIALIZE_RATING: "init-rating"
-  }
 
 export default function BookPage() {
-
-    const ratingReducer = (rating, action) =>{
-        switch(action.type){
-            case RATING_ACTIONS.ADD_RATING:
-            case RATING_ACTIONS.INITIALIZE_RATING:
-                return {...action.payload};
-                break;
-        }
-    }
 
     const { id } = useParams();
     const [book, setBook] = React.useState({});
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
     const [favorite, setFavorite] = React.useState(false);
-    const [rating, dispatchRating] = React.useReducer(ratingReducer, {rating: 0, comment: ""});
-
-
-    console.log(rating);
 
     const url = `${API.API_URL_GET_BOOK}${id}`;
 
@@ -43,15 +23,6 @@ export default function BookPage() {
             .then(res => res.json())
             .then(res => setBook(res.data));
     }, []);
-
-    React.useEffect(() => {
-
-        if(user.user.username != "" && book.ratings?.some(r => r.username === user.user.username))
-        {
-            let userRating = book.ratings.find(r => r.username === user.user.username);
-            dispatchRating({type: RATING_ACTIONS.INITIALIZE_RATING, payload: { rating: userRating.rating, comment: userRating.comment }});
-        }
-    }, [user, book]);
 
     React.useEffect(() => {
 
@@ -118,30 +89,7 @@ export default function BookPage() {
                         </div>
                     </div>
                 </div>
-
-
-                <div className="comments-container" >
-                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "1rem" }}>
-                        <h4><i className="fa-solid fa-comment"></i>Σχόλια χρηστών</h4>
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#comments" aria-expanded="true" aria-controls="comments"></button>
-                    </div>
-                    <div id="comments" className="collapse show">
-
-                        {
-                            book.ratings.length > 0 ?
-                                <ul className="list-group">
-                                    {book.ratings.map(rating => <li key={rating.username} className="list-group-item"><Rating key={rating.username} rating={rating} /></li>)}
-                                </ul>
-                                :
-                                <h5 style={{ textAlign: "center", paddingTop: "2rem" }}>Δεν υπάρχουν σχόλια χρηστών.</h5>
-
-                        }
-
-                    </div>
-                </div>
-
-                <RatingModal book = {book} rating={rating} dispatchRating = {dispatchRating} />
-
+                <Ratings bookId ={book.id} bookTitle = {book.title} />
             </div >
     );
 
