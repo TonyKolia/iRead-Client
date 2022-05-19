@@ -3,13 +3,25 @@ import "../../css/style.css";
 
 export default function Authors(props) {
 
-    const authors = [];
-    props.authors?.map(author => {
-        authors.push(<li key={author.id}>
-                        <input className="form-check-input" type="checkbox" value={author.id} id={author.id} />
-                        <label className="form-check-label" for="flexCheckDefault">{`${author.name} ${author.surname}`}</label>
-                    </li>);
-    });
+    const [selectedAuthors, setSelectedAuthors] = React.useState(props.selectedAuthors);
+
+    React.useEffect(() => {
+        setSelectedAuthors(props.selectedAuthors);
+    }, [props.selectedAuthors])
+
+    const handleChange = (e) => {
+
+        props.setCategory(null);
+        const { id } = e.target;
+        props.setFilters(oldFilters => {
+            if (oldFilters.authors.includes(id))
+                return { ...oldFilters, authors: oldFilters.authors.filter(x => x !== id) }
+            else {
+                let newSelectedAuthors = [...oldFilters.authors, id];
+                return { ...oldFilters, authors: newSelectedAuthors }
+            }
+        })
+    }
 
     return (
         <div>
@@ -18,7 +30,14 @@ export default function Authors(props) {
             </button>
             <div className="filter-data-container collapse show" id="authors">
                 <ul className="list-group">
-                    {authors}
+                    {
+                        props.authors?.map(author => {
+                            return (<li key={author.id}>
+                                <input className="form-check-input" onChange={handleChange} id={author.id} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
+                                <label className="form-check-label" htmlFor={author.id}>{`${author.name} ${author.surname}`}</label>
+                            </li>)
+                        })
+                    }
                 </ul>
             </div>
         </div>

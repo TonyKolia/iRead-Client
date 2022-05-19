@@ -13,7 +13,7 @@ export default function BookItem(props) {
         <div className="col">
             <div className="card card-custom">
                 <i onClick={props.isFavorite ? null : () => props.addFavorite(props.book.id)} className={`fa-solid fa-bookmark ${props.isFavorite && "favorite"}`}></i>
-                <img className="card-img-top card-img" src={`${API.API_URL_GET_BOOK_IMAGE}${props.book.imagePath}`} alt="Card image cap" />
+                <img className="card-img-top card-img" src={`${API.API_URL_GET_BOOK_IMAGE}${props.book.imagePath}`} alt="book img" />
                 <div className="card-body">
                     <h5 className="card-title book-title"><a href={"/book/" + props.book.id}>{props.book.title}</a></h5>
                     {props.book.categories.map((category, i, arr) => <span key={category.id} className="book-title card-text"><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}

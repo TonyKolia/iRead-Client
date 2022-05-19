@@ -6,14 +6,14 @@ import Publishers from "./Publishers";
 import Authors from "./Authors";
 import Years from "./Year";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
 
     const [criteria, setCriteria] = React.useState({});
 
     React.useEffect(() => {
         fetch(API.API_URL_GET_CRITERIA)
-        .then(res => res.json())
-        .then(res => setCriteria(res.data));
+            .then(res => res.json())
+            .then(res => setCriteria(res.data));
     }, []);
 
     return (
@@ -28,13 +28,13 @@ export default function Sidebar() {
                         </h5>
                         <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div className="accordion-body" id="filterData">
-                                <Authors authors={criteria.authors} />
-                                <Publishers publishers={criteria.publishers} />
+                                <Authors authors={criteria.authors} setFilters={props.setFilters} selectedAuthors={props.filters.authors} setCategory={props.setCategory} />
+                                <Publishers publishers={criteria.publishers} setFilters={props.setFilters} selectedPublishers={props.filters.publishers} setCategory={props.setCategory} />
                                 <Years />
                             </div>
                         </div>
                     </div>
-                    <Categories categories={criteria.categories} />
+                    <Categories categories={criteria.categories} setCategory={props.setCategory} setFilters={props.setFilters} selectedCategory={props.category} />
                 </div>
             </div>
         </div>

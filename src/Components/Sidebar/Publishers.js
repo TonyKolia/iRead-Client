@@ -3,14 +3,24 @@ import "../../css/style.css";
 
 export default function Publishers(props) {
 
-    const publishers = [];
-    props.publishers?.map(publisher => {
-        publishers.push(
-        <li key={publisher.id}>
-            <input className="form-check-input" type="checkbox" value={publisher.id} id={publisher.id} />
-            <label className="form-check-label" for="flexCheckDefault">{publisher.name}</label>
-        </li>);
-    });
+    const [selectedPublishers, setSelectedPublishers] = React.useState(props.selectedPublishers);
+
+    React.useEffect(() => {
+        setSelectedPublishers(props.selectedPublishers);
+    },[props.selectedPublishers])
+
+    const handleChange = (e) => {
+        props.setCategory(null);
+        const { id } = e.target;
+        props.setFilters(oldFilters => {
+            if(oldFilters.publishers.includes(id))
+                return {...oldFilters, publishers: oldFilters.publishers.filter(x => x !== id)}
+            else{
+                let newSelectedPublishers = [...oldFilters.publishers, id];
+                return {...oldFilters, publishers: newSelectedPublishers}
+            }
+        })
+    }
 
     return (
         <div>
@@ -19,7 +29,14 @@ export default function Publishers(props) {
             </button>
             <div className="filter-data-container collapse show" id="publishers">
                 <ul className="list-group">
-                    {publishers}
+                    {
+                        props.publishers?.map(publisher => {
+                            return (<li key={publisher.id}>
+                                <input onChange={handleChange} className="form-check-input" type="checkbox" id={publisher.id} checked={selectedPublishers.includes(String(publisher.id))} />
+                                <label className="form-check-label" htmlFor={publisher.id}>{publisher.name}</label>
+                            </li>)
+                        })
+                    }
                 </ul>
             </div>
         </div>
