@@ -13,6 +13,7 @@ export default function Categories(props) {
     const selectCategory = (categoryId) => {
         props.setCategory(categoryId);
         props.setFilters({ authors: [], publishers: [] });
+        props.setYears({ minYear: 0, maxYear: 9999 });
     }
 
     return (

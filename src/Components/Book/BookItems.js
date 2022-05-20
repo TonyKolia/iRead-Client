@@ -20,44 +20,35 @@ export default function BookItems(props) {
         if (Object.keys(props).length === 0)
             return API.API_URL_GET_BOOK;
 
-        if (props.category == null && props.filters.authors.length == 0 && props.filters.publishers.length == 0)
-            return API.API_URL_GET_BOOK;
+        let category = props.category ?? "ALL";
 
-        if (props.category !== null && props.filters.authors.length == 0 && props.filters.publishers.length == 0)
-            return API.API_URL_GET_BOOKS_BY_CATEGORY.replace(":categoryId", props.category);
+        let authors = "";
+        props.filters.authors.forEach(author => authors += author + "-");
+        authors = authors === undefined || authors.length == 0 ? "ALL" : authors.substring(0, authors.length - 1);
 
-        if (props.category == null && props.filters.authors.length > 0 && props.filters.publishers.length == 0) {
-            let authors = "";
-            props.filters.authors.forEach(author => authors += author + "-");
-            authors = authors.substring(0, authors.length - 1);
-            return API.API_URL_GET_BOOKS_BY_AUTHORS.replace(":authors", authors);
-        }
+        let publishers = "";
+        props.filters.publishers.forEach(publisher => publishers += publisher + "-");
+        publishers = publishers === undefined || publishers.length == 0 ? "ALL" : publishers.substring(0, publishers.length - 1);
 
-        if (props.category == null && props.filters.authors.length == 0 && props.filters.publishers.length > 0) {
-            let publishers = "";
-            props.filters.publishers.forEach(publisher => publishers += publisher + "-");
-            publishers = publishers.substring(0, publishers.length - 1);
-            return API.API_URL_GET_BOOKS_BY_PUBLISHERS.replace(":publishers", publishers);
-        }
+        let minYear = props.years.minYear === undefined || props.years.minYear == 0 ? "ALL" : props.years.minYear;
+        let maxYear = props.years.maxYear === undefined || props.years.maxYear == 9999 ? "ALL" : props.years.maxYear;
+        //Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear
 
-        if(props.category == null && props.filters.authors.length > 0 && props.filters.publishers.length > 0){
-            let publishers = "";
-            props.filters.publishers.forEach(publisher => publishers += publisher + "-");
-            publishers = publishers.substring(0, publishers.length - 1);
-            let authors = "";
-            props.filters.authors.forEach(author => authors += author + "-");
-            authors = authors.substring(0, authors.length - 1);
-            return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":authors", authors).replace(":publishers", publishers);
-        }
-
-        return API.API_URL_GET_BOOK;
+        return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear);
     }
 
     React.useEffect(() => {
 
-        fetch(constructURLBasedOnProps(props))
-            .then(res => res.json())
-            .then(res => setBooks(res.data));
+        Helpers.performGet(constructURLBasedOnProps(props))
+        .then(response => {
+            if(response.success)
+            {
+                return setBooks(response.data); 
+            }
+            else{
+                return setBooks([]);
+            }
+        })
     }, [props]);
 
     React.useEffect(() => {
@@ -80,7 +71,7 @@ export default function BookItems(props) {
     }
 
     return (
-        books?.length === 0 ? <Loading /> :
+        books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
             <div className="row row-cols-1 row-cols-md-5 card-custom-container">
                 {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
             </div>

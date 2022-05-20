@@ -2,6 +2,7 @@ import React from "react";
 import "../../css/style.css";
 import DropdownMenu from "./DropdownMenu";
 import { BasketContext, UserContext } from "../../App";
+import { NavbarContext } from "../../App";
 
 export default function Navbar(props) {
 
@@ -17,13 +18,17 @@ export default function Navbar(props) {
     }
 
      */
-  
+
+    const navbar = React.useContext(NavbarContext);
+
+    console.log(navbar);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-fixed-top">
-            <a className="navbar-brand" href="/">iRead</a>
+            <a onClick={() => navbar.setNavbarSelected(null)} className="navbar-brand" href="/">iRead</a>
             <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
-                    <li key="books" className="nav-item">
+                    <li onClick={() => navbar.setNavbarSelected("books")} key="books" className={`nav-item${navbar.navbarSelecteds == "books" ? "selected" : ""}`}>
                         <a className="nav-link" href="/books">Τα βιβλία</a>
                     </li>
                     <li key="library" className="nav-item">

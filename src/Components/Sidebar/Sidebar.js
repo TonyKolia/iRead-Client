@@ -30,11 +30,11 @@ export default function Sidebar(props) {
                             <div className="accordion-body" id="filterData">
                                 <Authors authors={criteria.authors} setFilters={props.setFilters} selectedAuthors={props.filters.authors} setCategory={props.setCategory} />
                                 <Publishers publishers={criteria.publishers} setFilters={props.setFilters} selectedPublishers={props.filters.publishers} setCategory={props.setCategory} />
-                                <Years />
+                                <Years years={{ minYear: criteria.minYear, maxYear: criteria.maxYear }} selectedYears = {props.years}  setYears={props.setYears} setCategory={props.setCategory} />
                             </div>
                         </div>
                     </div>
-                    <Categories categories={criteria.categories} setCategory={props.setCategory} setFilters={props.setFilters} selectedCategory={props.category} />
+                    <Categories categories={criteria.categories} setCategory={props.setCategory} setFilters={props.setFilters} selectedCategory={props.category} setYears={props.setYears} />
                 </div>
             </div>
         </div>
