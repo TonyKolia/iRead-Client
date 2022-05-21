@@ -13,6 +13,7 @@ export default function BookItems(props) {
     const [books, setBooks] = React.useState([]);
     const [favorites, setFavorites] = React.useState([]);
     const [newFavorite, setNewFavorite] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
 
 
     const constructURLBasedOnProps = (props) => {
@@ -39,21 +40,28 @@ export default function BookItems(props) {
 
     React.useEffect(() => {
 
+        setLoading(true);
         Helpers.performGet(constructURLBasedOnProps(props))
-        .then(response => {
-            if(response.success)
-            {
-                return setBooks(response.data); 
-            }
-            else{
-                return setBooks([]);
-            }
-        })
+            .then(response => {
+                setLoading(false);
+                if (response.success) {
+                    return setBooks(response.data);
+                }
+                else {
+                    return setBooks([]);
+                }
+            })
     }, [props]);
 
     React.useEffect(() => {
-        if (user.user.userId !== "")
-            Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token).then(response => setFavorites(response.data?.map(x => x.book.id)));
+        if (user.user.userId !== "") {
+            setLoading(true);
+            Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
+                .then(response => {
+                    setLoading(false);
+                    return setFavorites(response.data?.map(x => x.book.id));
+                });
+        }
     }, [user, newFavorite]);
 
     const addFavorite = (bookId) => {
@@ -61,8 +69,10 @@ export default function BookItems(props) {
         if (user.user.userId == "")
             return alert("login man");
 
+        setLoading(true);
         Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
             .then(response => {
+                setLoading(false);
                 if (response.success)
                     return setNewFavorite(bookId);
                 else
@@ -71,9 +81,10 @@ export default function BookItems(props) {
     }
 
     return (
-        books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
-            <div className="row row-cols-1 row-cols-md-5 card-custom-container">
-                {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
-            </div>
+        loading ? <Loading /> : (
+            books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
+                <div className="row row-cols-1 row-cols-md-5 card-custom-container">
+                    {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
+                </div>)
     );
 }

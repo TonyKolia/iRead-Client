@@ -28,26 +28,26 @@ export default function Navbar(props) {
             <a onClick={() => navbar.setNavbarSelected(null)} className="navbar-brand" href="/">iRead</a>
             <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
-                    <li onClick={() => navbar.setNavbarSelected("books")} key="books" className={`nav-item${navbar.navbarSelecteds == "books" ? "selected" : ""}`}>
+                    <li onClick={() => navbar.setNavbarSelected("books")} key="books" className={`nav-item fromLeft${navbar.navbarSelecteds == "books" ? "selected" : ""}`}>
                         <a className="nav-link" href="/books">Τα βιβλία</a>
                     </li>
-                    <li key="library" className="nav-item">
+                    <li key="library" className="nav-item fromLeft">
                         <a className="nav-link" href="/library">Η βιβλιοθήκη</a>
                     </li>
-                    <li key="stuff" className="nav-item">
+                    <li key="stuff" className="nav-item fromLeft">
                         <a className="nav-link" href="/stuff">Το προσωπικό</a>
                     </li>
                 </ul>
             </div>
             <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
-                    <li key="login">
+                    <li key="login" className="nav-item fromLeft">
                         {user.user.userId !== "" ? <DropdownMenu /> :
                             <a className="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
                         }
                     </li>
                     <li key="basket">
-                        <div className="cart">
+                        <div className="cart nav-item fromLeft">
                             <a className="nav-link" href="/basket"><i className="fa-solid fa-basket-shopping"></i>Καλάθι</a>
                             <span className="badge">{basket.basket.length}</span>
                         </div>

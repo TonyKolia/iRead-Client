@@ -11,7 +11,7 @@ export default function DropdownMenu() {
     return (
         <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul className="navbar-nav">
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown fromLeft">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i>{user.user.username}</a>
                     <ul className="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li key="bookmarks"><a className="dropdown-item" href="/bookmarks"><i className="fa-solid fa-bookmark"></i>Οι σελιδοδείκτες μου</a></li>

@@ -102,24 +102,39 @@ footer ul {
 
 
 .nav-item:hover {
-    background-color: #00000020;
-    border-radius: var(--global-item-border-radius);
+    background-size: 100% var(--border-width);
 }
 
 .nav-item.selected{
-    background-color: #00000020;
-    border-radius: var(--global-item-border-radius);
+    background-size: 100% var(--border-width);
 }
+
+.nav-item{
+    --border-color: white;
+    --border-width: 2px;
+    --bottom-distance: 0px;
+    background-image: linear-gradient(var(--border-color), var(--border-color));
+    background-size: 0% var(--border-width);
+    background-repeat: no-repeat;
+    transition: background-size 0.4s;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.fromLeft {
+    background-position: 0 calc(100% - var(--bottom-distance))
+  }
 
 .dropdown-item{
     color: white;
 }
 
+
 .dropdown-item:hover{
     background-color: #00000020;
-    border-radius: var(--global-item-border-radius);
     color: white;
     cursor: pointer;
+    border-radius: var(--global-item-border-radius);
 }
 
 .dropdown-toggle::after{
