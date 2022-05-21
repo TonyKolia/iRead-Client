@@ -366,8 +366,49 @@ footer h5 {
     border-radius: var(--global-button-border-radius);
 }
 
+@keyframes hide{
+    from {left: 0;}
+    to {left: -230px;}
+}
+
+@keyframes show{
+    from {left: -230px;}
+    to {left: 15px;}
+}
+
+@keyframes expand{
+    from {margin-left: 230px;}
+    to {margin-left: 0px;}
+}
+
+@keyframes retract{
+    from {margin-left: 0px;}
+    to {margin-left: 230px;}
+}
+
+.hide{
+    animation-name: hide;
+    animation-duration: 1s;
+    left: -230px;
+}
+
+.show{
+    animation-name: show;
+    animation-duration: 1s;
+}
+
+.expand-content{
+    animation-name: expand;
+    animation-duration: 1s;
+}
+
+.retract-content{
+    animation-name: retract;
+    animation-duration: 1s;
+}
+
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-div.content {
+.content {
     margin-left: 230px;
     /*height: calc(var(--global-scrollable-container-height) - 68px);*/
     height: 100%;
