@@ -115,7 +115,9 @@ footer ul {
 }
 
 
-.nav-item:hover {
+.nav-item:hover,
+.nav-item:focus-within
+{
     background-size: 100% var(--border-width);
 }
 
@@ -144,7 +146,8 @@ footer ul {
 }
 
 
-.dropdown-item:hover{
+.dropdown-item:hover,
+.dropdown-item.selected{
     background-color: #00000020;
     color: white;
     cursor: pointer;
@@ -156,7 +159,7 @@ footer ul {
 }
 
 .nav-link:hover {
-    text-decoration: underline !important;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -781,7 +784,7 @@ input[type="checkbox"]:hover {
     background-color: white;
     color: var(--main-header-color);
     border-radius: var(--global-button-border-radius);
-    margin-left: 0px;
+    margin-left: 5px;
 }
 
 .cart {

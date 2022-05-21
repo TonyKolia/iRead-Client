@@ -2,9 +2,9 @@ import React from "react";
 import "../../css/style.css";
 import DropdownMenu from "./DropdownMenu";
 import { BasketContext, UserContext } from "../../App";
-import { NavbarContext } from "../../App";
+import { NavLink } from "react-router-dom";
 
-export default function Navbar(props) {
+export default function Navbar() {
 
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
@@ -19,23 +19,26 @@ export default function Navbar(props) {
 
      */
 
-    const navbar = React.useContext(NavbarContext);
-
-    console.log(navbar);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-fixed-top">
-            <a onClick={() => navbar.setNavbarSelected(null)} className="navbar-brand" href="/">iRead</a>
+            <a className="navbar-brand" href="/">iRead</a>
             <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
-                    <li onClick={() => navbar.setNavbarSelected("books")} key="books" className={`nav-item fromLeft${navbar.navbarSelecteds == "books" ? "selected" : ""}`}>
-                        <a className="nav-link" href="/books">Τα βιβλία</a>
+                    <li>
+                        <NavLink to="/books" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                            Τα βιβλία
+                        </NavLink>
                     </li>
-                    <li key="library" className="nav-item fromLeft">
-                        <a className="nav-link" href="/library">Η βιβλιοθήκη</a>
+                    <li>
+                        <NavLink to="/library" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                            Η βιβλιοθήκη
+                        </NavLink>
                     </li>
-                    <li key="stuff" className="nav-item fromLeft">
-                        <a className="nav-link" href="/stuff">Το προσωπικό</a>
+                    <li>
+                        <NavLink to="/staff" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                            Το προσωπικό
+                        </NavLink>
                     </li>
                 </ul>
             </div>
@@ -47,10 +50,12 @@ export default function Navbar(props) {
                         }
                     </li>
                     <li key="basket">
-                        <div className="cart nav-item fromLeft">
-                            <a className="nav-link" href="/basket"><i className="fa-solid fa-basket-shopping"></i>Καλάθι</a>
-                            <span className="badge">{basket.basket.length}</span>
-                        </div>
+                        <NavLink to="/basket" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                            <div className="cart">
+                                <i className="fa-solid fa-basket-shopping"></i>Καλάθι
+                                <span className="badge">{basket.basket.length}</span>
+                            </div>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

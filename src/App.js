@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import "./css/style.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home";
@@ -20,7 +20,6 @@ import Error from "./Components/Error";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
-export const NavbarContext = React.createContext();
 
 export const BASKET_ACTIONS = {
   ADD_ITEM: "add-item",
@@ -105,7 +104,6 @@ export default function App() {
 
   const [basket, dispatchBasket] = React.useReducer(basketReducer, []);
   const [user, dispatchUser] = React.useReducer(userReducer, { userId: "", username: "", token: "" });
-  const [navbarSelected, setNavbarSelected] = React.useState(null);
 
   const initializeBasket = () => {
     let basketItemsString = localStorage.getItem('basketItems');
@@ -132,9 +130,7 @@ export default function App() {
         <UserContext.Provider value={{ user, dispatchUser }}>
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
             <div className="container-fluid">
-              <NavbarContext.Provider value={{ navbarSelected, setNavbarSelected }}>
-                <Navbar />
-              </NavbarContext.Provider>
+              <Navbar />
               {alert != null && <Alert alert={alert} />}
               <Routes>
                 <Route path="/" element={<Home />} />
