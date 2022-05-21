@@ -15,33 +15,53 @@ export default function Main() {
         setYears({ minYear: 0, maxYear: 9999 });
     }
 
-    const toggleSidebar = () =>{
+    const toggleSidebar = () => {
         let sidebar = document.getElementById("sidebar");
         let content = document.getElementById("booksContent");
-        if(sidebar.classList.contains("hide")){ //show
+        let toolbar = document.getElementById("toolbar");
+        let toggleIcon = document.getElementById("toggle-icon");
+        if (sidebar.classList.contains("hide-sidebar")) { //show
 
-            sidebar.classList.add("show");
-            sidebar.classList.remove("hide");
+            sidebar.classList.add("show-sidebar");
+            sidebar.classList.remove("hide-sidebar");
+
+            toolbar.classList.add("retract-toolbar");
+            toolbar.classList.remove("expand-toolbar");
 
             content.classList.add("retract-content");
             content.classList.remove("expand-content");
-            setTimeout(() => content.style.marginLeft = "230px", 1000);
+
+            setTimeout(() => {
+                toolbar.style.paddingLeft = "245px";
+                content.style.marginLeft = "230px";
+                toggleIcon.classList.add("fa-arrow-left");
+                toggleIcon.classList.remove("fa-arrow-right");
+            }, 1000);
         }
-        else{
-            sidebar.classList.add("hide");
-            sidebar.classList.remove("show");
+        else {
+            sidebar.classList.add("hide-sidebar");
+            sidebar.classList.remove("show-sidebar");
+
+            toolbar.classList.add("expand-toolbar");
+            toolbar.classList.remove("retract-toolbar");
 
             content.classList.add("expand-content");
             content.classList.remove("retract-content");
-            setTimeout(() => content.style.marginLeft = "0px", 1000);
+
+            setTimeout(() => {
+                toolbar.style.paddingLeft = "15px";
+                content.style.marginLeft = "0px";
+                toggleIcon.classList.remove("fa-arrow-left");
+                toggleIcon.classList.add("fa-arrow-right");
+            }, 1000);
         }
     }
 
     return (
         <div>
             <Sidebar setCategory={setCategory} setFilters={setFilters} setYears={setYears} category={category} filters={filters} years={years} />
-            <div className="toolbar-container">
-                <button type="button" onClick={toggleSidebar} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i></button>
+            <div className="toolbar-container" id="toolbar">
+                <button type="button" onClick={toggleSidebar} className="btn btn-primary btn-custom"><i id="toggle-icon" className="fa-solid fa-arrow-left"></i></button>
                 <button type="button" onClick={() => { reset(); }} className="btn btn-primary btn-custom"><i className="fa-solid fa-rotate"></i></button>
                 <div className="search-container">
                     <input type="text" className="search-control" placeholder="Αναζήτηση..." />

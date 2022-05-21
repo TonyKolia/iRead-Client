@@ -4,6 +4,11 @@ import carouselTemp from "../Images/test-image.png";
 import BookItems from "./Book/BookItems";
 
 export default function Home() {
+
+    const [selected, setSelected] = React.useState("recommended");
+
+    const changeSelected = (name) => setSelected(name);
+
     return (
         <div>
             <div id="carouselExampleIndicators" className="carousel slide home-page-carousel" data-ride="carousel">
@@ -26,16 +31,10 @@ export default function Home() {
             </div>
 
             <div style={{ marginTop: "10px" }}>
-                <ul className="nav justify-content-center nav-tabs">
-                    <li key="recommended" className="nav-item active">
-                        <a className="nav-link home-page-mini-menu active" href="#">Προτεινόμενα</a>
-                    </li>
-                    <li key="new" className="nav-item">
-                        <a className="nav-link home-page-mini-menu" href="#">Νεότερα</a>
-                    </li>
-                    <li key="hot" className="nav-item">
-                        <a className="nav-link home-page-mini-menu" href="#">Δημοφιλή</a>
-                    </li>
+                <ul className="nav justify-content-center mini-menu">
+                    <li onClick={() => changeSelected("recommended")} key="recommended" className={`mini-menu-item fromLeft ${selected == "recommended" ? "selected" : ""}`}>Προτεινόμενα</li>
+                    <li onClick={() => changeSelected("new")} key="new" className={`mini-menu-item fromLeft ${selected == "new" ? "selected" : ""}`}>Νεότερα</li>
+                    <li onClick={() => changeSelected("hot")} key="hot" className={`mini-menu-item fromLeft ${selected == "hot" ? "selected" : ""}`}>Δημοφιλή</li>
                 </ul>
             </div>
 

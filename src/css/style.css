@@ -89,16 +89,30 @@ footer ul {
     color: var(--main-detail-color);
 }
 
-.home-page-mini-menu:hover,
-.home-page-mini-menu.active {
-    background-color: var(--main-detail-color) !important;
-    color: #ffffff !important;
-    border-bottom: 1px solid var(--main-detail-color) !important;
-    border-top-left-radius: var(--global-item-border-radius);
-    border-top-right-radius: var(--global-item-border-radius);
-    border-top-color: transparent;
+.mini-menu{
+    border-bottom: 1px solid lightgray;
 }
 
+.mini-menu-item{
+    color: inherit;
+    --border-color: var(--main-detail-color);
+    --border-width: 3px;
+    --bottom-distance: 0px;
+    background-image: linear-gradient(var(--border-color), var(--border-color));
+    background-size: 0% var(--border-width);
+    background-repeat: no-repeat;
+    transition: background-size 0.4s;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 0.5rem 1rem;
+}
+
+.mini-menu-item:hover,
+.mini-menu-item.selected{
+    background-size: 100% var(--border-width);
+    color: var(--main-detail-color);
+    cursor: pointer;
+}
 
 
 .nav-item:hover {
@@ -386,13 +400,23 @@ footer h5 {
     to {margin-left: 230px;}
 }
 
-.hide{
+@keyframes expand-toolbar{
+    from {padding-left: 245px;}
+    to {padding-left: 15px;}
+}
+
+@keyframes retract-toolbar{
+    from {padding-left: 15px;}
+    to {padding-left: 245px;}
+}
+
+.hide-sidebar{
     animation-name: hide;
     animation-duration: 1s;
     left: -230px;
 }
 
-.show{
+.show-sidebar{
     animation-name: show;
     animation-duration: 1s;
 }
@@ -404,6 +428,16 @@ footer h5 {
 
 .retract-content{
     animation-name: retract;
+    animation-duration: 1s;
+}
+
+.expand-toolbar{
+    animation: expand-toolbar;
+    animation-duration: 1s;
+}
+
+.retract-toolbar{
+    animation: retract-toolbar;
     animation-duration: 1s;
 }
 
@@ -627,7 +661,8 @@ input[type="checkbox"]:hover {
 .fa-bars,
 .fa-rotate,
 .fa-trash-can,
-.toolbar-container .fa-arrow-left {
+.toolbar-container .fa-arrow-left,
+.toolbar-container .fa-arrow-right {
     padding: 0 !important;
 }
 
