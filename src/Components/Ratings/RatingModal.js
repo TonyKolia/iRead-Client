@@ -49,6 +49,7 @@ export default function RatingModal(props) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
                         closeButton.click();
+                    Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
                     return props.setReloadRatings((oldState) => !oldState);
                 }
                 else
@@ -65,6 +66,7 @@ export default function RatingModal(props) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
                         closeButton.click();
+                        Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
                     return props.setReloadRatings((oldState) => !oldState);
                 }
             });
@@ -82,6 +84,7 @@ export default function RatingModal(props) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
                         closeButton.click();
+                    Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
                     return props.setReloadRatings((oldState) => !oldState);
                 }
                 else

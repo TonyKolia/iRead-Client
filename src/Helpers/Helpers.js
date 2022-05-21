@@ -1,5 +1,8 @@
 import React from "react";
 
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default class Helpers {
     
     static formatDate = function (date){
@@ -13,6 +16,9 @@ export default class Helpers {
     
         return "";
     }
+
+    static successMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "success", transition: Slide });
+    static errorMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "error", transition: Slide });
 
     static addCommaIfNeeded = function(index, array){
         return (index + 1 < array.length) ? ", " : "";

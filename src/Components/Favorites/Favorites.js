@@ -20,8 +20,10 @@ export default function Favorites() {
         
         let url = API.API_URL_DELETE_FAVORITE.replace(":userId", user.user.userId).replace(":bookId", bookId);
         Helpers.performDelete(url, user.user.token).then(response => { 
-            if(response.success)
+            if(response.success){
+                Helpers.successMessage("Αφαιρέθηκε επιτυχώς!");
                 return setFavoriteRemoved(bookId);
+            }
         });
         
     }

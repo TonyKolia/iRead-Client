@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home";
@@ -13,10 +15,8 @@ import Register from "./Components/Register";
 import Terms from "./Components/Terms";
 import UserOrders from "./Components/UserOrders/UserOrders";
 import Favorites from "./Components/Favorites/Favorites";
-import Alert from "./Components/Alert";
-
-
 import Error from "./Components/Error";
+import Helpers from "./Helpers/Helpers";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -33,32 +33,25 @@ export const USER_ACTIONS = {
   LOGOUT: "logout"
 }
 
-export const ALERT_TYPES = {
-  SUCCESS: "success",
-  FAIL: "fail"
-}
-
 export default function App() {
-
-  const [alert, setAlert] = React.useState(null);
 
   const addItemToCart = (basket, item) => {
     if (basket.includes(item)) {
-      setAlert({ type: ALERT_TYPES.FAIL, text: "Το συγκεκριμένο βιβλίο υπάρχει ήδη στο καλάθι." });
+      Helpers.errorMessage("Το βιβλίο υπάρχει ήδη στο καλάθι.");
       return basket;
     }
     else if (basket.length == 3) {
-      setAlert({ type: ALERT_TYPES.FAIL, text: "Μπορείτε να έχετε μέχρι 3 βιβλία στο καλάθι." });
+      Helpers.errorMessage("Μπορείτε να έχετε μέχρι 3 βιβλία στο καλάθι.");
       return basket;
     }
     else {
-      setAlert({ type: ALERT_TYPES.SUCCESS, text: "Προστέθηκε στο καλάθι!" });
+      Helpers.successMessage("Προστέθηκε στο καλάθι!");
       return [...basket, item];
     }
   }
 
   const removeItemFromCart = (basket, itemId) => {
-    setAlert({ type: ALERT_TYPES.SUCCESS, text: "Αφαιρέθηκε επιτυχώς!" });
+    Helpers.successMessage("Αφαιρέθηκε επιτυχώς!");
     return basket.filter(item => item != itemId);
   }
 
@@ -126,12 +119,12 @@ export default function App() {
 
   return (
     <Router>
+      <ToastContainer />
       <div>
         <UserContext.Provider value={{ user, dispatchUser }}>
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
             <div className="container-fluid">
               <Navbar />
-              {alert != null && <Alert alert={alert} />}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />

@@ -47,7 +47,10 @@ export default function BookPage() {
         Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
             .then(response => {
                 if (response.success)
+                {
+                    Helpers.successMessage("Προστέθηκε στους σελιδοδείκτες!");
                     return setFavorite(true);
+                }
                 else
                     return alert("lol");
             });

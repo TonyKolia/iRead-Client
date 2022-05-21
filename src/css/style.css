@@ -1140,3 +1140,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     pointer-events: all;
     position: relative;
   }
+
+  .Toastify__toast{
+      border-radius: var(--global-item-border-radius) !important;
+      margin-top: 40px;
+  }
