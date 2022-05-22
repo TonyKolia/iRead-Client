@@ -205,7 +205,7 @@ nav {
 }
 
 .card-custom:hover {
-    background-color: #00000006;
+    background-color: #09154006;
 }
 
 .card-custom .fa-bookmark {
@@ -245,12 +245,24 @@ nav {
 
 .btn-custom,
 .btn-custom:focus {
-    background-color: var(--main-detail-color);
+    background-color: var(--main-detail-color) !important;
     color: #ffffff;
     border-color: var(--main-detail-color);
     border-radius: var(--global-button-border-radius);
     padding: 0.375rem 1.2rem;
+    background-image: linear-gradient(white, white);
+    background-repeat: no-repeat;
+    transition: .3s ease-in-out;
+    background-size: 100% 0%;
+    background-position: 50% 50%;
 }
+
+.btn-custom:hover {
+    color: var(--main-detail-color) !important;
+    border-color: var(--main-detail-color) !important;
+    background-size: 100% 100%;
+}
+
 
 .btn-circle{
     padding: 0.375rem 0.75rem !important;
@@ -258,12 +270,12 @@ nav {
 
 
 .btn-custom:active {
-    background-color: transparent !important;
+    background-size: 100% 0%;
     border-color: var(--main-detail-color) !important;
-    color: var(--main-detail-color) !important;
-    ;
+    color: var(--main-background-color) !important;
     box-shadow: none !important;
     outline: none !important;
+    transition: 0s;
 }
 
 .btn-custom:disabled{
@@ -278,11 +290,6 @@ nav {
     box-shadow: none !important;
 }
 
-.btn-custom:hover {
-    background-color: transparent !important;
-    color: var(--main-detail-color) !important;
-    border-color: var(--main-detail-color) !important;
-}
 
 .card-custom .card-text {
     text-align: center;
@@ -788,7 +795,7 @@ input[type="checkbox"]:hover {
 
 .cart-container .cart-item:hover,
 .library-container .cart-item:hover {
-    background-color: #FF00AA08;
+    background-color: #09154008;
 }
 
 .order-item{
