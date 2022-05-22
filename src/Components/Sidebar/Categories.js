@@ -26,7 +26,7 @@ export default function Categories(props) {
             <div id="categories" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div className="accordion-body">
                     <ul className="category-list">
-                        {props.categories?.map(category => <li className={`${category.id == selected ? "active" : ""}`} key={category.id} onClick={() => { selectCategory(category.id); }}>{category.description}</li>)}
+                        {props.categories?.map(category => <li className={`fromLeft ${category.id == selected ? "active" : ""}`} key={category.id} onClick={() => { selectCategory(category.id); }}>{category.description}</li>)}
                     </ul>
                 </div>
             </div>

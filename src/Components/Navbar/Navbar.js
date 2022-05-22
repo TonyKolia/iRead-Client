@@ -44,9 +44,9 @@ export default function Navbar() {
             </div>
             <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
-                    <li key="login" className="nav-item fromLeft">
+                    <li key="login">
                         {user.user.userId !== "" ? <DropdownMenu /> :
-                            <a className="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
+                            <a className="nav-link nav-item fromLeft" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
                         }
                     </li>
                     <li key="basket">

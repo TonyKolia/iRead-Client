@@ -61,11 +61,11 @@ export default function Main() {
         <div>
             <Sidebar setCategory={setCategory} setFilters={setFilters} setYears={setYears} category={category} filters={filters} years={years} />
             <div className="toolbar-container" id="toolbar">
-                <button type="button" onClick={toggleSidebar} className="btn btn-primary btn-custom"><i id="toggle-icon" className="fa-solid fa-arrow-left"></i></button>
-                <button type="button" onClick={() => { reset(); }} className="btn btn-primary btn-custom"><i className="fa-solid fa-rotate"></i></button>
+                <button type="button" onClick={toggleSidebar} className="btn btn-primary btn-custom btn-circle"><i id="toggle-icon" className="fa-solid fa-arrow-left"></i></button>
+                <button type="button" onClick={() => { reset(); }} className="btn btn-primary btn-custom btn-circle"><i className="fa-solid fa-rotate"></i></button>
                 <div className="search-container">
                     <input type="text" className="search-control" placeholder="Αναζήτηση..." />
-                    <button type="button" className="btn btn-primary btn-custom btn-search"><i className="fa-solid fa-magnifying-glass"></i></button>
+                    <button type="button" className="btn btn-primary btn-custom btn-search btn-circle"><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
             <div className="content" id="booksContent">

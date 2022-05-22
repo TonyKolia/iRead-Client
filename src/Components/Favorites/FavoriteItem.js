@@ -14,8 +14,8 @@ export default function FavoriteItem(props) {
             <td className="align-middle"><a href={`/Book/${props.favorite.book.id}`}><h6>{props.favorite.book.title}</h6></a></td>
             <td className="align-middle">{Helpers.formatDate(props.favorite.dateAdded)}</td>
             <td className="align-middle"><i className={`fa-solid ${props.favorite.bookRead ? "fa-check" : "fa-xmark"}`}></i></td>
-            <td className="align-middle"><button type="button" disabled={props.favorite.book.stock == 0} onClick={() => basket.dispatchBasket({type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: props.favorite.book.id }})} className="btn btn-primary btn-custom"><i className="fa-solid fa-basket-shopping"></i></button></td>
-            <td className="align-middle"><button type="button" onClick={() => props.deleteFavorite(props.favorite.book.id)} className="btn btn-primary btn-custom"><i className="fa-solid fa-trash-can"></i></button></td>
+            <td className="align-middle"><button type="button" disabled={props.favorite.book.stock == 0} onClick={() => basket.dispatchBasket({type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: props.favorite.book.id }})} className="btn btn-primary btn-custom btn-circle"><i className="fa-solid fa-basket-shopping"></i></button></td>
+            <td className="align-middle"><button type="button" onClick={() => props.deleteFavorite(props.favorite.book.id)} className="btn btn-primary btn-custom btn-circle"><i className="fa-solid fa-trash-can"></i></button></td>
         </tr>
     );
 }

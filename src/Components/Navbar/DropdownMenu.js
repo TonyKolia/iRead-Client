@@ -12,8 +12,8 @@ export default function DropdownMenu() {
     return (
         <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul className="navbar-nav">
-                <li className="nav-item dropdown fromLeft">
-                    <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i>{user.user.username}</a>
+                <li className="dropdown">
+                    <a className="nav-item fromLeft nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i>{user.user.username}</a>
                     <ul className="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li key="bookmarks">
                             <NavLink to="/bookmarks" className={({ isActive }) => { return isActive ? "dropdown-item selected" : "dropdown-item"; }}>
