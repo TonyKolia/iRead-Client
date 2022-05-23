@@ -28,6 +28,13 @@ export default function Basket() {
     }, [basket, basketBooks]);
 
     function submitOrder() {
+
+        if(user.user.userId === ""){
+            let loginLink = document.getElementById("loginLink");
+            loginLink.click();
+            return;
+        }
+
         var order = {
             userId: user.user.userId,
             books: basket.basket
@@ -44,6 +51,8 @@ export default function Basket() {
                 }
             });
     }
+
+    console.log(basketBooks)
 
     return (
         <div className="cart-container">
@@ -66,10 +75,10 @@ export default function Basket() {
             }
 
             <div>
-                <div className="cart-btn-container">
-                    <button type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
+                <div className={`cart-btn-container ${basketBooks === undefined || basketBooks.length === 0 ? "empty" : ""} `}>
+                    <button onClick={() => navigate("/")} type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
                     {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR })} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
-                    {((basketBooks !== undefined && basketBooks.length > 0) && user.user.userId !== "") && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
+                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                 </div>
             </div>
         </div>

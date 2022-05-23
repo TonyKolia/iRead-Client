@@ -46,7 +46,7 @@ export default function Navbar() {
                 <ul className="navbar-nav">
                     <li key="login">
                         {user.user.userId !== "" ? <DropdownMenu /> :
-                            <a className="nav-link nav-item fromLeft" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
+                            <a id="loginLink" className="nav-link nav-item fromLeft" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>
                         }
                     </li>
                     <li key="basket">

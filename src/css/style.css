@@ -48,6 +48,7 @@ html {
 nav {
     padding-left: var(--bs-gutter-x, .75rem);
     padding-right: var(--bs-gutter-x, .75rem);
+    padding-bottom: 0 !important;
 }
 
 footer ul {
@@ -151,7 +152,7 @@ footer ul {
 .mini-menu-item{
     color: inherit;
     --border-color: var(--main-detail-color);
-    --border-width: 3px;
+    --border-width: 4px;
     --bottom-distance: 0px;
     background-image: linear-gradient(var(--border-color), var(--border-color));
     background-size: 0% var(--border-width);
@@ -159,7 +160,7 @@ footer ul {
     transition: background-size 0.4s;
     margin-left: 5px;
     margin-right: 5px;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
 }
 
 .mini-menu-item:hover,
@@ -184,7 +185,7 @@ footer ul {
 
 .nav-item{
     --border-color: var(--main-header-color);
-    --border-width: 2px;
+    --border-width: 4px;
     --bottom-distance: 0px;
     background-image: linear-gradient(var(--border-color), var(--border-color));
     background-size: 0% var(--border-width);
@@ -192,6 +193,7 @@ footer ul {
     transition: background-size 0.4s;
     margin-left: 5px;
     margin-right: 5px;
+    padding-bottom: 1rem;
 }
 
 .fromLeft {
@@ -236,7 +238,7 @@ nav {
 }
 
 .card-img {
-    height: 450px;
+    height: 400px;
     max-width: 350px;
     margin-left: auto;
     margin-right: auto;
@@ -251,15 +253,19 @@ nav {
     border-radius: var(--global-item-border-radius);
     border: none;
     max-width: 350px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-custom:hover .fa-bookmark {
     visibility: visible;
 }
 
+.card-img:hover{
+    cursor: pointer;
+}
+
 .card-custom:hover {
-    background-color: #09154006;
+    box-shadow: 0 4px 8px 0 #FF3B3F60, 0 6px 20px 0 #FF3B3F60;
 }
 
 .card-custom .fa-bookmark {
@@ -800,6 +806,7 @@ input[type="checkbox"]:hover {
 .cart-img {
     width: 80px;
     height: auto;
+    border-radius: var(--global-item-border-radius);
 }
 
 
@@ -869,6 +876,10 @@ input[type="checkbox"]:hover {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.empty{
+    justify-content: center !important;
 }
 
 .nav-item:hover > .cart > .badge,
@@ -1128,9 +1139,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-color: transparent;
 }
 
+.order-tr:hover {
+    background-color: #09154008;
+}
+
+.order-tr button{
+    background-color: transparent;
+}
+
 .hidden-td{
     padding: 0 !important;
 }
+
 
 .rating-actions-container{
     display: flex;
@@ -1240,6 +1260,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
   .Toastify__toast{
       border-radius: var(--global-item-border-radius) !important;
-      margin-top: 40px;
       color: var(--secondary-color) !important;
   }

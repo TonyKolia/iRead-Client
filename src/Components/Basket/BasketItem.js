@@ -14,7 +14,7 @@ export default function BasketItem(props) {
             <td><img className="cart-img" src={`${API.API_URL_GET_BOOK_IMAGE}${props.imagePath}`} /></td>
             <td className="align-middle"><a href={`Book/${props.id}`}><h6>{props.title}</h6></a></td>
             <td className="align-middle">23/04/2022</td>
-            <td className="align-middle"><button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.DELETE_ITEM, payload:{ itemId: props.id }})} className="btn btn-primary btn-custom btn-circle"><i className="fa-solid fa-trash-can"></i></button></td>
+            <td className="align-middle"><button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.DELETE_ITEM, payload:{ itemId: props.id }})} className="btn btn-primary btn-custom btn-circle" title="Διαγραφή"><i className="fa-solid fa-trash-can"></i></button></td>
         </tr>
     );
 }

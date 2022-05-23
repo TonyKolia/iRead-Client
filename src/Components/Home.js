@@ -2,11 +2,12 @@ import React from "react";
 import "../css/style.css";
 import carouselTemp from "../Images/test-image.png";
 import BookItems from "./Book/BookItems";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
 
     const [selected, setSelected] = React.useState("recommended");
-
+    let navigate = useNavigate();
     const changeSelected = (name) => setSelected(name);
 
     return (
@@ -20,7 +21,7 @@ export default function Home() {
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active" data-bs-interval="3000">
-                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-user-plus"></i>Εγγραφή</button>
+                        <button onClick={() => navigate("/register")} className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-user-plus"></i>Εγγραφή</button>
                         <img src={require("../Images/carousel1.png")} />
                     </div>
                     <div className="carousel-item" data-bs-interval="3000">

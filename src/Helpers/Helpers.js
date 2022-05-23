@@ -17,8 +17,8 @@ export default class Helpers {
         return "";
     }
 
-    static successMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "success", transition: Slide });
-    static errorMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "error", transition: Slide });
+    static successMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "success", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });
+    static errorMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "error", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });
 
     static addCommaIfNeeded = function(index, array){
         return (index + 1 < array.length) ? ", " : "";
