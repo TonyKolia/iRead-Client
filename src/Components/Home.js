@@ -12,47 +12,27 @@ export default function Home() {
     return (
         <div>
 
-
-            <div id="carouselExampleIndicators" className="carousel slide home-page-carousel" data-ride="carousel">
-                <ol className="carousel-indicators">
-                    <li key="img1" data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                    <li key="img2" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li key="img3" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
+            <div id="carouselExampleIndicators" className="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
                 <div className="carousel-inner">
-                    <div className="carousel-item carousel-item-container active">
-                        <div className="carousel-info">
-                            <span>
-                            <h3>Η αγαπημένη σας βιβλιοθήκη, τώρα και online!</h3>
-                            <br/>
-                            <p>
-                                Ανακαλύψτε τα αγαπημένα σας βιβλία, πραγματοποιήστε online την κράτηση σας και παραλάβετε άμεσα απ' την βιβλιοθήκη.
-                            </p>
-                            <p>
-                                Με πάνω από 1000 διαφορετικούς τίτλους είναι σίγουρο ότι θα βρείτε κάτι για εσάς.
-                            </p>
-                            <p>
-                                Τόσο ευχάριστα, τόσο γρήγορα, τόσο απλά!
-                            </p>
-
-                            </span>
-                        </div>    
-                        <div className="carousel-img-container" >
-                        <img className="carousel-img"  src={require("../Images/carousel-img-1.jpg")} alt="First slide" />
-                        </div>
-                        
+                    <div className="carousel-item active" data-bs-interval="3000">
+                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-user-plus"></i>Εγγραφή</button>
+                        <img src={require("../Images/carousel1.png")} />
                     </div>
-                    <div className="carousel-item">
-                        <img className="d-block w-100" src={carouselTemp} alt="Second slide" />
+                    <div className="carousel-item" data-bs-interval="3000">
+                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-info-circle"></i>Μάθετε περισσότερα</button>
+                        <img src={require("../Images/carousel2.png")} />
                     </div>
-                    <div className="carousel-item">
-                        <img className="d-block w-100" src={carouselTemp} alt="Third slide" />
+                    <div className="carousel-item" data-bs-interval="3000">
+                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-info-circle"></i>Μάθετε περισσότερα</button>
+                        <img src={require("../Images/carousel3.png")} />
                     </div>
                 </div>
             </div>
-
-
-
 
             <div style={{ marginTop: "10px" }}>
                 <ul className="nav justify-content-center mini-menu">
