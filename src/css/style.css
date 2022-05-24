@@ -435,6 +435,24 @@ footer h5{
     
 }
 
+.form-check-label:hover{
+    cursor: pointer;
+}
+
+.form-check-input{
+    margin-right: 0.5rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--main-detail-color);
+    border-color: var(--main-detail-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--main-detail-color);
+    box-shadow: none;
+}
+
 .social-media-icon {
     padding-left: 8px;
     padding-right: 8px;
@@ -1187,13 +1205,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
   
   .slider__track {
-    background-color: #ced4da;
+    background-color: #09154020;
     width: 100%;
     z-index: 1;
   }
   
   .slider__range {
-    background-color: #9fe5e1;
+    background-color: #09154020;
+    width: 100%;
     z-index: 2;
   }
   

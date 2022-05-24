@@ -12,7 +12,8 @@ export default function Authors(props) {
     const handleChange = (e) => {
 
         props.setCategory(null);
-        const { id } = e.target;
+        let { id } = e.target;
+        id = id.split('-')[1];
         props.setFilters(oldFilters => {
             if (oldFilters.authors.includes(id))
                 return { ...oldFilters, authors: oldFilters.authors.filter(x => x !== id) }
@@ -33,8 +34,8 @@ export default function Authors(props) {
                     {
                         props.authors?.map(author => {
                             return (<li key={author.id}>
-                                <input className="form-check-input" onChange={handleChange} id={author.id} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
-                                <label className="form-check-label" htmlFor={author.id}>{`${author.name} ${author.surname}`}</label>
+                                <input className="form-check-input" onChange={handleChange} id={`author-${author.id}`} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
+                                <label className="form-check-label" htmlFor={`author-${author.id}`}>{`${author.name} ${author.surname}`}</label>
                             </li>)
                         })
                     }

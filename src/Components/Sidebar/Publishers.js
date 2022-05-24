@@ -11,7 +11,8 @@ export default function Publishers(props) {
 
     const handleChange = (e) => {
         props.setCategory(null);
-        const { id } = e.target;
+        let { id } = e.target;
+        id = id.split('-')[1];
         props.setFilters(oldFilters => {
             if(oldFilters.publishers.includes(id))
                 return {...oldFilters, publishers: oldFilters.publishers.filter(x => x !== id)}
@@ -32,8 +33,8 @@ export default function Publishers(props) {
                     {
                         props.publishers?.map(publisher => {
                             return (<li key={publisher.id}>
-                                <input onChange={handleChange} className="form-check-input" type="checkbox" id={publisher.id} checked={selectedPublishers.includes(String(publisher.id))} />
-                                <label className="form-check-label" htmlFor={publisher.id}>{publisher.name}</label>
+                                <input onChange={handleChange} className="form-check-input" type="checkbox" id={`publisher-${publisher.id}`} checked={selectedPublishers.includes(String(publisher.id))} />
+                                <label className="form-check-label" htmlFor={`publisher-${publisher.id}`}>{publisher.name}</label>
                             </li>)
                         })
                     }
