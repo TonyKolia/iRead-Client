@@ -33,7 +33,28 @@ export const USER_ACTIONS = {
   LOGOUT: "logout"
 }
 
+const scrollFunction= () => {
+  if(document.body.scrollTop > 110 || document.documentElement.scrollTop > 110){
+    document.getElementById("logo").style.width = "90px";
+    document.getElementById("navItems").style.width = "100%";
+    document.getElementById("container").style.paddingTop = "70px";
+  }
+  else{
+    document.getElementById("logo").style.width = "";
+    document.getElementById("navItems").style.width = "90%";
+    document.getElementById("container").style.paddingTop = "110px";
+  }
+}
+
 export default function App() {
+
+  React.useEffect(() => {
+
+    window.addEventListener("scroll",scrollFunction);
+
+    return () => {window.removeEventListener("scroll");};
+
+  }, [])
 
   const addItemToCart = (basket, item) => {
     if (basket.includes(item)) {
@@ -123,7 +144,7 @@ export default function App() {
       <div>
         <UserContext.Provider value={{ user, dispatchUser }}>
           <BasketContext.Provider value={{ basket, dispatchBasket }}>
-            <div className="container-fluid">
+            <div className="container-fluid" id="container">
               <Navbar />
               <Routes>
                 <Route path="/" element={<Home />} />

@@ -3,27 +3,19 @@ import "../../css/style.css";
 import DropdownMenu from "./DropdownMenu";
 import { BasketContext, UserContext } from "../../App";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
-    let alert = null;
-    let cssClass = "";
-    let alertText = "";/*
-      if (Object.keys(props.basketAddition).length > 0) {
-        cssClass = props.basketAddition.failed ? "alert-danger" : "alert-success";
-        alertText = props.basketAddition.message;
-        alert = <div className={`alert ${cssClass}`} role="alert">{alertText}</div>
-    }
 
-     */
-
+    let navigate = useNavigate();
 
     return (
         <nav className="navbar navbar-expand-lg navbar-fixed-top">
-            <a className="navbar-brand" href="/">iRead</a>
-            <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+            <img id="logo" onClick={() => navigate("/")} className="logo"  src={require("../../Images/logo.png")} />
+            <div id="navItems" style={{ width: "90%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
                     <li>
                         <NavLink to="/books" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >

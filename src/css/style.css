@@ -45,6 +45,18 @@ html {
     color: var(--secondary-color) !important;
 }
 
+.logo{
+    width: 180px;
+    height: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    transition: width .5s ease;
+}
+
+.logo:hover{
+    cursor: pointer;
+}
+
 nav {
     padding-left: var(--bs-gutter-x, .75rem);
     padding-right: var(--bs-gutter-x, .75rem);
@@ -416,9 +428,11 @@ footer h5{
 }
 
 .container-fluid {
-    padding-top: 56px;
+    padding-top: 110px; /*56*/
     min-height: calc(100vh - 150px);
     overflow: scroll;
+    transition: padding-top .5s ease;
+    
 }
 
 .social-media-icon {
