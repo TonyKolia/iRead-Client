@@ -19,7 +19,7 @@ export default function BookItem(props) {
                 <div className="card-body">
                     <h5 className="card-title book-title">{props.book.title}</h5>
                     {props.book.categories.map((category, i, arr) => <span key={category.id} className="book-title card-text"><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}
-                    <button type="button" disabled={props.book.stock == 0} onClick={() => basketContext.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: props.book.id } })} className="btn btn-primary btn-custom ripple card-btn"><i className="fa-solid fa-basket-shopping"></i>Προσθήκη στο καλάθι</button>
+                    <button type="button" disabled={props.book.stock == 0} onClick={() => basketContext.dispatchBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: props.book.id } })} className="btn btn-primary btn-custom ripple card-btn"><i className="fa-solid fa-basket-shopping"></i>Στο καλάθι</button>
                 </div>
             </div>
         </div>

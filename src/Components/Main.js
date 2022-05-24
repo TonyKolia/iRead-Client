@@ -20,6 +20,7 @@ export default function Main() {
         let content = document.getElementById("booksContent");
         let toolbar = document.getElementById("toolbar");
         let toggleIcon = document.getElementById("toggle-icon");
+        let container = document.getElementById("book-container");
         if (sidebar.classList.contains("hide-sidebar")) { //show
 
             sidebar.classList.add("show-sidebar");
@@ -31,11 +32,16 @@ export default function Main() {
             content.classList.add("retract-content");
             content.classList.remove("expand-content");
 
+            container.classList.add("row-cols-md-5");
+            container.classList.remove("row-cols-md-6");
+           
+
             setTimeout(() => {
                 toolbar.style.paddingLeft = "245px";
                 content.style.marginLeft = "230px";
                 toggleIcon.classList.add("fa-arrow-left");
                 toggleIcon.classList.remove("fa-arrow-right");
+
             }, 1000);
         }
         else {
@@ -48,11 +54,15 @@ export default function Main() {
             content.classList.add("expand-content");
             content.classList.remove("retract-content");
 
+            container.classList.add("row-cols-md-6");
+            container.classList.remove("row-cols-md-5");
+
             setTimeout(() => {
                 toolbar.style.paddingLeft = "15px";
                 content.style.marginLeft = "0px";
                 toggleIcon.classList.remove("fa-arrow-left");
                 toggleIcon.classList.add("fa-arrow-right");
+
             }, 1000);
         }
     }
@@ -69,7 +79,7 @@ export default function Main() {
                 </div>
             </div>
             <div className="content" id="booksContent">
-                <BookItems category={category} filters={filters} years={years} />
+                <BookItems category={category} filters={filters} years={years} fromMain={true} />
             </div>
         </div>
     );

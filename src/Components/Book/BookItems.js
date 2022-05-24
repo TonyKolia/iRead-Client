@@ -87,7 +87,7 @@ export default function BookItems(props) {
     return (
         loading ? <Loading /> : (
             books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
-                <div className="row row-cols-1 row-cols-md-5 card-custom-container">
+                <div className={`row row-cols-1 ${props.fromMain ? "row-cols-md-5" : "row-cols-md-6"} card-custom-container`} id="book-container">
                     {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                 </div>)
     );
