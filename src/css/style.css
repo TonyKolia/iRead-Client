@@ -592,6 +592,16 @@ footer h5{
     margin-bottom: 10px;
 }
 
+.search-container:hover,
+.search-container:focus-within{
+    border-color: var(--main-detail-color);
+}
+
+.collapsing > div > input.thumb,
+.collapsing > div > div > #year > div> input.thumb{
+    visibility: hidden;
+}
+
 .search-control {
     width: 100%;
     background: none;
