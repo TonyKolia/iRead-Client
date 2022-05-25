@@ -587,7 +587,7 @@ footer h5{
     align-items: center;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: var(--global-button-border-radius) !important;
-    width: 30%;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -808,10 +808,41 @@ input[type="checkbox"]:hover {
     padding: 0 !important;
 }
 
+.clear-search-btn{
+    background-color: transparent !important;
+    color: var(--main-detail-color) !important;
+    border: none;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+
+
+.activeFiltersContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+}
+
+.activeFiltersContainer > .badge{
+    background-color: #091540;
+    padding: 0.7rem 1rem;
+}
+
+.clear-search-btn > .fa-solid {
+    padding: 0;
+}
+
 .toolbar-container {
     display: flex;
-    padding-left: 245px;
+    /*padding-left: 245px;*/
     align-items: center;
+    width:50%;
 }
 
 .toolbar-container>div,

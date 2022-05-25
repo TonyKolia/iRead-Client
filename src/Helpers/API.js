@@ -21,7 +21,7 @@ const ENDPOINTS = {
     GET_BOOKS_BY_CATEGORY: "Book/Category/:categoryId",
     GET_BOOKS_BY_AUTHORS: "Book/Authors/:authors",
     GET_BOOKS_BY_PUBLISHERS: "Book/Publishers/:publishers",
-    GET_BOOKS_BY_FILTERS: "Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear"
+    GET_BOOKS_BY_FILTERS: "Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear/SearchString/:searchString"
 };
 
 

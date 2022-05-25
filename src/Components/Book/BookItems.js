@@ -5,6 +5,8 @@ import "../../css/style.css";
 import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import { UserContext } from "../../App";
+import SearchBar from "./SearchBar";
+import ActiveFilters from "../ActiveFilters";
 
 export default function BookItems(props) {
 
@@ -33,9 +35,9 @@ export default function BookItems(props) {
 
         let minYear = props.years.minYear === undefined || props.years.minYear == 0 ? "ALL" : props.years.minYear;
         let maxYear = props.years.maxYear === undefined || props.years.maxYear == 9999 ? "ALL" : props.years.maxYear;
-        //Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear
+        //"Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear/SearchString/:searchString"
 
-        return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear);
+        return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear).replace(":searchString", props.searchString.current === '' ? "%%%" : props.searchString.current);
     }
 
     React.useEffect(() => {
@@ -73,8 +75,7 @@ export default function BookItems(props) {
         Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
             .then(response => {
                 setLoading(false);
-                if (response.success)
-                {
+                if (response.success) {
                     Helpers.successMessage("Προστέθηκε στους σελιδοδείκτες!");
                     return setNewFavorite(bookId);
                 }
@@ -84,11 +85,36 @@ export default function BookItems(props) {
             });
     }
 
+    const search = () => {
+
+        if (props.searchString.current === "" || props.searchString.current === null)
+            return;
+
+        Helpers.performGet(constructURLBasedOnProps(props))
+            .then(response => {
+                if (response.success) {
+                    return setBooks(response.data);
+                }
+                else {
+                    return setBooks([]);
+                }
+            });
+
+    }
+
     return (
-        loading ? <Loading /> : (
-            books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
-                <div className={`row row-cols-1 ${props.fromMain ? "row-cols-md-5" : "row-cols-md-6"} card-custom-container`} id="book-container">
-                    {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
-                </div>)
+        <>
+            <div style={{display:"flex", flexDirection: "row", alignContent: "center", alignItems:"center"}}>
+                {props.fromMain && <SearchBar reset={props.reset} search={search} searchString={props.searchString} setSearchCleared={props.setSearchCleared} />}
+                <ActiveFilters activeFilters={{category: props.category, filters: props.filters, years: props.years, searchString: props.searchString}} />
+            </div>
+           
+            {loading ? <Loading /> : (
+                books?.length === 0 ? <h4>Δεν βρέθηκαν βιβλία</h4> :
+                    <div className={`row row-cols-1 ${props.fromMain ? "row-cols-md-5" : "row-cols-md-6"} card-custom-container`} id="book-container">
+                        {books?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
+                    </div>)}
+        </>
+
     );
 }
