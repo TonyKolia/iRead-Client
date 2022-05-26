@@ -850,6 +850,19 @@ input[type="checkbox"]:hover {
     margin-right: 15px;
 }
 
+.order-img{
+    height: 300px;
+    width: 200px;
+    border-radius: var(--global-item-border-radius);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-items-container{
+    padding: 1rem 0rem;
+    display: flex;
+}
+
 .filter-data-container {
     width: 100%;
     max-height: 200px;
@@ -858,9 +871,30 @@ input[type="checkbox"]:hover {
     border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
+.order-img:hover{
+    cursor: pointer;
+}
+
 .filter-data-container:last-child {
     border-bottom: none;
     overflow: hidden;
+}
+
+
+.home-more{
+    padding-top: 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+.home-more > h6 > a{
+    text-decoration: none;
+    color: var(--main-detail-color);
+}
+
+.home-more > h6 > a:hover{
+    text-decoration: underline;
+    color: var(--main-detail-color);
 }
 
 #filterData>button::after {

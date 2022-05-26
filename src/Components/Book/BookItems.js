@@ -7,6 +7,7 @@ import Helpers from "../../Helpers/Helpers";
 import { UserContext } from "../../App";
 import SearchBar from "./SearchBar";
 import ActiveFilters from "../ActiveFilters";
+import { useParams } from "react-router-dom";
 
 export default function BookItems(props) {
 
@@ -16,7 +17,7 @@ export default function BookItems(props) {
     const [favorites, setFavorites] = React.useState([]);
     const [newFavorite, setNewFavorite] = React.useState(null);
     const [loading, setLoading] = React.useState(false);
-
+    const { type } = useParams();
 
     const constructURLBasedOnProps = (props) => {
 
@@ -26,18 +27,20 @@ export default function BookItems(props) {
         let category = props.category ?? "ALL";
 
         let authors = "";
-        props.filters.authors.forEach(author => authors += author + "-");
+        props.filters?.authors.forEach(author => authors += author + "-");
         authors = authors === undefined || authors.length == 0 ? "ALL" : authors.substring(0, authors.length - 1);
 
         let publishers = "";
-        props.filters.publishers.forEach(publisher => publishers += publisher + "-");
+        props.filters?.publishers.forEach(publisher => publishers += publisher + "-");
         publishers = publishers === undefined || publishers.length == 0 ? "ALL" : publishers.substring(0, publishers.length - 1);
 
-        let minYear = props.years.minYear === undefined || props.years.minYear == 0 ? "ALL" : props.years.minYear;
-        let maxYear = props.years.maxYear === undefined || props.years.maxYear == 9999 ? "ALL" : props.years.maxYear;
-        //"Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear/SearchString/:searchString"
+        let minYear = props.years?.minYear === undefined || props.years.minYear == 0 ? "ALL" : props.years.minYear;
+        let maxYear = props.years?.maxYear === undefined || props.years.maxYear == 9999 ? "ALL" : props.years.maxYear;
+        //"Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear/SearchString/:searchString/Type/:type"
 
-        return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear).replace(":searchString", props.searchString.current === '' ? "%%%" : props.searchString.current);
+        let selectedType = props.type ? props.type+"-home" : (type ? type : "NONE");
+
+        return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear).replace(":searchString", props.searchString === undefined || props.searchString.current === '' ? "%%%" : props.searchString.current).replace(":type", selectedType);
     }
 
     React.useEffect(() => {
@@ -69,7 +72,11 @@ export default function BookItems(props) {
     const addFavorite = (bookId) => {
 
         if (user.user.userId == "")
-            return alert("login man");
+        {
+            let loginLink = document.getElementById("loginLink");
+            loginLink.click();
+            return;
+        }
 
         setLoading(true);
         Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
@@ -106,7 +113,7 @@ export default function BookItems(props) {
         <>
             <div style={{display:"flex", flexDirection: "row", alignContent: "center", alignItems:"center"}}>
                 {props.fromMain && <SearchBar reset={props.reset} search={search} searchString={props.searchString} setSearchCleared={props.setSearchCleared} />}
-                <ActiveFilters activeFilters={{category: props.category, filters: props.filters, years: props.years, searchString: props.searchString}} />
+                <ActiveFilters activeFilters={{category: props.category, filters: props.filters, years: props.years, searchString: props.searchString, type:type}} />
             </div>
            
             {loading ? <Loading /> : (

@@ -10,6 +10,26 @@ export default function ActiveFilters(props) {
 
         let tempTags = [];
 
+        if(props.activeFilters.type !== undefined){
+            switch(props.activeFilters.type){
+                case "hot":
+                    tempTags.push("Δημοφιλή");
+                    break;
+                case "new":
+                    tempTags.push("Νεότερα");
+                    break;
+                case "recommended":
+                    tempTags.push("Προτεινόμενα");
+                    break;
+                default:
+                    break;
+            }
+
+            setFiltersTags(tempTags);
+        }
+
+        console.log(props.type)
+
         var labels = document.getElementsByTagName("label");
         if (!props.activeFilters.filters || !props.activeFilters.filters.authors || !props.activeFilters.filters.publishers || !props.activeFilters.years || !props.activeFilters.searchString)
             return;
@@ -47,8 +67,6 @@ export default function ActiveFilters(props) {
 
         if(props.activeFilters.searchString.current !== "")
         tempTags.push(`"${props.activeFilters.searchString.current}"`);
-
-
 
 
         setFiltersTags(tempTags);

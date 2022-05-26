@@ -44,7 +44,11 @@ export default function Home() {
             </div>
 
             <div style={{ marginTop: "10px" }}>
-                <BookItems />
+                <BookItems type={selected} />
+                <div className="home-more">
+                    <h6><a href={`/books/${selected}`}>Δείτε περισσότερα...</a></h6>
+                </div>
+
             </div>
         </div>
     );

@@ -35,8 +35,11 @@ export default function RatingModal(props) {
 
     const addRating = () => {
 
-        if (user.user.userId === "")
-            return alert("login man");
+        if (user.user.userId === "") {
+            let loginLink = document.getElementById("loginLink");
+            loginLink.click();
+            return;
+        }
 
         Helpers.performPost(API.API_URL_ADD_RATING, {
             userId: user.user.userId,
@@ -66,7 +69,7 @@ export default function RatingModal(props) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
                         closeButton.click();
-                        Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
+                    Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
                     return props.setReloadRatings((oldState) => !oldState);
                 }
             });

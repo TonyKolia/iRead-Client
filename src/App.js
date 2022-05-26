@@ -149,6 +149,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />
+                <Route path="/books/:type" element={<Main />} />
                 <Route path="/basket" element={<Basket />} />
                 <Route path="/book/:id" element={<BookPage />} />
                 <Route path="/bookmarks" element={<Favorites />} />

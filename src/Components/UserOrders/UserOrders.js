@@ -24,6 +24,7 @@ export default function UserOrders() {
                     <tr>
                         <th>Αριθμός κράτησης</th>
                         <th>Ημερομηνία κράτησης</th>
+                        <th>Ημερομηνία επιστροφής</th>
                         <th>Κατάσταση</th>
                         <th></th>
                     </tr>

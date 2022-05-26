@@ -4,14 +4,18 @@ import BookItems from "./Book/BookItems";
 import "../css/style.css";
 import API from "../Helpers/API";
 import Helpers from "../Helpers/Helpers";
+import { useNavigate } from "react-router-dom";
 
 export default function Main() {
+
+    const navigate = useNavigate();
 
     const [category, setCategory] = React.useState(null);
     const [filters, setFilters] = React.useState({ authors: [], publishers: [] });
     const [years, setYears] = React.useState({ minYear: 0, maxYear: 9999 }); 
     const searchString = React.useRef("");
     const [searchCleared, setSearchCleared] = React.useState(false);
+
 
     const reset = () => {
         setCategory(null);
@@ -21,6 +25,7 @@ export default function Main() {
         document.getElementById("searchField").value = "";
         document.getElementById("clearSearch").style.visibility = "hidden";
         setSearchCleared(false);
+        navigate("/books");
     }
 
     return (

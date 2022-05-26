@@ -25,7 +25,9 @@ export default function Basket() {
 
     React.useEffect(() => {
         Helpers.performGet(constructUrl(basket.basket)).then(res => setbasketBooks(res.data));
-    }, [basket, basketBooks]);
+    }, [basket]);
+
+    console.log(basketBooks);
 
     function submitOrder() {
 
@@ -51,8 +53,6 @@ export default function Basket() {
                 }
             });
     }
-
-    console.log(basketBooks)
 
     return (
         <div className="cart-container">
