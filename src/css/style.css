@@ -912,7 +912,7 @@ input[type="checkbox"]:hover {
 
 .cart-img {
     width: 80px;
-    height: auto;
+    height: 120px;
     border-radius: var(--global-item-border-radius);
 }
 
@@ -962,7 +962,7 @@ input[type="checkbox"]:hover {
 }
 
 .cart-container a:hover,
-.library-container a:hover {
+.library-container a:not(.page-link):hover {
     color: var(--main-detail-color);
     text-decoration: underline;
 }
@@ -1370,3 +1370,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       border-radius: var(--global-item-border-radius) !important;
       color: var(--secondary-color) !important;
   }
+
+.page-link,
+.page-link:active,
+.page-link:focus{
+    color: var(--secondary-color);
+    --border-color: var(--main-header-color);
+    --border-width: 4px;
+    --bottom-distance: 0px;
+    background-image: linear-gradient(var(--border-color), var(--border-color));
+    background-size: 0% var(--border-width);
+    background-repeat: no-repeat;
+    transition: background-size 0.4s;
+    border: none;
+    border-radius: 0%;
+    background-color: transparent;
+}
+
+.pagination{
+    justify-content: center;
+}
+
+.page-link:hover,
+.page-item.active .page-link{
+    background-size: 100% var(--border-width);
+    background-color: transparent;
+    color: var(--main-detail-color);
+}
+
+.page-item{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border: none;
+}
+
+.page-item:first-child .page-link{
+    border-radius: 0;
+}
