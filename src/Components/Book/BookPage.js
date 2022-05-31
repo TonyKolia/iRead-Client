@@ -71,13 +71,13 @@ export default function BookPage() {
                             <div className="card-body">
                                 <h4>{book.title}</h4>
                                 <ul className="list-group">
-                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span key={author.id}><a href={"/author/" + author.id}>{author.name + " " + author.surname}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
+                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span key={author.id}><a href={"/author/" + author.id}>{author.name}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
                                     <li key="categories" className="list-group-item">Κατηγορίες: {book.categories?.map((category, i, arr) => <span key={category.id}><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
                                     <li key="isbn" className="list-group-item">ISBN: {book.isbn}</li>
-                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span key={publisher.id}><a href="#">{publisher.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
-                                    <li key="publishDate" className="list-group-item">Ημερομηνία έκδοσης: {Helpers.formatDate(book.publishDate)}</li>
+                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span key={publisher.id}><a href="#">{publisher.name}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
+                                    <li key="publishDate" className="list-group-item">Έτος έκδοσης: {Helpers.getYearFromDate(book.publishDate)}</li>
                                     <li key="pages" className="list-group-item">Σελίδες: {book.pageCount}</li>
-                                    <li key="description" className="list-group-item" style={{ textAlign: "justify", height: "240px" }}>{book.description}</li>
+                                    <li key="description" className="list-group-item" style={{ textAlign: "justify", height: "240px", overflow: "scroll" }}>{book.description}</li>
                                 </ul>
                                 <div className="book-details-actions">
                                     <div className="book-rating">

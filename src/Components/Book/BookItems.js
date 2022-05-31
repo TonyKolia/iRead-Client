@@ -12,7 +12,7 @@ import ReactPaginate from 'react-paginate';
 
 export default function BookItems(props) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 30;
 
     const user = React.useContext(UserContext);
 

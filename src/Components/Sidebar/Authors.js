@@ -35,7 +35,7 @@ export default function Authors(props) {
                         props.authors?.map(author => {
                             return (<li key={author.id}>
                                 <input className="form-check-input" onChange={handleChange} id={`author-${author.id}`} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
-                                <label className="form-check-label" htmlFor={`author-${author.id}`}>{`${author.name} ${author.surname}`}</label>
+                                <label className="form-check-label" htmlFor={`author-${author.id}`}>{`${author.name}`}</label>
                             </li>)
                         })
                     }

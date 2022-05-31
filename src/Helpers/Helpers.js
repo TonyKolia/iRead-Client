@@ -17,6 +17,15 @@ export default class Helpers {
         return "";
     }
 
+    static getYearFromDate(date){
+        if(date !== undefined && date !== null){
+            let newDate = new Date(date);
+            return newDate?.getFullYear();
+        }
+
+        return 0;
+    }
+
     static successMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "success", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });
     static errorMessage = (message) => toast(message, { autoClose: 2500, closeButton:false, type: "error", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });
 
