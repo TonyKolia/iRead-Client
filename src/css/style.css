@@ -318,8 +318,8 @@ nav {
     -webkit-box-orient: vertical;
 }
 
-#publishers > ul > li,
-#authors > ul > li{
+#publisher-list > ul > li,
+#author-list > ul > li{
     text-overflow: clip;
     white-space: nowrap;
     overflow: hidden;
@@ -873,11 +873,33 @@ input[type="checkbox"]:hover {
     display: flex;
 }
 
+#year.filter-data-container{
+    height: 100%;
+}
+
+#categories > div > ul{
+    overflow: scroll;
+    height: 630px;
+}
+
+.letter-seperator:after{
+    content: '';
+    flex: 1;
+    margin-left: 10px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, .125);
+}
+
+.letter-seperator{
+    display: flex;
+    align-items: center;
+}
+
 .filter-data-container {
     width: 100%;
-    max-height: 185px;
+    height: 140px;
     overflow: scroll;
-    border-top: 1px solid rgba(0, 0, 0, .125);
+    /*border-top: 1px solid rgba(0, 0, 0, .125);*/
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     font-size: smaller;
     text-overflow: ellipsis;
@@ -1418,4 +1440,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .page-item:first-child .page-link{
     border-radius: 0;
+}
+
+#filter-search-author,
+#filter-search-publisher{
+    font-size: small;
+}
+#filter-search-author > .fa-magnifying-glass,
+#filter-search-publisher > .fa-magnifying-glass{
+    padding-right: 10px !important;
+}
+
+#filter-search-author > .fa-xmark:hover{
+    cursor: pointer;
 }

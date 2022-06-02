@@ -38,41 +38,48 @@ export default function UserOrders() {
     return (
         <div className="orders">
             <h4 style={{ paddingBottom: "2rem" }}><i className="fa-solid fa-book"></i>Οι κρατήσεις μου</h4>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Αριθμός κράτησης</th>
-                        <th>Ημερομηνία κράτησης</th>
-                        <th>Ημερομηνία επιστροφής</th>
-                        <th>Κατάσταση</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {displayedItems.map(order => <Orders key={order.id} order={order} />)}
-                </tbody>
-            </table>
+            {
+                orders?.length == 0 ? <h5>Δεν βρέθηκαν κρατήσεις.</h5> :
+                    <>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Αριθμός κράτησης</th>
+                                    <th>Ημερομηνία κράτησης</th>
+                                    <th>Ημερομηνία επιστροφής</th>
+                                    <th>Κατάσταση</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {displayedItems.map(order => <Orders key={order.id} order={order} />)}
+                            </tbody>
+                        </table>
 
-            <ReactPaginate
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPagesDisplayed={2}
-                pageCount={pageCount}
-                pageClassName="page-item"
-                pageLinkClassName="page-link fromLeft"
-                previousClassName="page-item"
-                previousLinkClassName="page-link fromLeft"
-                nextClassName="page-item"
-                nextLinkClassName="page-link fromLeft"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link fromLeft"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-                previousLabel="&laquo;"
-                nextLabel="&raquo;"
-            />
+                        {orders?.length > pageCount && <ReactPaginate
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={3}
+                            marginPagesDisplayed={2}
+                            pageCount={pageCount}
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link fromLeft"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link fromLeft"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link fromLeft"
+                            breakLabel="..."
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link fromLeft"
+                            containerClassName="pagination"
+                            activeClassName="active"
+                            renderOnZeroPageCount={null}
+                            previousLabel="&laquo;"
+                            nextLabel="&raquo;"
+                        />}
+                    </>
+            }
+
+
 
         </div>
     );

@@ -152,7 +152,7 @@ export default function BookItems(props) {
                             props.fromMain && books !== null && books.length > itemsPerPage && <ReactPaginate
                                 onPageChange={handlePageClick}
                                 pageRangeDisplayed={3}
-                                marginPagesDisplayed={2}
+                                marginPagesDisplayed={3}
                                 pageCount={pageCount}
                                 pageClassName="page-item"
                                 pageLinkClassName="page-link fromLeft"
