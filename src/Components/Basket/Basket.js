@@ -5,10 +5,12 @@ import Helpers from "../../Helpers/Helpers";
 import BasketItem from "./BasketItem";
 import { useNavigate } from "react-router-dom";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
+import Loading from "../Loading";
 
 export default function Basket() {
 
     const [basketBooks, setbasketBooks] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
     let navigate = useNavigate();
     const user = useContext(UserContext);
     const basket = useContext(BasketContext);
@@ -24,14 +26,22 @@ export default function Basket() {
     }
 
     React.useEffect(() => {
-        Helpers.performGet(constructUrl(basket.basket)).then(res => setbasketBooks(res.data));
+        setLoading(true);
+        Helpers.performGet(constructUrl(basket.basket))
+            .then(response => {
+                setLoading(false);
+                if (response.success)
+                    setbasketBooks(response.data);
+                else
+                    setbasketBooks([]);
+            });
     }, [basket]);
 
     console.log(basketBooks);
 
     function submitOrder() {
 
-        if(user.user.userId === ""){
+        if (user.user.userId === "") {
             let loginLink = document.getElementById("loginLink");
             loginLink.click();
             return;
@@ -58,29 +68,35 @@ export default function Basket() {
         <div className="cart-container">
             <h4><i className="fa-solid fa-basket-shopping"></i>Το καλάθι μου</h4>
             {
-                basketBooks === undefined || basketBooks.length == 0 ? <h5>Δεν υπάρχουν βιβλία στο καλάθι.</h5> :
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Τίτλος</th>
-                                <th>Ημερομηνία επιστροφής</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} />)}
-                        </tbody>
-                    </table>
+                loading ? <Loading /> :
+                    <>
+                        {
+                            basketBooks === undefined || basketBooks.length == 0 ? <h5>Δεν υπάρχουν βιβλία στο καλάθι.</h5> :
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Τίτλος</th>
+                                            <th>Ημερομηνία επιστροφής</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} />)}
+                                    </tbody>
+                                </table>
+                        }
+
+                        <div>
+                            <div className={`cart-btn-container ${basketBooks === undefined || basketBooks.length === 0 ? "empty" : ""} `}>
+                                <button onClick={() => navigate("/")} type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
+                                {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR })} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
+                                {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
+                            </div>
+                        </div>
+                    </>
             }
 
-            <div>
-                <div className={`cart-btn-container ${basketBooks === undefined || basketBooks.length === 0 ? "empty" : ""} `}>
-                    <button onClick={() => navigate("/")} type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
-                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR })} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
-                    {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
-                </div>
-            </div>
         </div>
     );
 }

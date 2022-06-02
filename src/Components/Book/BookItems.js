@@ -67,10 +67,10 @@ export default function BookItems(props) {
 
     React.useEffect(() => {
         if (user.user.userId !== "") {
-            setLoading(true);
+            //setLoading(true);
             Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
                 .then(response => {
-                    setLoading(false);
+                    //setLoading(false);
                     return setFavorites(response.data?.map(x => x.book.id));
                 });
         }
@@ -134,6 +134,8 @@ export default function BookItems(props) {
             });
 
     }
+
+    console.log(loading);
 
     return (
         <>

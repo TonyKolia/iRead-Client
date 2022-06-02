@@ -5,12 +5,14 @@ import Helpers from "../../Helpers/Helpers";
 import FavoriteItem from "./FavoriteItem";
 import { UserContext } from "../../App";
 import ReactPaginate from 'react-paginate';
+import Loading from "../Loading";
 
 export default function Favorites() {
 
     const [favorites, setFavorites] = React.useState([]);
     const [favoriteRemoved, setFavoriteRemoved] = React.useState(null);
     const user = React.useContext(UserContext);
+    const [loading, setLoading] = React.useState(false);
 
     const [displayedItems, setDisplayedItems] = React.useState([]);
     const [pageCount, setPageCount] = React.useState(0);
@@ -32,8 +34,19 @@ export default function Favorites() {
     };
 
     React.useEffect(() => {
-        if (user.user.userId !== "")
-            Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token).then(response => setFavorites(response.data));
+        if (user.user.userId !== "") {
+            setLoading(true);
+            Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
+                .then(response => {
+                    setLoading(false);
+                    if (response.success)
+                        setFavorites(response.data);
+                    else
+                        setFavorites([]);
+                });
+
+        }
+
     }, [user, favoriteRemoved]);
 
     const deleteFavorite = (bookId) => {
@@ -52,45 +65,51 @@ export default function Favorites() {
         <div className="library-container">
             <h4><i className="fa-solid fa-bookmark"></i>Οι σελιδοδείκτες μου</h4>
             {
-                favorites == null || favorites.length == 0 ? <h5>Δεν έχετε προσθέσει σελιδοδείκτες.</h5> :
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Τίτλος</th>
-                                <th>Ημερομηνία προσθήκης</th>
-                                <th>Αναγνωσμένο</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {displayedItems.map(favorite => <FavoriteItem key={favorite.book.id} favorite={favorite} deleteFavorite={deleteFavorite} />)}
-                        </tbody>
-                    </table>
+                loading ? <Loading /> :
+                    <>
+                        {
+                            favorites == null || favorites.length == 0 ? <h5>Δεν έχετε προσθέσει σελιδοδείκτες.</h5> :
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Τίτλος</th>
+                                            <th>Ημερομηνία προσθήκης</th>
+                                            <th>Αναγνωσμένο</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {displayedItems.map(favorite => <FavoriteItem key={favorite.book.id} favorite={favorite} deleteFavorite={deleteFavorite} />)}
+                                    </tbody>
+                                </table>
+                        }
+                        {
+                            favorites !== null && favorites.length > itemsPerPage && <ReactPaginate
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+                                pageClassName="page-item"
+                                pageLinkClassName="page-link fromLeft"
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link fromLeft"
+                                nextClassName="page-item"
+                                nextLinkClassName="page-link fromLeft"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="page-link fromLeft"
+                                containerClassName="pagination"
+                                activeClassName="active"
+                                renderOnZeroPageCount={null}
+                                previousLabel="&laquo;"
+                                nextLabel="&raquo;"
+                            />
+                        }
+                    </>
             }
-            {
-                favorites !== null && favorites.length > itemsPerPage && <ReactPaginate
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={2}
-                    pageCount={pageCount}
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link fromLeft"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link fromLeft"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link fromLeft"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link fromLeft"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                    renderOnZeroPageCount={null}
-                    previousLabel="&laquo;"
-                    nextLabel="&raquo;"
-                />
-            }
+
 
         </div>
     );

@@ -1220,7 +1220,19 @@ input[type="checkbox"]:hover {
 
 .loading-spinner {
     align-items: center;
-    min-height: 280px;
+    /*min-height: 280px;*/
+
+    padding: 0 !important;
+    margin: 0 !important;
+    align-items: center;
+    min-height: 100vh;
+    z-index: 99999;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: #00000020;
 }
 
 .loading-spinner>div {
