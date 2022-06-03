@@ -1178,13 +1178,23 @@ input[type="checkbox"]:hover {
     padding: 0;
 }
 
-.order-completed-container {
+.order-completed-container,
+.error-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     padding-top: 10rem;
+}
+
+.error-page-container .fa-face-frown,
+.error-page-container .fa-ghost{
+    padding-bottom: 15px;
+}
+
+.error-page-container h4{
+    padding-bottom: 15px;
 }
 
 .order-completed-container .fa-circle-check {
@@ -1245,6 +1255,10 @@ input[type="checkbox"]:hover {
     background-color: var(--main-background-color);
     border: none;
     box-shadow: 0 2px 4px -2px rgba(0,0,0,.2);
+}
+
+.order-success{
+    color: #198754 !important;
 }
 
 select

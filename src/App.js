@@ -17,6 +17,7 @@ import UserOrders from "./Components/UserOrders/UserOrders";
 import Favorites from "./Components/Favorites/Favorites";
 import Error from "./Components/Error";
 import Helpers from "./Helpers/Helpers";
+import NotFound from "./Components/NotFound";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -57,23 +58,21 @@ export default function App() {
   }, [])
 
   const addItemToCart = (basket, item) => {
-    if (basket.includes(item)) {
-      Helpers.errorMessage("Το βιβλίο υπάρχει ήδη στο καλάθι.");
-      return basket;
+    if (basket.current.includes(item)) {
+      return Helpers.errorMessage("Το βιβλίο υπάρχει ήδη στο καλάθι.");
     }
-    else if (basket.length == 3) {
-      Helpers.errorMessage("Μπορείτε να έχετε μέχρι 3 βιβλία στο καλάθι.");
-      return basket;
+    else if (basket.current.length == 3) {
+      return Helpers.errorMessage("Μπορείτε να έχετε μέχρι 3 βιβλία στο καλάθι.");
     }
     else {
       Helpers.successMessage("Προστέθηκε στο καλάθι!");
-      return [...basket, item];
+      return basket.current = [...basket.current, item];
     }
   }
 
   const removeItemFromCart = (basket, itemId) => {
     Helpers.successMessage("Αφαιρέθηκε επιτυχώς!");
-    return basket.filter(item => item != itemId);
+    return basket.current = basket.current.filter(item => item != itemId);
   }
 
   const userReducer = (user, action) => {
@@ -90,23 +89,33 @@ export default function App() {
     }
   }
 
-  const basketReducer = (basket, action) => {
+  const basket = React.useRef([]);
+
+  const manageBasket = (action) => {
     switch (action.type) {
       case BASKET_ACTIONS.INITIALIZE:
-        return [...action.payload.items];
+        basket.current = [...action.payload.items];
+        break;
       case BASKET_ACTIONS.ADD_ITEM:
-        return addItemToCart(basket, action.payload.itemId);
+        addItemToCart(basket, action.payload.itemId);
+        localStorage.setItem('basketItems', JSON.stringify(basket.current));
         break;
       case BASKET_ACTIONS.DELETE_ITEM:
-        return removeItemFromCart(basket, action.payload.itemId);
+        removeItemFromCart(basket, action.payload.itemId);
+        localStorage.setItem('basketItems', JSON.stringify(basket.current));
         break;
       case BASKET_ACTIONS.CLEAR:
-        return [];
+        basket.current = [];
+        localStorage.setItem('basketItems', JSON.stringify(basket.current));
         break;
       default:
-        return basket;
         break;
     }
+
+    var basketCounter = document.getElementById("basket-counter");
+    if(basketCounter !== null && basketCounter !== undefined)
+      basketCounter.innerText = basket.current.length;
+
   }
 
   const checkForLoggedUser = () => {
@@ -116,7 +125,6 @@ export default function App() {
     dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: user } });
   }
 
-  const [basket, dispatchBasket] = React.useReducer(basketReducer, []);
   const [user, dispatchUser] = React.useReducer(userReducer, { userId: "", username: "", token: "" });
 
   const initializeBasket = () => {
@@ -124,15 +132,11 @@ export default function App() {
     let basketItems = [];
     if (basketItemsString !== null)
       basketItems = JSON.parse(basketItemsString);
-    dispatchBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
+      manageBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
   }
 
   React.useEffect(initializeBasket, []);
   React.useEffect(checkForLoggedUser, []);
-
-  React.useEffect(() => {
-    localStorage.setItem('basketItems', JSON.stringify(basket));
-  }, [basket]);
 
   React.useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
@@ -143,21 +147,22 @@ export default function App() {
       <ToastContainer />
       <div>
         <UserContext.Provider value={{ user, dispatchUser }}>
-          <BasketContext.Provider value={{ basket, dispatchBasket }}>
+          <BasketContext.Provider value={{basket, manageBasket}}>
             <div className="container-fluid" id="container">
-              <Navbar />
+              <Navbar/>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />
                 <Route path="/books/:type" element={<Main />} />
-                <Route path="/basket" element={<Basket />} />
+                <Route path="/basket" element={<Basket basketItemIds = {basket.current} />} />
                 <Route path="/book/:id" element={<BookPage />} />
                 <Route path="/bookmarks" element={<Favorites />} />
                 <Route path="/order-completed/:id" element={<OrderCompleted />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/orders" element={<UserOrders />} />
                 <Route path="/terms" element={<Terms />} />
-                <Route path="*" element={<Error />} />
+                <Route path="/error" element={<Error />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
             <Footer />

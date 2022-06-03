@@ -6,6 +6,7 @@ import FavoriteItem from "./FavoriteItem";
 import { UserContext } from "../../App";
 import ReactPaginate from 'react-paginate';
 import Loading from "../Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function Favorites() {
 
@@ -17,8 +18,8 @@ export default function Favorites() {
     const [displayedItems, setDisplayedItems] = React.useState([]);
     const [pageCount, setPageCount] = React.useState(0);
     const [itemOffset, setItemOffset] = React.useState(0);
-
     const itemsPerPage = 5;
+    let navigate = useNavigate();
 
     React.useEffect(() => {
         if (favorites === null || favorites.length === 0)
@@ -41,6 +42,11 @@ export default function Favorites() {
                     setLoading(false);
                     if (response.success)
                         setFavorites(response.data);
+                    else 
+                        throw new Error(response.statusCode == 500);
+                }).catch(error => {
+                    if (error.message == "true")
+                        navigate("/error");
                     else
                         setFavorites([]);
                 });

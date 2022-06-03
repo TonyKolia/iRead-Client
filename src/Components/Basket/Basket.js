@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
 import Loading from "../Loading";
 
-export default function Basket() {
+export default function Basket(props) {
 
     const [basketBooks, setbasketBooks] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
@@ -25,9 +25,19 @@ export default function Basket() {
         return API.API_URL_GET_MULTIPLE_BOOKS + bookIds;
     }
 
+    const clearBasket = () => {
+        basket.manageBasket({ type: BASKET_ACTIONS.CLEAR });
+        setbasketBooks([]);
+    }
+
+    const removeItemFromBasket = (itemId) => {
+        basket.manageBasket({ type: BASKET_ACTIONS.DELETE_ITEM, payload:{ itemId: itemId }});
+        setbasketBooks(currentBooks => currentBooks.filter(x => x.id !== itemId));
+    }
+
     React.useEffect(() => {
         setLoading(true);
-        Helpers.performGet(constructUrl(basket.basket))
+        Helpers.performGet(constructUrl(basket.basket.current))
             .then(response => {
                 setLoading(false);
                 if (response.success)
@@ -35,9 +45,7 @@ export default function Basket() {
                 else
                     setbasketBooks([]);
             });
-    }, [basket]);
-
-    console.log(basketBooks);
+    }, [basket.basket]);
 
     function submitOrder() {
 
@@ -49,13 +57,14 @@ export default function Basket() {
 
         var order = {
             userId: user.user.userId,
-            books: basket.basket
+            books: basket.basket.current
         }
-
+        setLoading(true);
         Helpers.performPost(API.API_URL_ORDER, order, user.user.token)
             .then(response => {
+                setLoading(false);
                 if (response.success) {
-                    basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR });
+                    basket.manageBasket({ type: BASKET_ACTIONS.CLEAR });
                     return navigate(`/order-completed/${response.data.orderId}`, { state: true });
                 }
                 else {
@@ -82,7 +91,7 @@ export default function Basket() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} />)}
+                                        {basketBooks?.map(book => <BasketItem key={book.id} id={book.id} title={book.title} imagePath={book.imagePath} removeItemFromBasket={removeItemFromBasket} />)}
                                     </tbody>
                                 </table>
                         }
@@ -90,7 +99,7 @@ export default function Basket() {
                         <div>
                             <div className={`cart-btn-container ${basketBooks === undefined || basketBooks.length === 0 ? "empty" : ""} `}>
                                 <button onClick={() => navigate("/")} type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
-                                {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={() => basket.dispatchBasket({ type: BASKET_ACTIONS.CLEAR })} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
+                                {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={clearBasket} className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-rotate-right"></i>Καθαρισμός</button>}
                                 {(basketBooks !== undefined && basketBooks.length > 0) && <button type="button" onClick={submitOrder} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Κράτηση</button>}
                             </div>
                         </div>

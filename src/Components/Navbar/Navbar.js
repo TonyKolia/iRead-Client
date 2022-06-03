@@ -5,9 +5,9 @@ import { BasketContext, UserContext } from "../../App";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar(props) {
 
-    const basket = React.useContext(BasketContext);
+    //const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
 
     let navigate = useNavigate();
@@ -45,7 +45,7 @@ export default function Navbar() {
                         <NavLink to="/basket" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
                             <div className="cart">
                                 <i className="fa-solid fa-basket-shopping"></i>Καλάθι
-                                <span className="badge">{basket.basket.length}</span>
+                                <span className="badge" id="basket-counter"></span>
                             </div>
                         </NavLink>
                     </li>

@@ -22,7 +22,7 @@ export default function OrderCompleted(props) {
 
     return (
         <div className="order-completed-container">
-            <i className="fa-solid fa-circle-check fa-10x"></i>
+            <i className="fa-solid fa-circle-check fa-10x order-success"></i>
             <h3 style={{paddingTop:"15px"}}>Η κράτηση σου ολοκληρώθηκε με επιτυχία!</h3>
             <h4 style={{paddingTop:"15px"}} >Κωδικός κράτησης: #{id}</h4>
             <h6 style={{paddingTop:"15px", textAlign: "center"}}>Μπορείς να παραλάβεις τα βιβλία σου απ' τη βιβλιοθήκη με τον κωδικό κράτησης και την ταυτότητα σου.</h6>
