@@ -45,7 +45,7 @@ export default function Authors(props) {
         })
     }
 
-    const clearAuthorSearch = () =>{
+    const clearAuthorSearch = () => {
         setSearchString("");
     }
 
@@ -68,20 +68,17 @@ export default function Authors(props) {
 
                                 let normalizedFirstLetter = author.name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").substring(0, 1);
                                 let letterChanged = false;
-                                if(normalizedFirstLetter !== letter){
+                                if (normalizedFirstLetter !== letter) {
                                     letter = normalizedFirstLetter;
                                     letterChanged = true;
                                 }
 
                                 return (
-                                    <>
-                                        {letterChanged  && <h6 className="letter-seperator">{letter}</h6>}
-                                        <li key={author.id}>
-                                            <input className="form-check-input" onChange={handleChange} id={`author-${author.id}`} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
-                                            <label className="form-check-label" htmlFor={`author-${author.id}`}>{`${author.name}`}</label>
-                                        </li>
-                                    </>)
-
+                                    <li key={author.id}>
+                                        {letterChanged && <h6 className="letter-seperator">{letter}</h6>}
+                                        <input className="form-check-input" onChange={handleChange} id={`author-${author.id}`} type="checkbox" checked={selectedAuthors.includes(String(author.id))} />
+                                        <label className="form-check-label" htmlFor={`author-${author.id}`}>{`${author.name}`}</label>
+                                    </li>);
                             })
                         }
                     </ul>

@@ -44,7 +44,7 @@ export default function Publishers(props) {
         })
     }
 
-    const clearAuthorSearch = () =>{
+    const clearAuthorSearch = () => {
         setSearchString("");
     }
 
@@ -72,13 +72,11 @@ export default function Publishers(props) {
                                 }
 
                                 return (
-                                    <>
+                                    <li key={publisher.id}>
                                         {letterChanged && <h6 className="letter-seperator">{letter}</h6>}
-                                        <li key={publisher.id}>
-                                            <input onChange={handleChange} className="form-check-input" type="checkbox" id={`publisher-${publisher.id}`} checked={selectedPublishers.includes(String(publisher.id))} />
-                                            <label className="form-check-label" title={publisher.name} htmlFor={`publisher-${publisher.id}`}>{publisher.name}</label>
-                                        </li>
-                                    </>
+                                        <input onChange={handleChange} className="form-check-input" type="checkbox" id={`publisher-${publisher.id}`} checked={selectedPublishers.includes(String(publisher.id))} />
+                                        <label className="form-check-label" title={publisher.name} htmlFor={`publisher-${publisher.id}`}>{publisher.name}</label>
+                                    </li>
                                 )
                             })
                         }

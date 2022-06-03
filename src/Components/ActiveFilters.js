@@ -28,8 +28,6 @@ export default function ActiveFilters(props) {
             setFiltersTags(tempTags);
         }
 
-        console.log(props.type)
-
         var labels = document.getElementsByTagName("label");
         if (!props.activeFilters.filters || !props.activeFilters.filters.authors || !props.activeFilters.filters.publishers || !props.activeFilters.years || !props.activeFilters.searchString)
             return;

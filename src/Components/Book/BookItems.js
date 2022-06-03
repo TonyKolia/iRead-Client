@@ -51,7 +51,6 @@ export default function BookItems(props) {
     }
 
     React.useEffect(() => {
-
         setLoading(true);
         Helpers.performGet(constructURLBasedOnProps(props))
             .then(response => {
@@ -67,16 +66,15 @@ export default function BookItems(props) {
 
     React.useEffect(() => {
         if (user.user.userId !== "") {
-            //setLoading(true);
             Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
                 .then(response => {
-                    //setLoading(false);
                     return setFavorites(response.data?.map(x => x.book.id));
                 });
         }
     }, [user, newFavorite]);
 
     React.useEffect(() => {
+        
         if (books === null || books.length === 0)
             return;
 
@@ -134,8 +132,6 @@ export default function BookItems(props) {
             });
 
     }
-
-    console.log(loading);
 
     return (
         <>
