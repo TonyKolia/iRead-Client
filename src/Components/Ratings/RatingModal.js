@@ -53,7 +53,8 @@ export default function RatingModal(props) {
                     if (closeButton)
                         closeButton.click();
                     Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
-                    return props.setReloadRatings((oldState) => !oldState);
+                    props.setReloadRatings((oldState) => !oldState);
+                    return props.setReloadBook((oldState) => !oldState);
                 }
                 else
                     alert("lololo");
@@ -70,7 +71,8 @@ export default function RatingModal(props) {
                     if (closeButton)
                         closeButton.click();
                     Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
-                    return props.setReloadRatings((oldState) => !oldState);
+                    props.setReloadRatings((oldState) => !oldState);
+                    return props.setReloadBook((oldState) => !oldState);
                 }
             });
     }
@@ -88,7 +90,8 @@ export default function RatingModal(props) {
                     if (closeButton)
                         closeButton.click();
                     Helpers.successMessage("Ολοκληρώθηκε επιτυχώς!");
-                    return props.setReloadRatings((oldState) => !oldState);
+                    props.setReloadRatings((oldState) => !oldState);
+                    return props.setReloadBook((oldState) => !oldState);
                 }
                 else
                     alert("lololo");

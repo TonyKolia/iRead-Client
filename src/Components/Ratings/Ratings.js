@@ -38,7 +38,7 @@ export default function Ratings(props) {
                     }
                 </div>
             </div>
-            <RatingModal bookId={props.bookId} bookTitle = {props.bookTitle} ratings={ratings} setReloadRatings = {setReloadRatings} />
+            <RatingModal bookId={props.bookId} bookTitle = {props.bookTitle} ratings={ratings} setReloadRatings = {setReloadRatings} setReloadBook={props.setReloadBook} />
         </>
     );
 }

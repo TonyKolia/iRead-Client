@@ -15,14 +15,21 @@ export default function BookPage() {
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
     const [favorite, setFavorite] = React.useState(false);
+    const [reloadBook, setReloadBook] = React.useState(false); //used as a toggle to refresh book data
 
     const url = `${API.API_URL_GET_BOOK}${id}`;
 
     React.useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(res => setBook(res.data));
-    }, []);
+
+        Helpers.performGet(url)
+            .then(response => {
+                if (response.success)
+                    setBook(response.data)
+            });
+
+    }, [reloadBook]);
+
+    console.log(reloadBook);
 
     React.useEffect(() => {
 
@@ -46,8 +53,7 @@ export default function BookPage() {
 
         Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
             .then(response => {
-                if (response.success)
-                {
+                if (response.success) {
                     Helpers.successMessage("Προστέθηκε στους σελιδοδείκτες!");
                     return setFavorite(true);
                 }
@@ -64,7 +70,7 @@ export default function BookPage() {
                 <div className="card book-container mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
-                           
+
                             <i onClick={favorite ? null : () => addFavorite(book.id)} className={`fa-solid fa-bookmark ${favorite ? "favorite" : ""}`}></i>
                             <img src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} className="img-fluid book-img" alt="..." />
                         </div>
@@ -94,7 +100,7 @@ export default function BookPage() {
                         </div>
                     </div>
                 </div>
-                <Ratings bookId ={book.id} bookTitle = {book.title} />
+                <Ratings setReloadBook={setReloadBook} bookId={book.id} bookTitle={book.title} />
             </div >
     );
 
