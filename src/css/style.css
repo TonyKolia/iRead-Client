@@ -905,6 +905,41 @@ input[type="checkbox"]:hover {
     text-overflow: ellipsis;
 }
 
+.register-favorite-list{
+    width: 100%;
+    height: 240px;
+    overflow: scroll;
+    /*border-top: 1px solid rgba(0, 0, 0, .125);*/
+    
+    font-size: smaller;
+    text-overflow: ellipsis;
+}
+
+.register-favorite-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.rergister-favorite-item > h6{
+    padding-bottom: 0.5rem;
+    text-align: center;
+}
+
+.rergister-favorite-item{
+    width: 50%;
+}
+
+.rergister-favorite-item:first-of-type{
+    padding-right: 1%;
+    border-right: 1px solid rgba(0, 0, 0, .125);
+}
+
+.rergister-favorite-item:last-of-type{
+    padding-left: 1%;
+}
+
 .order-img:hover{
     cursor: pointer;
 }
@@ -1165,6 +1200,27 @@ input[type="checkbox"]:hover {
     left: 15px;
 }
 
+.not-available-badge{
+    color: var(--main-background-color);
+    background-color: var(--secondary-color);
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 0.375rem 1.2rem;
+    line-height: 1.5;
+}
+
+.book-container .not-available-badge{
+    position: relative;
+    font-size: 1rem;
+    font-weight: 400;
+    top: auto;
+    right: auto;
+    padding: 0.375rem 1.2rem;
+    line-height: 1.5;
+    display: block;
+}
+
 .book-container .fa-bookmark:hover {
     visibility: visible;
     color: var(--main-detail-color);
@@ -1200,6 +1256,10 @@ input[type="checkbox"]:hover {
 .order-completed-container .fa-circle-check {
     color: var(--main-header-color);
     padding-bottom: 15px;
+}
+
+.register-form-tab{
+    margin-top: 1rem;
 }
 
 

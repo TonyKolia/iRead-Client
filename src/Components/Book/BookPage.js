@@ -64,6 +64,7 @@ export default function BookPage() {
                 <div className="card book-container mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
+                           
                             <i onClick={favorite ? null : () => addFavorite(book.id)} className={`fa-solid fa-bookmark ${favorite ? "favorite" : ""}`}></i>
                             <img src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`} className="img-fluid book-img" alt="..." />
                         </div>
@@ -85,7 +86,8 @@ export default function BookPage() {
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#rating-modal" className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-star"></i>Αξιολόγηση</button>
-                                    <button type="button" disabled={book.stock == 0} onClick={() => basket.manageBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Στο καλάθι</button>
+                                    {book.stock == 0 && <span className="badge rounded-pill not-available-badge"><i class="fa-solid fa-xmark"></i>Μη διαθέσιμο</span>}
+                                    {book.stock > 0 && <button type="button" disabled={book.stock == 0} onClick={() => basket.manageBasket({ type: BASKET_ACTIONS.ADD_ITEM, payload: { itemId: book.id } })} className="btn btn-primary btn-custom card-btn"><i className="fa-solid fa-basket-shopping"></i>Στο καλάθι</button>}
                                 </div>
                             </div>
 

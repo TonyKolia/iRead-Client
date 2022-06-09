@@ -11,6 +11,7 @@ export default function BookItem(props) {
     return (
         <div className="col">
             <div className="card card-custom">
+                {props.book.stock == 0 && <span className="badge rounded-pill not-available-badge">Μη διαθέσιμο</span>}
                 <i onClick={props.isFavorite ? null : () => props.addFavorite(props.book.id)} className={`fa-solid fa-bookmark ${props.isFavorite && "favorite"}`}></i>
                 <a href={`/book/${props.book.id}`}>
                     <img title={props.book.title} className="card-img-top card-img" src={`${API.API_URL_GET_BOOK_IMAGE}${props.book.imagePath}`} alt="book img" />
