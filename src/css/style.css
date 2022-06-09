@@ -1006,7 +1006,8 @@ input[type="checkbox"]:hover {
 .cart-container>h4,
 .cart-container>h5,
 .library-container>h4,
-.library-container>h5 {
+.library-container>h5,
+.orders > h5 {
     text-align: center;
     padding: 50px;
 }
@@ -1198,6 +1199,13 @@ input[type="checkbox"]:hover {
     font-size: 70px;
     opacity: 0.5;
     left: 15px;
+}
+
+.not-found-container{
+    display: flex;
+    height: 30vh;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .not-available-badge{

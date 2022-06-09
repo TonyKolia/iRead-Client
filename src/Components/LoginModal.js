@@ -50,7 +50,7 @@ export default function LoginModal() {
                             <button type="button" id="closeModal" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body" style={{ paddingLeft: "50px", paddingRight: "50px" }}>
-                            <h5 className="login-head">Σύνδεση στον λογαριασμό σου</h5>
+                            <h5 className="login-head">Σύνδεση στον λογαριασμό σας</h5>
                             <form>
                                 <div className="form-control-container">
                                     <i className="fa-solid fa-user"></i>
@@ -61,7 +61,7 @@ export default function LoginModal() {
                                     <input type="password" onChange={handleChange} value={loginForm.password} name="password" placeholder="Κωδικός πρόσβασης" />
                                 </div>
                                 <div style={{ marginBottom: "10px", textAlign: "right" }}>
-                                    <a className="register-link" href="#">Ξέχασες τον κωδικό;</a>
+                                    <a className="register-link" href="#">Ξεχάσατε τον κωδικό;</a>
                                 </div>
                                 {loginStatus.failed && <div className="alert alert-danger" role="alert">
                                     {loginStatus.message}
@@ -69,7 +69,7 @@ export default function LoginModal() {
                                 <button onClick={submitLoginForm} className="btn btn-primary btn-custom" style={{ width: "100%" }}><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</button>
                             </form>
                             <div style={{ textAlign: "center", paddingTop: "20px" }}>
-                                <small>Δεν έχεις λογαριασμό; </small><a className="register-link" href="/register">Γίνε μέλος τώρα!</a>
+                                <small>Δεν έχετε λογαριασμό; </small><a className="register-link" href="/register">Γίνετε μέλος τώρα!</a>
                             </div>
                         </div>
                     </div>
