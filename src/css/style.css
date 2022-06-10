@@ -763,7 +763,7 @@ input[type="checkbox"]:hover {
 }
 
 .category-list>li {
-    padding: 10px;
+    padding: 10px 0px;
     --border-color: var(--main-header-color);
     --border-width: 3px;
     --bottom-distance: 0px;
@@ -771,7 +771,6 @@ input[type="checkbox"]:hover {
     background-size: 0% var(--border-width);
     background-repeat: no-repeat;
     transition: background-size 0.4s;
-    font-weight: bold;
     width: fit-content;
 }
 
