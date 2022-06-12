@@ -50,7 +50,36 @@ export default function BookItems(props) {
         return API.API_URL_GET_BOOKS_BY_FILTERS.replace(":category", category).replace(":authors", authors).replace(":publishers", publishers).replace(":minYear", minYear).replace(":maxYear", maxYear).replace(":searchString", props.searchString === undefined || props.searchString.current === '' ? "%%%" : props.searchString.current).replace(":type", selectedType);
     }
 
+
+    const setupFilters = (props) => {
+        return {
+            CategoryId: props.category,
+            Authors: props.filters?.authors,
+            Publishers: props.filters?.publishers,
+            MinYear: props.years?.minYear === undefined || props.years.minYear == 0 ? null : props.years.minYear,
+            MaxYear: props.years?.maxYear === undefined || props.years.maxYear == 9999 ? null : props.years.maxYear,
+            SearchString: props.searchString === undefined || props.searchString.current === '' ? "" : props.searchString.current,
+            Type: props.type ? props.type + "-home" : (type ? type : ""),
+            UserId: user.user.userId !== "" ? user.user.userId : null
+        }
+    };
+
     React.useEffect(() => {
+        setLoading(true);
+        Helpers.performPost(API.API_URL_GET_BOOKS_BY_FILTERS, setupFilters(props))
+            .then(response => {
+                setLoading(false);
+                if (response.success) {
+                    return setBooks(response.data);
+                }
+                else {
+                    return setBooks([]);
+                }
+            })
+    }, [props, user]);
+
+    /*
+        React.useEffect(() => {
         setLoading(true);
         Helpers.performGet(constructURLBasedOnProps(props))
             .then(response => {
@@ -63,6 +92,8 @@ export default function BookItems(props) {
                 }
             })
     }, [props]);
+    */
+
 
     React.useEffect(() => {
         if (user.user.userId !== "") {
@@ -74,7 +105,7 @@ export default function BookItems(props) {
     }, [user, newFavorite]);
 
     React.useEffect(() => {
-        
+
         if (books === null || books.length === 0)
             return;
 
@@ -121,16 +152,17 @@ export default function BookItems(props) {
         if (props.searchString.current === "" || props.searchString.current === null)
             return;
 
-        Helpers.performGet(constructURLBasedOnProps(props))
+        setLoading(true);
+        Helpers.performPost(API.API_URL_GET_BOOKS_BY_FILTERS, setupFilters(props))
             .then(response => {
+                setLoading(false);
                 if (response.success) {
                     return setBooks(response.data);
                 }
                 else {
                     return setBooks([]);
                 }
-            });
-
+            })
     }
 
     return (
