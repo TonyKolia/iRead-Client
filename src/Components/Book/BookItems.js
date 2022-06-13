@@ -64,6 +64,8 @@ export default function BookItems(props) {
         }
     };
 
+    React.useEffect(() => setItemOffset(0), [props.category]);
+
     React.useEffect(() => {
         setLoading(true);
         Helpers.performPost(API.API_URL_GET_BOOKS_BY_FILTERS, setupFilters(props))
