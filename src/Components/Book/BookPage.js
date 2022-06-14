@@ -6,6 +6,7 @@ import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { BasketContext, BASKET_ACTIONS, UserContext } from "../../App";
 import Ratings from "../Ratings/Ratings";
+import BookPageRecommendations from "./BookPageRecommendations";
 
 
 export default function BookPage() {
@@ -62,6 +63,11 @@ export default function BookPage() {
             });
     }
 
+    const scrollToComments = () => {
+        let element = document.getElementById("ratings");
+        element.scrollIntoView();
+    };
+
     return (
 
         Object.keys(book).length === 0 ? <Loading /> :
@@ -87,7 +93,7 @@ export default function BookPage() {
                                     <li key="description" className="list-group-item" style={{ textAlign: "justify", height: "240px", overflow: "scroll" }}>{book.description}</li>
                                 </ul>
                                 <div className="book-details-actions">
-                                    <div className="book-rating">
+                                    <div className="book-rating" onClick={scrollToComments} title="Δείτε τις κριτικές">
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
@@ -100,6 +106,7 @@ export default function BookPage() {
                         </div>
                     </div>
                 </div>
+                <BookPageRecommendations bookId={book.id} />
                 <Ratings setReloadBook={setReloadBook} bookId={book.id} bookTitle={book.title} />
             </div >
     );

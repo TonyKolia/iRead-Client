@@ -21,7 +21,7 @@ export default function Ratings(props) {
 
     return (
         <>
-            <div className="comments-container" >
+            <div className="comments-container" id="ratings">
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "1rem" }}>
                     <h4><i className="fa-solid fa-comment"></i>Σχόλια χρηστών</h4>
                     <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#comments" aria-expanded="true" aria-controls="comments"></button>
