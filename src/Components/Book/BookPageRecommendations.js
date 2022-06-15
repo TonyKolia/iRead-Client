@@ -15,7 +15,7 @@ export default function BookPageRecommendations(props) {
 
     React.useEffect(() => {
 
-        var url = user.user.userId !== "" ? API.API_URL_GET_RECOMMENDATIONS_BY_BOOK_AND_USER.replace(":userId", user.user.userId).replace(":bookId", props.bookId) : "";
+        var url = user.user.userId !== "" ? API.API_URL_GET_RECOMMENDATIONS_BY_BOOK_AND_USER.replace(":userId", user.user.userId).replace(":bookId", props.bookId) : API.API_URL_GET_RECOMMENDATIONS_BY_BOOK.replace(":bookId", props.bookId);
         Helpers.performGet(url, user.user.token)
             .then(response => {
                 if (response.success)
@@ -54,7 +54,7 @@ export default function BookPageRecommendations(props) {
                     </div>
                 }
                 {
-                    selectedTab == 2 && <div style={{marginTop: "10px"}} className="row row-cols-1 row-cols-md-3 card-custom-container book-page-recommendations">
+                    selectedTab == 2 && <div style={{marginTop: "10px"}} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
                         {recommendedBooks.recommendedByOthers?.length === 0 ? <div style={{ width: "100%" }}><h5 style={{ textAlign: "center" }}>Δεν βρέθηκαν βιβλία</h5></div> : recommendedBooks.recommendedByOthers?.map(book => <BookItem key={book.id} book={book} />)}
                     </div>
                 }

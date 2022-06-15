@@ -24,7 +24,8 @@ const ENDPOINTS = {
     GET_BOOKS_BY_FILTERS: "Book/GetByFilters", //"Book/Category/:category/Authors/:authors/Publishers/:publishers/MinYear/:minYear/MaxYear/:maxYear/SearchString/:searchString/Type/:type",
     GET_CATEGORIES: "Category",
     GET_AUTHORS: "Author",
-    GET_RECOMMENDATIONS_BY_BOOK_AND_USER: "Book/GetRecommendationsByBookAndUser/:bookId/:userId"
+    GET_RECOMMENDATIONS_BY_BOOK_AND_USER: "Book/GetRecommendationsByBookAndUser/:bookId/:userId",
+    GET_RECOMMENDATIONS_BY_BOOK: "Book/GetRecommendationsByBook/:bookId"
 };
 
 
@@ -52,7 +53,8 @@ const development = {
     API_URL_GET_BOOKS_BY_FILTERS: `${API_BASE_URL}${ENDPOINTS.GET_BOOKS_BY_FILTERS}`,
     API_URL_GET_CATEGORIES: `${API_BASE_URL}${ENDPOINTS.GET_CATEGORIES}`,
     API_URL_GET_AUTHORS: `${API_BASE_URL}${ENDPOINTS.GET_AUTHORS}`,
-    API_URL_GET_RECOMMENDATIONS_BY_BOOK_AND_USER: `${API_BASE_URL}${ENDPOINTS.GET_RECOMMENDATIONS_BY_BOOK_AND_USER}`
+    API_URL_GET_RECOMMENDATIONS_BY_BOOK_AND_USER: `${API_BASE_URL}${ENDPOINTS.GET_RECOMMENDATIONS_BY_BOOK_AND_USER}`,
+    API_URL_GET_RECOMMENDATIONS_BY_BOOK: `${API_BASE_URL}${ENDPOINTS.GET_RECOMMENDATIONS_BY_BOOK}`
 };
 
 const API = development;
