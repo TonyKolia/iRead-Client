@@ -4,10 +4,10 @@ import DropdownMenu from "./DropdownMenu";
 import { BasketContext, UserContext } from "../../App";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Notifications from "./Notifications";
 
-export default function Navbar(props) {
+export default function Navbar() {
 
-    //const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
 
     let navigate = useNavigate();
@@ -36,6 +36,9 @@ export default function Navbar(props) {
             </div>
             <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
                 <ul className="navbar-nav">
+                    <li key="notifications">
+                        {user.user.userId !== "" && <Notifications />}
+                    </li>
                     <li key="login">
                         {user.user.userId !== "" ? <DropdownMenu /> :
                             <a id="loginLink" className="nav-link nav-item fromLeft" data-bs-toggle="modal" data-bs-target="#loginModal"><i className="fa-solid fa-right-to-bracket"></i>Σύνδεση</a>

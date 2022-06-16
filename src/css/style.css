@@ -216,6 +216,12 @@ footer ul {
     color: var(--secondary-color);
 }
 
+.dropdown-item.not-interactable:hover{
+    background-color: white !important;
+    cursor: inherit;
+    border-radius: inherit;
+    color: inherit !important;
+}
 
 .dropdown-item:hover,
 .dropdown-item.selected{
@@ -223,6 +229,28 @@ footer ul {
     cursor: pointer;
     border-radius: var(--global-item-border-radius);
     color: var(--main-detail-color) !important;
+}
+
+.notification-cotainer > .fa-circle-check{
+    color: var(--main-detail-color);
+}
+
+.notification-cotainer > .fa-circle{
+    color: var(--main-detail-color);
+}
+
+.notification-text{
+    width: 260px;
+    white-space: break-spaces;
+    border-left: 2px solid white;
+    padding-left: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.notification-dropdown-action{
+    padding-right: 10px !important;
+    font-size: larger;
 }
 
 .dropdown-toggle::after{
@@ -1117,11 +1145,42 @@ input[type="checkbox"]:hover {
     cursor: pointer;
 }
 
+.nav-item > .fa-bell{
+    padding-right: 0 !important;
+}
+
+.notification-indicator{
+    background-color: var(--main-detail-color) !important;
+    padding: 0.3rem !important;
+}
+
+.notification-cotainer > .fa-circle-check:hover{
+    cursor: pointer;
+}
+
+#notifications .dropdown-item:hover{
+    cursor: default !important;
+}
+
+.notification-actions-container{
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
+    border-top: 1px solid white;
+}
+
+.notification-cotainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .book-page-recommendations .card-custom{
     margin-left: auto;
     margin-right: auto;
 }
+
+
 
 .book-container .list-group-item,
 .comments-container .list-group-item {

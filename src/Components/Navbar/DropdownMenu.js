@@ -15,6 +15,11 @@ export default function DropdownMenu() {
                 <li className="dropdown">
                     <a className="nav-item fromLeft nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i>{user.user.username}</a>
                     <ul className="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li key="bookmarks">
+                            <NavLink to="/bookmarks" className={({ isActive }) => { return isActive ? "dropdown-item selected" : "dropdown-item"; }}>
+                                <i className="fa-solid fa-bell"></i>Οι ειδοποιήσεις μου
+                            </NavLink>
+                        </li>
                         <li key="bookmarks">
                             <NavLink to="/bookmarks" className={({ isActive }) => { return isActive ? "dropdown-item selected" : "dropdown-item"; }}>
                                 <i className="fa-solid fa-bookmark"></i>Οι σελιδοδείκτες μου
