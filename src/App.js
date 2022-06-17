@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/style.css";
@@ -18,6 +18,8 @@ import Favorites from "./Components/Favorites/Favorites";
 import Error from "./Components/Error";
 import Helpers from "./Helpers/Helpers";
 import NotFound from "./Components/NotFound";
+import UserNotifications from "./Components/Notifications/UserNotifications";
+import API from "./Helpers/API";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -34,26 +36,28 @@ export const USER_ACTIONS = {
   LOGOUT: "logout"
 }
 
-const scrollFunction= () => {
-  if(document.body.scrollTop > 110 || document.documentElement.scrollTop > 110){
+const scrollFunction = () => {
+  if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
     document.getElementById("logo").style.width = "90px";
     document.getElementById("navItems").style.width = "100%";
     document.getElementById("container").style.paddingTop = "70px";
   }
-  else{
+  else {
     document.getElementById("logo").style.width = "";
     document.getElementById("navItems").style.width = "90%";
     document.getElementById("container").style.paddingTop = "110px";
   }
 }
 
+
+
 export default function App() {
 
   React.useEffect(() => {
 
-    window.addEventListener("scroll",scrollFunction);
+    window.addEventListener("scroll", scrollFunction);
 
-    return () => {window.removeEventListener("scroll");};
+    return () => { window.removeEventListener("scroll"); };
 
   }, [])
 
@@ -78,6 +82,7 @@ export default function App() {
   const userReducer = (user, action) => {
     switch (action.type) {
       case USER_ACTIONS.LOGIN:
+        //checkForUserNotifications(action.payload.user.userId, action.payload.user.token);
         return { userId: action.payload.user.userId, username: action.payload.user.username, token: action.payload.user.token };
         break;
       case USER_ACTIONS.LOGOUT:
@@ -113,7 +118,7 @@ export default function App() {
     }
 
     var basketCounter = document.getElementById("basket-counter");
-    if(basketCounter !== null && basketCounter !== undefined)
+    if (basketCounter !== null && basketCounter !== undefined)
       basketCounter.innerText = basket.current.length;
 
   }
@@ -132,7 +137,7 @@ export default function App() {
     let basketItems = [];
     if (basketItemsString !== null)
       basketItems = JSON.parse(basketItemsString);
-      manageBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
+    manageBasket({ type: BASKET_ACTIONS.INITIALIZE, payload: { items: basketItems } });
   }
 
   React.useEffect(initializeBasket, []);
@@ -147,19 +152,20 @@ export default function App() {
       <ToastContainer />
       <div>
         <UserContext.Provider value={{ user, dispatchUser }}>
-          <BasketContext.Provider value={{basket, manageBasket}}>
+          <BasketContext.Provider value={{ basket, manageBasket }}>
             <div className="container-fluid" id="container">
-              <Navbar/>
+              <Navbar />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/books" element={<Main />} />
                 <Route path="/books/:type" element={<Main />} />
-                <Route path="/basket" element={<Basket basketItemIds = {basket.current} />} />
+                <Route path="/basket" element={<Basket basketItemIds={basket.current} />} />
                 <Route path="/book/:id" element={<BookPage />} />
                 <Route path="/bookmarks" element={<Favorites />} />
                 <Route path="/order-completed/:id" element={<OrderCompleted />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/orders" element={<UserOrders />} />
+                <Route path="/notifications" element={<UserNotifications />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/error" element={<Error />} />
                 <Route path="*" element={<NotFound />} />

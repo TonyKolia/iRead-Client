@@ -7,6 +7,8 @@
     --global-button-border-radius: 1.2rem;
     --global-item-border-radius: 0.5rem;
     --global-scrollable-container-height: calc(100vh - 48px);
+    --toastify-icon-color-info: #091540;
+    --toastify-color-progress-info: #091540;
 }
 
 body {
@@ -235,6 +237,11 @@ footer ul {
     color: var(--main-detail-color);
 }
 
+.notifications-list{
+    max-height: 400px;
+    overflow: auto;
+}
+
 .notification-cotainer > .fa-circle{
     color: var(--main-detail-color);
 }
@@ -246,6 +253,19 @@ footer ul {
     padding-left: 10px;
     padding-top: 1rem;
     padding-bottom: 1rem;
+}
+
+.notification-text-full{
+    white-space: break-spaces;
+    padding-left: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+.notification-item{
+    list-style-type: none;
+    border-bottom: 1px solid rgba(0,0,0,0.125);
 }
 
 .notification-dropdown-action{
@@ -1017,10 +1037,21 @@ input[type="checkbox"]:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.notifications-container .mini-menu{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.notifications-container ul{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .cart-container,
-.library-container {
+.library-container,
+.notifications-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1040,7 +1071,8 @@ input[type="checkbox"]:hover {
 .cart-container>h5,
 .library-container>h4,
 .library-container>h5,
-.orders > h5 {
+.orders > h5,
+.notifications-container > h4 {
     text-align: center;
     padding: 50px;
 }
@@ -1154,6 +1186,10 @@ input[type="checkbox"]:hover {
     padding: 0.3rem !important;
 }
 
+.notification-item:hover{
+    background: #09154008;
+}
+
 .notification-cotainer > .fa-circle-check:hover{
     cursor: pointer;
 }
@@ -1167,6 +1203,10 @@ input[type="checkbox"]:hover {
     flex-direction: row;
     padding-right: 10px;
     border-top: 1px solid white;
+}
+
+.notification-date{
+    font-size: smaller;
 }
 
 .notification-cotainer{

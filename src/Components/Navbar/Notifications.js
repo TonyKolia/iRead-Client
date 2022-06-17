@@ -4,6 +4,7 @@ import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { UserContext, USER_ACTIONS } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Notifications() {
 
@@ -18,10 +19,11 @@ export default function Notifications() {
             let url = API.API_URL_GET_NOT_VIEWED_NOTIFICATIONS.replace(":userId", user.user.userId);
             Helpers.performGet(url, user.user.token)
                 .then(response => {
-                    if (response.success)
+                    if (response.success){
                         return setNotViewedNotifications(response.data);
+                    }
                     else {
-                        if(response.statusCode == 404)
+                        if (response.statusCode == 404)
                             return setNotViewedNotifications([]);
                         if (response.statusCode == 500)
                             return navigate("/error");
@@ -36,7 +38,7 @@ export default function Notifications() {
         var url = API.API_URL_PUT_MARK_NOTIFICATION_AS_VIEWED.replace(":id", notificationId);
         Helpers.performPut(url, null, user.user.token)
             .then(response => {
-                if (response.success){
+                if (response.success) {
                     setUpdateNotifications(oldValue => oldValue + 1);
                     return Helpers.successMessage("Ολοκληρώθηκε με επιτυχία!");
                 }
@@ -57,11 +59,26 @@ export default function Notifications() {
         var element = document.getElementById(id);
         element.classList.remove("fa-circle-check");
         element.classList.add("fa-circle");
+    }
+
+    const getTitle = () => {
+
+        if(notViewedNotifications.length > 0)
+            return `Έχετε νέες ειδοποιήσεις.`;
+        else
+            return "Δεν υπάρχουν νέες ειδοποίησεις."
 
     }
 
     return (
 
+        <NavLink to="/notifications" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }}>
+            <i id="notifications-bell" title={getTitle()} className="fa-solid fa-bell">{notViewedNotifications.length > 0 && <span id="new-notifications-indicator" className="notification-indicator position-absolute translate-middle p-2 rounded-circle"></span>}</i>
+        </NavLink>
+
+
+
+        /*
         <div className="collapse navbar-collapse" id="notifications">
             <ul className="navbar-nav">
                 <li className="dropdown">
@@ -73,7 +90,7 @@ export default function Notifications() {
                             notViewedNotifications.length === 0 ? <li className="dropdown-item not-interactable">Δεν υπάρχουν νέες ειδοποιήσεις.</li> :
                                 notViewedNotifications.map(notification => <li key={notification.id} className="dropdown-item" onMouseEnter={() => changeIconOnHover(`notification${notification.id}`)} onMouseLeave={() => resetIconOnHover(`notification${notification.id}`)}>
                                     <div className="notification-cotainer">
-                                        <i  title="Επισήμανση ως αναγνωσμένο" id={`notification${notification.id}`} onClick={() => markNotificationAsViewed(notification.id)} class="fa-solid fa-circle notification-dropdown-action"></i>
+                                        <i  title="Επισήμανση ως αναγνωσμένο" id={`notification${notification.id}`} onClick={() => markNotificationAsViewed(notification.id)} className="fa-solid fa-circle notification-dropdown-action"></i>
                                         <span className="notification-text">{notification.notificationText}</span>
                                     </div>
                                 </li>)
@@ -82,6 +99,8 @@ export default function Notifications() {
                 </li>
             </ul>
         </div>
+        */
+
 
     );
 

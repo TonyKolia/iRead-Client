@@ -10,6 +10,18 @@ export default function LoginModal() {
     const [loginForm, setLoginForm] = React.useState({ username: "", password: "" });
     const [loginStatus, setLoginStatus] = React.useState({ failed: null, message: "" });
 
+    const checkForUserNotifications = (userId, token) => {
+
+
+        let url = API.API_URL_GET_NOT_VIEWED_NOTIFICATIONS_COUNT.replace(":userId", userId);
+        Helpers.performGet(url, token)
+          .then(response => {
+            if(response.success && response.data > 0)
+              return Helpers.infoMessage(`Έχετε ${response.data} νέες ειδοποίησεις.`);
+          });
+      
+      }
+
     function submitLoginForm(e) {
         e.preventDefault();
 
@@ -23,6 +35,7 @@ export default function LoginModal() {
                     var closeButton = document.getElementById("closeModal");
                     if (closeButton)
                         closeButton.click();
+                    checkForUserNotifications(response.data.userId, response.data.token);
                     setLoginStatus({ failed: null, message: "" });
                     return setLoginForm({ username: "", password: "" });
                 }
