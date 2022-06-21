@@ -20,23 +20,24 @@ export default function UserOrders() {
     const itemsPerPage = 5;
 
     React.useEffect(() => {
-        if (user.user.userId !== "") {
-            setLoading(true);
-            Helpers.performGet(`${API.API_URL_GET_USER_ORDERS}${user.user.userId}`, user.user.token)
-                .then(response => {
-                    setLoading(false);
-                    if (response.success)
-                        setOrders(response.data);
-                    else
-                        setOrders([]);
-                });
-        }
+
+        if (user.user.userId === "")
+            return;
+
+        setLoading(true);
+        Helpers.performGet(`${API.API_URL_GET_USER_ORDERS}${user.user.userId}`, user.user.token)
+            .then(response => {
+                setLoading(false);
+                if (response.success)
+                    setOrders(response.data);
+                else
+                    setOrders([]);
+            });
 
     }, [user]);
 
     React.useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
-        //console.log(`Loading items from ${itemOffset} to ${endOffset}`);
         setDisplayedItems(orders.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(orders.length / itemsPerPage));
     }, [orders, itemOffset])
@@ -47,58 +48,53 @@ export default function UserOrders() {
     };
 
     return (
-        <div className="orders">
-            <h4 style={{ paddingBottom: "2rem" }}><i className="fa-solid fa-book"></i>Οι κρατήσεις μου</h4>
-            {
-                loading ? <Loading /> :
-                    <>
-                        {
-                            orders?.length == 0 ? <h5>Δεν βρέθηκαν κρατήσεις.</h5> :
-                                <>
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Αριθμός κράτησης</th>
-                                                <th>Ημερομηνία κράτησης</th>
-                                                <th>Ημερομηνία επιστροφής</th>
-                                                <th>Κατάσταση</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {displayedItems.map(order => <Orders key={order.id} order={order} />)}
-                                        </tbody>
-                                    </table>
+        <>
+            {loading && <Loading />}
+            <div className="orders">
+                <h4 style={{ paddingBottom: "2rem" }}><i className="fa-solid fa-book"></i>Οι κρατήσεις μου</h4>
+                {
+                    orders?.length == 0 ? <h5>{loading ? "" : "Δεν βρέθηκαν κρατήσεις."}</h5> :
+                        <>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Αριθμός κράτησης</th>
+                                        <th>Ημερομηνία κράτησης</th>
+                                        <th>Ημερομηνία επιστροφής</th>
+                                        <th>Κατάσταση</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {displayedItems.map(order => <Orders key={order.id} order={order} />)}
+                                </tbody>
+                            </table>
 
-                                    {orders?.length > pageCount && <ReactPaginate
-                                        onPageChange={handlePageClick}
-                                        pageRangeDisplayed={3}
-                                        marginPagesDisplayed={2}
-                                        pageCount={pageCount}
-                                        pageClassName="page-item"
-                                        pageLinkClassName="page-link fromLeft"
-                                        previousClassName="page-item"
-                                        previousLinkClassName="page-link fromLeft"
-                                        nextClassName="page-item"
-                                        nextLinkClassName="page-link fromLeft"
-                                        breakLabel="..."
-                                        breakClassName="page-item"
-                                        breakLinkClassName="page-link fromLeft"
-                                        containerClassName="pagination"
-                                        activeClassName="active"
-                                        renderOnZeroPageCount={null}
-                                        previousLabel="&laquo;"
-                                        nextLabel="&raquo;"
-                                    />}
-                                </>
-                        }
-                    </>
-            }
+                            {orders?.length > pageCount && <ReactPaginate
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+                                pageClassName="page-item"
+                                pageLinkClassName="page-link fromLeft"
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link fromLeft"
+                                nextClassName="page-item"
+                                nextLinkClassName="page-link fromLeft"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="page-link fromLeft"
+                                containerClassName="pagination"
+                                activeClassName="active"
+                                renderOnZeroPageCount={null}
+                                previousLabel="&laquo;"
+                                nextLabel="&raquo;"
+                            />}
+                        </>
+                }
+            </div>
+        </>
 
-
-
-
-        </div>
     );
 
 }

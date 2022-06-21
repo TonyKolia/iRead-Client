@@ -3,13 +3,16 @@ import "../../css/style.css";
 import { UserContext } from "../../App";
 import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
+import Loading from "../Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function RatingModal(props) {
 
     const user = React.useContext(UserContext);
     const [rating, setRating] = React.useState({ rating: 0, comment: "" });
     const [hasExistingRating, setHasExistingRating] = React.useState(false);
-
+    const [loading, setLoading] = React.useState(false);
+    let navigate = useNavigate();
     const ratings = [5, 4, 3, 2, 1];
 
     React.useEffect(() => {
@@ -41,6 +44,7 @@ export default function RatingModal(props) {
             return;
         }
 
+        setLoading(true);
         Helpers.performPost(API.API_URL_ADD_RATING, {
             userId: user.user.userId,
             bookId: props.bookId,
@@ -48,6 +52,7 @@ export default function RatingModal(props) {
             comment: rating.comment
         }, user.user.token)
             .then(response => {
+                setLoading(false);
                 if (response.success) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
@@ -57,15 +62,17 @@ export default function RatingModal(props) {
                     return props.setReloadBook((oldState) => !oldState);
                 }
                 else
-                    alert("lololo");
+                    return navigate("/error");
             })
     }
 
     const deleteRating = () => {
 
+        setLoading(true);
         var url = API.API_URL_DELETE_BOOK_RATING.replace(":userId", user.user.userId).replace(":bookId", props.bookId);
         Helpers.performDelete(url, user.user.token)
             .then(response => {
+                setLoading(false);
                 if (response.success) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
@@ -74,10 +81,14 @@ export default function RatingModal(props) {
                     props.setReloadRatings((oldState) => !oldState);
                     return props.setReloadBook((oldState) => !oldState);
                 }
+                else
+                    return navigate("/error");
             });
     }
 
     const updateRating = () => {
+
+        setLoading(true);
         Helpers.performPut(API.API_URL_ADD_RATING, {
             userId: user.user.userId,
             bookId: props.bookId,
@@ -85,6 +96,7 @@ export default function RatingModal(props) {
             comment: rating.comment
         }, user.user.token)
             .then(response => {
+                setLoading(false);
                 if (response.success) {
                     let closeButton = document.getElementById("closeRatingModal");
                     if (closeButton)
@@ -94,11 +106,13 @@ export default function RatingModal(props) {
                     return props.setReloadBook((oldState) => !oldState);
                 }
                 else
-                    alert("lololo");
-            })
+                    return navigate("/error");
+            });
     }
 
     return (
+        <>
+        {loading && <Loading />}
         <div className="modal" tabIndex="-1" id="rating-modal" data-bs-backdrop="static" data-bs-keyboard="false">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content login-modal">
@@ -121,6 +135,9 @@ export default function RatingModal(props) {
                 </div>
             </div>
         </div>
+        </>
+        
+        
     );
 
 }

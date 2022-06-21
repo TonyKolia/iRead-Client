@@ -2,8 +2,6 @@ import React from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import BookItems from "./Book/BookItems";
 import "../css/style.css";
-import API from "../Helpers/API";
-import Helpers from "../Helpers/Helpers";
 import { useNavigate } from "react-router-dom";
 
 export default function Main() {

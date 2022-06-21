@@ -1417,21 +1417,24 @@ input[type="checkbox"]:hover {
 
     padding: 0 !important;
     margin: 0 !important;
-    align-items: center;
+    /*align-items: center;*/
     min-height: 100vh;
     z-index: 99999;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
-    background: #00000020;
+    background: #00000050;
 }
 
 .loading-spinner>div {
     color: var(--main-header-color);
-    height: 3rem;
-    width: 3rem;
+    height: 5rem;
+    width: 5rem;
+    position: absolute;
+    top: 50vh;
+    border-width: 0.4rem;
 }
 
 .dropdown-menu{

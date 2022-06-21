@@ -42,7 +42,7 @@ export default function Favorites() {
                     setLoading(false);
                     if (response.success)
                         setFavorites(response.data);
-                    else 
+                    else
                         throw new Error(response.statusCode == 500);
                 }).catch(error => {
                     if (error.message == "true")
@@ -68,13 +68,14 @@ export default function Favorites() {
     }
 
     return (
-        <div className="library-container">
-            <h4><i className="fa-solid fa-bookmark"></i>Οι σελιδοδείκτες μου</h4>
-            {
-                loading ? <Loading /> :
+        <>
+            {loading && <Loading />}
+            <div className="library-container">
+                <h4><i className="fa-solid fa-bookmark"></i>Οι σελιδοδείκτες μου</h4>
+                {
                     <>
                         {
-                            favorites == null || favorites.length == 0 ? <h5>Δεν έχετε προσθέσει σελιδοδείκτες.</h5> :
+                            favorites == null || favorites.length == 0 ? <h5>{loading ? "" : "Δεν βρέθηκαν σελιδοδείκτες."}</h5> :
                                 <table className="table">
                                     <thead>
                                         <tr>
@@ -114,10 +115,12 @@ export default function Favorites() {
                             />
                         }
                     </>
-            }
+                }
 
 
-        </div>
+            </div>
+        </>
+
     );
 
 }
