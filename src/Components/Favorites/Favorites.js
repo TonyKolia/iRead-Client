@@ -41,14 +41,8 @@ export default function Favorites() {
                 .then(response => {
                     setLoading(false);
                     if (response.success)
-                        setFavorites(response.data);
-                    else
-                        throw new Error(response.statusCode == 500);
-                }).catch(error => {
-                    if (error.message == "true")
-                        navigate("/error");
-                    else
-                        setFavorites([]);
+                        return setFavorites(response.data);
+                    else return response.statusCode == 404 ? setFavorites([]) : navigate("/error");
                 });
 
         }
@@ -63,6 +57,8 @@ export default function Favorites() {
                 Helpers.successMessage("Αφαιρέθηκε επιτυχώς!");
                 return setFavoriteRemoved(bookId);
             }
+            else
+                return navigate("/error");
         });
 
     }

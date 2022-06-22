@@ -12,6 +12,7 @@ export default function RatingModal(props) {
     const [rating, setRating] = React.useState({ rating: 0, comment: "" });
     const [hasExistingRating, setHasExistingRating] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
     let navigate = useNavigate();
     const ratings = [5, 4, 3, 2, 1];
 
@@ -61,8 +62,7 @@ export default function RatingModal(props) {
                     props.setReloadRatings((oldState) => !oldState);
                     return props.setReloadBook((oldState) => !oldState);
                 }
-                else
-                    return navigate("/error");
+                else return response.statusCode == 400 ? setError(response.message) : navigate("/error");
             })
     }
 
@@ -125,6 +125,9 @@ export default function RatingModal(props) {
                             {ratings.map(r => <i key={r} onClick={() => setRating(oldRating => ({ ...oldRating, rating: r }))} className={`fa-solid fa-star ${r > rating.rating ? "" : "filled-star"}`}></i>)}
                         </div>
                         <textarea onChange={handleChange} className="form-control" value={rating.comment} name="comment" style={{ resize: "none" }} rows="4" placeholder="Σχόλιο (Προαιρετικό)"></textarea>
+                        {error !== null && <div style={{width: "100%", marginLeft: "auto", marginRight: "auto"}} className="alert alert-danger">
+                                <div><i class="fa-solid fa-circle-exclamation"></i>{error}</div>
+                            </div>}
                         <div className="rating-actions-container">
                             {hasExistingRating && <button onClick={deleteRating} className="btn btn-primary btn-custom"><i className="fa-solid fa-trash-can"></i>Διαγραφή</button>}
                             {hasExistingRating && <button onClick={updateRating} className="btn btn-primary btn-custom"><i className="fa-solid fa-floppy-disk"></i>Αποθήκευση</button>}

@@ -20,7 +20,7 @@ export default function LoginModal() {
             .then(response => {
                 setLoading(false);
                 if (response.success && response.data > 0)
-                    return Helpers.infoMessage(`Έχετε ${response.data} νέες ειδοποίησεις.`);
+                    return Helpers.infoMessage(`Έχετε ${response.data} ${response.data == 1 ? "νέα ειδοποίηση" : "νέες ειδοποίησεις"}.`);
             });
 
     }
