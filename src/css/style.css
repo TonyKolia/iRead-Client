@@ -54,6 +54,29 @@ html {
     }
 }
 
+
+
+@media screen and (max-width: 425px){
+    .footer-container{
+        flex-direction: column;
+        
+    }
+
+    .home-carousel-img{
+        height: 180px;
+    }
+
+    .mini-menu-item{
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .card-custom{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -78,6 +101,11 @@ html {
 .navbar,
 .navbar a {
     color: var(--secondary-color) !important;
+}
+
+#navItems,
+#navItems a{
+    color: var(--secondary-color) 
 }
 
 .logo{

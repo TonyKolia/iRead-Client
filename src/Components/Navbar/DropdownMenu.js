@@ -10,7 +10,7 @@ export default function DropdownMenu() {
     const user = React.useContext(UserContext);
 
     return (
-        <div className="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <div className="collapse show navbar-collapse" id="navbarNavDarkDropdown">
             <ul className="navbar-nav">
                 <li className="dropdown">
                     <a className="nav-item fromLeft nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i>{user.user.username}</a>

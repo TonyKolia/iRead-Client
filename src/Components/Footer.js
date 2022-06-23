@@ -6,7 +6,7 @@ export default function Footer(){
     return (
         <footer className="sticky-footer">
             <hr/>
-                <div style={{width:"100%", display: "flex", justifyContent: "center"}}>
+                <div className="footer-container">
                     <div className="footer-column">
                         <h5>Επικοινωνία</h5>
                         <ul style= {{listStyle: "none"}}>
