@@ -21,6 +21,39 @@ html {
     height: 100%;
 }
 
+@media screen and (max-width: 1440px) {
+    .orders > table,
+    .library-container > table,
+    .cart-container > table,
+    .cart-btn-container,
+    .notifications-container ul,
+    .register-container{
+        width: 70% !important;
+    }
+    #categories > div > ul{
+        height: 430px !important;
+    }
+
+    .filter-data-container{
+        height: 100px !important;
+    }
+
+    #year.filter-data-container{
+        height: 100% !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .orders > table,
+    .library-container > table,
+    .cart-container > table,
+    .cart-btn-container,
+    .notifications-container ul,
+    .register-container{
+        width: 85% !important;
+    }
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -72,6 +105,10 @@ footer ul {
 .justify-center {
     display: flex;
     justify-content: center !important;
+}
+
+.home-carousel-img{
+    width: 100%;
 }
 
 .login-cart-position {
