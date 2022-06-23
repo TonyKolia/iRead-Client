@@ -129,7 +129,7 @@ export default function RatingModal(props) {
                                 <div><i class="fa-solid fa-circle-exclamation"></i>{error}</div>
                             </div>}
                         <div className="rating-actions-container">
-                            {hasExistingRating && <button onClick={deleteRating} className="btn btn-primary btn-custom"><i className="fa-solid fa-trash-can"></i>Διαγραφή</button>}
+                            {hasExistingRating && <button onClick={deleteRating} className="btn btn-primary btn-custom"><i id="deleteRating" className="fa-solid fa-trash-can"></i>Διαγραφή</button>}
                             {hasExistingRating && <button onClick={updateRating} className="btn btn-primary btn-custom"><i className="fa-solid fa-floppy-disk"></i>Αποθήκευση</button>}
                         </div>
                         {!hasExistingRating && <button onClick={addRating} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Υποβολή</button>}

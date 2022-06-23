@@ -17,7 +17,7 @@ export default function Footer(){
                                 <span><i className="fa-solid fa-phone"></i>210-5381100</span>
                             </li>
                             <li key="email">
-                                <span><i className="fa-solid fa-envelope"></i>testemail@uniwa.gr</span>
+                                <span><i className="fa-solid fa-envelope"></i>iread.thelendinglibrary@gmail.com</span>
                             </li>
                         </ul>
                     </div>

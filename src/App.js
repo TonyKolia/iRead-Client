@@ -21,6 +21,8 @@ import NotFound from "./Components/NotFound";
 import UserNotifications from "./Components/Notifications/UserNotifications";
 import API from "./Helpers/API";
 import AccountActivation from "./Components/AccountActivation";
+import EmailForm from "./Components/PasswordReset/EmailForm";
+import NewPasswordForm from "./Components/PasswordReset/NewPasswordForm";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -168,6 +170,8 @@ export default function App() {
                 <Route path="/orders" element={<UserOrders />} />
                 <Route path="/notifications" element={<UserNotifications />} />
                 <Route path="/accountActivation/userId/:userId/token/:token" element={<AccountActivation />} />
+                <Route path="/passwordReset" element={<EmailForm />} />
+                <Route path="/passwordReset/userId/:userId/token/:token" element={<NewPasswordForm />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/error" element={<Error />} />
                 <Route path="*" element={<NotFound />} />

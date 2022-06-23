@@ -80,7 +80,7 @@ export default function LoginModal() {
                                         <input type="password" onChange={handleChange} value={loginForm.password} name="password" placeholder="Κωδικός πρόσβασης" />
                                     </div>
                                     <div style={{ marginBottom: "10px", textAlign: "right" }}>
-                                        <a className="register-link" href="#">Ξεχάσατε τον κωδικό;</a>
+                                        <a className="register-link" href="/passwordReset">Ξεχάσατε τον κωδικό;</a>
                                     </div>
                                     {loginStatus.failed && <div className="alert alert-danger" role="alert">
                                         {loginStatus.message}

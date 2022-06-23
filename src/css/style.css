@@ -1428,6 +1428,10 @@ input[type="checkbox"]:hover {
     background: #00000050;
 }
 
+#deleteRating{
+    padding-right: 10px !important;
+}
+
 .loading-spinner>div {
     color: var(--main-header-color);
     height: 5rem;
@@ -1471,6 +1475,17 @@ input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+}
+
+.password-reset-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .terms{
