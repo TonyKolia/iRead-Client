@@ -46,6 +46,15 @@ html {
         width: 100%;
         height: 400px;
     }
+
+    .card-custom{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .toolbar-container{
+        width: 100% !important;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -61,6 +70,15 @@ html {
     .home-carousel-img{
         width: 100%;
         height: 300px;
+    }
+
+    .card-custom{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .toolbar-container{
+        width: 100% !important;
     }
 }
 

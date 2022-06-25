@@ -17,6 +17,10 @@ export default function SearchBar(props) {
     }
 
     const toggleSidebar = () => {
+
+        let columns = window.innerWidth < 1920 ? 2 : 5;
+        let fullColumns = window.innerWidth < 1920 ? 3 : 6;
+
         let sidebar = document.getElementById("sidebar");
         let content = document.getElementById("booksContent");
         let toggleIcon = document.getElementById("toggle-icon");
@@ -29,8 +33,8 @@ export default function SearchBar(props) {
             content.classList.add("retract-content");
             content.classList.remove("expand-content");
 
-            container.classList.add("row-cols-md-5");
-            container.classList.remove("row-cols-md-6");
+            container.classList.add(`row-cols-md-${columns}`);
+            container.classList.remove(`row-cols-md-${fullColumns}`);
 
             setTimeout(() => {
                 content.style.marginLeft = "230px";
@@ -46,8 +50,8 @@ export default function SearchBar(props) {
             content.classList.add("expand-content");
             content.classList.remove("retract-content");
 
-            container.classList.add("row-cols-md-6");
-            container.classList.remove("row-cols-md-5");
+            container.classList.add(`row-cols-md-${fullColumns}`);
+            container.classList.remove(`row-cols-md-${columns}`);
 
             setTimeout(() => {
                 content.style.marginLeft = "0px";

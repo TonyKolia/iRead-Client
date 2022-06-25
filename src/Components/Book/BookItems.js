@@ -126,6 +126,10 @@ export default function BookItems(props) {
             })
     }
 
+    const getColumns = () =>{
+        return window.innerWidth < 1920 ? 2 : 5;
+    }
+
     return (
         <>
             {loading && <Loading />}
@@ -136,11 +140,11 @@ export default function BookItems(props) {
             {
                 books?.length === 0 ? <div className="not-found-container"><h3>{ loading ? "" : "Δεν βρέθηκαν βιβλία"}</h3></div> :
                     <>
-                        <div className={`row row-cols-1 ${props.fromMain ? "row-cols-md-5" : "row-cols-md-6"} card-custom-container`} id="book-container">
+                        <div className={`row row-cols-1 row-cols-md-${getColumns()} card-custom-container`} id="book-container">
                             {displayedItems?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                         {
-                            props.fromMain && books !== null && books.length > itemsPerPage && <ReactPaginate
+                            books !== null && books.length > itemsPerPage && <ReactPaginate
                                 onPageChange={handlePageClick}
                                 pageRangeDisplayed={3}
                                 marginPagesDisplayed={3}
