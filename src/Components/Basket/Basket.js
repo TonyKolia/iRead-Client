@@ -42,16 +42,20 @@ export default function Basket(props) {
     }
 
     React.useEffect(() => {
+    
+        if(basket.basket.current.length === 0)
+            return setbasketBooks([]);
+        
         setLoading(true);
         Helpers.performGet(constructUrl(basket.basket.current))
             .then(response => {
                 setLoading(false);
+                console.log(response);
                 if (response.success)
-                    setbasketBooks(response.data);
-                else
-                    setbasketBooks([]);
+                   return setbasketBooks(response.data);
+                else return response.statusCode == 500 ? navigate("/error") : setbasketBooks([]) ;
             });
-    }, [basket.basket]);
+    }, [basket]);
 
     function submitOrder() {
 

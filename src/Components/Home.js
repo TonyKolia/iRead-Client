@@ -21,16 +21,13 @@ export default function Home() {
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active" data-bs-interval="3000">
-                        <button onClick={() => navigate("/register")} className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-user-plus"></i>Εγγραφή</button>
-                        <img className="home-carousel-img" src={require("../Images/carousel1.png")} />
+                        <a href="/register"><img className="home-carousel-img" src={require("../Images/carousel1.png")} /></a>
                     </div>
                     <div className="carousel-item" data-bs-interval="3000">
-                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-info-circle"></i>Μάθετε περισσότερα</button>
-                        <img className="home-carousel-img" src={require("../Images/carousel2.png")} />
+                        <a href="#"><img className="home-carousel-img" src={require("../Images/carousel2.png")} /></a>
                     </div>
                     <div className="carousel-item" data-bs-interval="3000">
-                        <button className="btn btn-primary btn-custom btn-carousel"><i className="fa-solid fa-info-circle"></i>Μάθετε περισσότερα</button>
-                        <img  className="home-carousel-img" src={require("../Images/carousel3.png")} />
+                        <a href="#"><img className="home-carousel-img" src={require("../Images/carousel3.png")} /></a>
                     </div>
                 </div>
             </div>

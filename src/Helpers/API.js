@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://192.168.2.42:7190/api/";
+const API_BASE_URL = "https://192.168.2.2:7190/api/";
 
 const ENDPOINTS = {
     GET_BOOK: "Book/",

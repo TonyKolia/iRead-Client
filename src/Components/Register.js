@@ -190,6 +190,21 @@ export default function Register(props) {
         });
     }
 
+
+    //get first notifications
+    const checkForUserNotifications = (userId, token) => {
+
+        setLoading(true);
+        let url = API.API_URL_GET_NOT_VIEWED_NOTIFICATIONS_COUNT.replace(":userId", userId);
+        Helpers.performGet(url, token)
+            .then(response => {
+                setLoading(false);
+                if (response.success && response.data > 0)
+                    return Helpers.infoMessage(`Έχετε ${response.data} ${response.data == 1 ? "νέα ειδοποίηση" : "νέες ειδοποίησεις"}.`);
+            });
+
+    }
+
     //register form submit handler
     const submitRegisterForm = (e) => {
         setLoading(true);
@@ -198,8 +213,8 @@ export default function Register(props) {
         registerForm.favoriteCategories = selectedCategories;
         Helpers.performPost(API.API_URL_REGISTER, registerForm)
             .then(response => {
-                setLoading(false);
                 if (!response.success) {
+                    setLoading(false);
                     if (response.statusCode == 500 || !response.data)
                         return navigate("/error");
 
@@ -216,8 +231,11 @@ export default function Register(props) {
                 else {
                     Helpers.successMessage("Ο λογαριασμός σας δημιουργήθηκε με επιτυχία!");
                     Helpers.performPost(API.API_URL_LOGIN, { username: registerForm.username, password: registerForm.password })
-                        .then(response => user.dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: response.data } }));
-
+                        .then(response => {
+                            user.dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: response.data } });
+                            checkForUserNotifications(response.data.userId, response.data.token);
+                        });
+                    
                     return navigate("/");
                 }
             });

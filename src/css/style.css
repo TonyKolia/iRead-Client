@@ -41,6 +41,11 @@ html {
     #year.filter-data-container{
         height: 100% !important;
     }
+
+    .home-carousel-img{
+        width: 100%;
+        height: 400px;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -51,6 +56,11 @@ html {
     .notifications-container ul,
     .register-container{
         width: 85% !important;
+    }
+
+    .home-carousel-img{
+        width: 100%;
+        height: 300px;
     }
 }
 
@@ -64,6 +74,7 @@ html {
 
     .home-carousel-img{
         height: 180px;
+        width: 100%;
     }
 
     .mini-menu-item{
@@ -74,6 +85,11 @@ html {
     .card-custom{
         margin-left: auto;
         margin-right: auto;
+    }
+
+
+    .footer-column{
+        text-align: center;
     }
 }
 
@@ -136,7 +152,7 @@ footer ul {
 }
 
 .home-carousel-img{
-    width: 100%;
+    
 }
 
 .login-cart-position {
@@ -492,6 +508,9 @@ nav {
     box-shadow: none !important;
 }
 
+.title-in-table{
+    max-width: 250px;
+}
 
 .card-custom .card-text {
     text-align: center;
