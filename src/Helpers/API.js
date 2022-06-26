@@ -1,6 +1,5 @@
-const API_BASE_URL = "https://192.168.2.2:7190/api/";
+const API_BASE_URL = "https://iread.azurewebsites.net/api/";
 
-//test
 const ENDPOINTS = {
     GET_BOOK: "Book/",
     GET_MULTIPLE_BOOKS: "Book/Multiple/",
