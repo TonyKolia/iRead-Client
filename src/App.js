@@ -57,6 +57,7 @@ const scrollFunction = () => {
 
 export default function App() {
 
+  //navbar resize on scroll
   React.useEffect(() => {
 
     window.addEventListener("scroll", scrollFunction);
@@ -129,8 +130,7 @@ export default function App() {
 
   const checkForLoggedUser = () => {
     let user = localStorage.getItem('user');
-    if (user !== null)
-      user = JSON.parse(user);
+    user = user !== null ? JSON.parse(user) : { userId: "", username: "", token: "" };
     dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: user } });
   }
 
