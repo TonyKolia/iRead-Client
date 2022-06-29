@@ -1,14 +1,22 @@
 import React from "react";
 import "../css/style.css";
-import BookItems from "./Book/BookItems";
 import { useNavigate } from "react-router-dom";
 import HomeBookItems from "./Book/HomeBookItems";
+import { Carousel } from "bootstrap";
 
 export default function Home() {
 
     const [selected, setSelected] = React.useState("recommended");
     let navigate = useNavigate();
     const changeSelected = (name) => setSelected(name);
+
+    React.useEffect(() => {
+
+        let carouselElement = document.getElementById("carouselExampleIndicators");
+        let carousel = new Carousel(carouselElement, { interval: 3000, wrap: true});
+        carousel.cycle();
+
+    }, []);
 
     return (
         <div>
