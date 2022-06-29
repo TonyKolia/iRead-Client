@@ -2,7 +2,7 @@ import React from "react";
 import "../css/style.css";
 import { useNavigate } from "react-router-dom";
 import HomeBookItems from "./Book/HomeBookItems";
-//import { Carousel } from "bootstrap";
+import { Carousel } from "bootstrap";
 
 export default function Home() {
 
@@ -12,9 +12,9 @@ export default function Home() {
 
     React.useEffect(() => {
 
-        //let carouselElement = document.getElementById("carouselExampleIndicators");
-        //let carousel = new Carousel(carouselElement, { interval: 3000, wrap: true});
-        //carousel.cycle();
+        let carouselElement = document.getElementById("carouselExampleIndicators");
+        let carousel = new Carousel(carouselElement, { interval: 3000, wrap: true});
+        carousel.cycle();
 
     }, []);
 
