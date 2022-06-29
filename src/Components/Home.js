@@ -2,7 +2,7 @@ import React from "react";
 import "../css/style.css";
 import { useNavigate } from "react-router-dom";
 import HomeBookItems from "./Book/HomeBookItems";
-import { Carousel } from "bootstrap";
+//import { Carousel } from "bootstrap";
 
 export default function Home() {
 
