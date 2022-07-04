@@ -154,6 +154,23 @@ html {
     cursor: pointer;
 }
 
+.tooltip-inner{
+    background: var(--secondary-color);
+    border-radius: var(--global-item-border-radius);
+}
+
+.navbar-tooltip{
+    z-index: 99999 !important;
+}
+
+.tooltip{
+    z-index: 3;
+}
+
+.tooltip.show{
+    opacity: 1;
+}
+
 nav {
     padding-left: var(--bs-gutter-x, .75rem);
     padding-right: var(--bs-gutter-x, .75rem);

@@ -5,6 +5,7 @@ import API from "../../Helpers/API";
 import { UserContext, USER_ACTIONS } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { Tooltip } from "bootstrap";
 
 export default function Notifications() {
 
@@ -19,7 +20,7 @@ export default function Notifications() {
             let url = API.API_URL_GET_NOT_VIEWED_NOTIFICATIONS.replace(":userId", user.user.userId);
             Helpers.performGet(url, user.user.token)
                 .then(response => {
-                    if (response.success){
+                    if (response.success) {
                         return setNotViewedNotifications(response.data);
                     }
                     else {
@@ -63,44 +64,29 @@ export default function Notifications() {
 
     const getTitle = () => {
 
-        if(notViewedNotifications.length > 0)
+        if (notViewedNotifications.length > 0)
             return `Έχετε νέες ειδοποιήσεις.`;
         else
             return "Δεν υπάρχουν νέες ειδοποίησεις."
 
     }
 
+    const updateTitle = () => {
+
+        let element = document.getElementById("notification-icon");
+        element.setAttribute("data-bs-original-title", getTitle());
+
+    }
+
+    React.useEffect(() => {
+        updateTitle();  
+    }, [notViewedNotifications])
+
     return (
 
         <NavLink to="/notifications" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }}>
-            <i id="notifications-bell" title={getTitle()} className="fa-solid fa-bell">{notViewedNotifications.length > 0 && <span id="new-notifications-indicator" className="notification-indicator position-absolute translate-middle p-2 rounded-circle"></span>}</i>
+            <i id="notifications-bell" className="fa-solid fa-bell">{notViewedNotifications.length > 0 && <span id="new-notifications-indicator" className="notification-indicator position-absolute translate-middle p-2 rounded-circle"></span>}</i>
         </NavLink>
-
-
-
-        /*
-        <div className="collapse navbar-collapse" id="notifications">
-            <ul className="navbar-nav">
-                <li className="dropdown">
-                    <a className="nav-item fromLeft nav-link" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="fa-solid fa-bell">{notViewedNotifications.length > 0 && <span className="notification-indicator position-absolute translate-middle p-2 rounded-circle"></span>}</i>
-                    </a>
-                    <ul className="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                        {
-                            notViewedNotifications.length === 0 ? <li className="dropdown-item not-interactable">Δεν υπάρχουν νέες ειδοποιήσεις.</li> :
-                                notViewedNotifications.map(notification => <li key={notification.id} className="dropdown-item" onMouseEnter={() => changeIconOnHover(`notification${notification.id}`)} onMouseLeave={() => resetIconOnHover(`notification${notification.id}`)}>
-                                    <div className="notification-cotainer">
-                                        <i  title="Επισήμανση ως αναγνωσμένο" id={`notification${notification.id}`} onClick={() => markNotificationAsViewed(notification.id)} className="fa-solid fa-circle notification-dropdown-action"></i>
-                                        <span className="notification-text">{notification.notificationText}</span>
-                                    </div>
-                                </li>)
-                        }
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        */
-
 
     );
 

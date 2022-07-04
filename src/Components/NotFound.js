@@ -8,7 +8,7 @@ export default function NotFound(){
 
     return(
         <div className="error-page-container">
-            <i class="fa-solid fa-ghost fa-10x"></i>
+            <i className="fa-solid fa-ghost fa-10x"></i>
             <h4>Χμμμμ...δυστυχώς δεν μπορέσαμε να βρούμε τη σελίδα που ψάχνετε.</h4>
             <button onClick={() => navigate("/")} type="button" className="btn btn-primary btn-custom"><i className="fa-solid fa-arrow-left"></i>Επιστροφή</button>
         </div>

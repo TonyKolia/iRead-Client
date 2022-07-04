@@ -130,6 +130,9 @@ export default function BookItems(props) {
         return window.innerWidth < 1920 ? 2 : 5;
     }
 
+
+
+
     return (
         <>
             {loading && <Loading />}

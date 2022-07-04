@@ -23,6 +23,8 @@ import API from "./Helpers/API";
 import AccountActivation from "./Components/AccountActivation";
 import EmailForm from "./Components/PasswordReset/EmailForm";
 import NewPasswordForm from "./Components/PasswordReset/NewPasswordForm";
+import Privacy from "./Components/Privacy";
+import FAQ from "./Components/FAQ";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -43,12 +45,12 @@ export const USER_ACTIONS = {
 const scrollFunction = () => {
   if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
     document.getElementById("logo").style.width = "90px";
-    document.getElementById("navItems").style.width = "100%";
+    document.getElementById("navItems").style.width = "107%";
     document.getElementById("container").style.paddingTop = "70px";
   }
   else {
     document.getElementById("logo").style.width = "";
-    document.getElementById("navItems").style.width = "90%";
+    document.getElementById("navItems").style.width = "97%";
     document.getElementById("container").style.paddingTop = "110px";
   }
 }
@@ -174,6 +176,8 @@ export default function App() {
                 <Route path="/passwordReset" element={<EmailForm />} />
                 <Route path="/passwordReset/userId/:userId/token/:token" element={<NewPasswordForm />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/faq" element={<FAQ />} />
                 <Route path="/error" element={<Error />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

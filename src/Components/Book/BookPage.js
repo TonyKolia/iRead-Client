@@ -82,6 +82,8 @@ export default function BookPage() {
         element.scrollIntoView();
     };
 
+    React.useEffect(() => Helpers.setupTooltips(), []);
+
     return (
         <>
             {loading && <Loading />}
@@ -89,7 +91,7 @@ export default function BookPage() {
                 <div className="card book-container mb-3">
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <i onClick={favorite ? null : () => addFavorite(book.id)} className={`fa-solid fa-bookmark ${favorite ? "favorite" : ""}`}></i>
+                            <i onClick={favorite ? null : () => addFavorite(book.id)} data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title={favorite ? "" : "Προσθήκη σελιδοδείκτη"} className={`fa-solid fa-bookmark ${favorite ? "favorite" : ""}`}></i>
                             <img src={book.imagePath !== undefined ? `${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}` : ""} className="img-fluid book-img" alt="..." />
                         </div>
                         <div className="col-md-8">

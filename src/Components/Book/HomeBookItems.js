@@ -6,6 +6,7 @@ import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from "bootstrap";
 
 export default function BookItems(props) {
 
@@ -67,6 +68,9 @@ export default function BookItems(props) {
 
 
     const getColumns = () => window.innerWidth < 1920 ? 3 : 6;
+
+
+
 
 
     return (

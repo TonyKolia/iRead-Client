@@ -2,6 +2,7 @@ import React from "react";
 
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Tooltip } from "bootstrap";
 
 export default class Helpers {
 
@@ -25,6 +26,15 @@ export default class Helpers {
 
         return 0;
     }
+
+    static setupTooltips = () => {
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new Tooltip(tooltipTriggerEl, { delay: { show: 700, hide: 100 } });
+        })
+    }
+
 
     static successMessage = (message) => toast(message, { autoClose: 2500, closeButton: false, type: "success", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });
     static errorMessage = (message) => toast(message, { autoClose: 2500, closeButton: false, type: "error", transition: Slide, position: toast.POSITION.BOTTOM_RIGHT });

@@ -5,6 +5,7 @@ import { BasketContext, UserContext } from "../../App";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Notifications from "./Notifications";
+import Helpers from "../../Helpers/Helpers";
 
 export default function Navbar() {
 
@@ -15,7 +16,7 @@ export default function Navbar() {
     React.useEffect(() => {
 
         setCurrentSize(window.innerWidth)
-
+        Helpers.setupTooltips();
 
     }, []);
 
@@ -31,8 +32,13 @@ export default function Navbar() {
 
     let desktopNavbar = <nav className="navbar navbar-expand-lg navbar-fixed-top">
         <img id="logo" onClick={() => navigate("/")} className="logo" src={require("../../Images/logo.png")} />
-        <div id="navItems" style={{ width: "90%", display: "flex", justifyContent: "flex-end" }}>
+        <div id="navItems" style={{ width: "97%", display: "flex", justifyContent: "flex-end" }}>
             <ul className="navbar-nav">
+                <li>
+                    <NavLink to="/" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                        Αρχική
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink to="/books" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
                         Τα βιβλία
@@ -52,7 +58,7 @@ export default function Navbar() {
         </div>
         <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
             <ul className="navbar-nav">
-                <li key="notifications">
+                <li key="notifications" id="notification-icon" data-bs-toggle="tooltip" data-bs-custom-class="navbar-tooltip" data-bs-placement="bottom" title="">
                     {user.user.userId !== "" && <Notifications />}
                 </li>
                 <li key="login">
@@ -76,8 +82,13 @@ export default function Navbar() {
         <img id="logo" onClick={() => navigate("/")} className="logo" src={require("../../Images/logo.png")} />
         <button onClick={toggleMobile} className="btn btn-primary btn-custom btn-circle"><i class="fa-solid fa-bars"></i></button>
     </nav>
-        <div id="navItems"  style={{ display: "none", paddingTop: "1rem", justifyContent: "center" }}>
+        <div id="navItems" style={{ display: "none", paddingTop: "1rem", justifyContent: "center" }}>
             <ul className="navbar-nav">
+                <li>
+                    <NavLink to="/" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
+                        Αρχική
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink to="/books" className={({ isActive }) => { return isActive ? "nav-link nav-item fromLeft selected" : "nav-link nav-item fromLeft"; }} >
                         Τα βιβλία

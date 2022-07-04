@@ -28,10 +28,10 @@ export default function Footer(){
                                 <span><a href="/terms">Όροι χρήσης</a></span>
                             </li>
                             <li key="faq">
-                                <span><a href="https://twitter.com/iceuniwa">Συχνές ερωτήσεις</a></span>
+                                <span><a href="/faq">Συχνές ερωτήσεις</a></span>
                             </li>
                             <li key="privacy">
-                                <span><a href="https://twitter.com/iceuniwa">Πολιτική απορρήτου</a></span>
+                                <span><a href="/privacy">Πολιτική απορρήτου</a></span>
                             </li>
                         </ul>
                     </div>

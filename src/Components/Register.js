@@ -268,6 +268,7 @@ export default function Register(props) {
                                         <input type="password" name="password" value={registerForm.password} onChange={handleChange} placeholder="Κωδικός πρόσβασης" />
                                         {emptyFields.includes("password") && <i class="fa-solid fa-star-of-life"></i>}
                                     </div>
+                                    {errors.password && <FieldError error={errors.password} />}
                                     <div className="form-control-container">
                                         <i className="fa-solid fa-lock" title={registerForm.confirmPassword != "" ? "Επιβεβαίωση κωδικού πρόσβασης" : ""}></i>
                                         <input type="password" name="confirmPassword" value={registerForm.confirmPassword} onChange={handleChange} placeholder="Επιβεβαίωση κωδικού πρόσβασης" />

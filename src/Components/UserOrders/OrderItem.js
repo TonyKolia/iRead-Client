@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function Orders(props) {
 
     let navigate = useNavigate();
+    React.useEffect(() => Helpers.setupTooltips(), []);
 
     return (
         <>
@@ -31,7 +32,7 @@ export default function Orders(props) {
                                         return(
                                             <div className="col">
                                                 <div className="order-items-container">
-                                                    <img onClick={() => navigate(`/book/${book.id}`)} title={book.title} className="order-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`}/>
+                                                    <img onClick={() => navigate(`/book/${book.id}`)} title={book.title} data-bs-toggle="tooltip" data-bs-placement="top" className="order-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`}/>
                                                 </div>
                                             </div>
                                         );

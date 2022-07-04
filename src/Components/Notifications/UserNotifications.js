@@ -14,6 +14,8 @@ export default function UserNotifications() {
     const [selectedTab, setSelectedTab] = React.useState(1);
     let navigate = useNavigate();
 
+    React.useEffect(() => Helpers.setupTooltips(), []);
+
     React.useEffect(() => {
         if (user.user.userId === "")
             return;
@@ -64,8 +66,8 @@ export default function UserNotifications() {
             let newNotificationsIndicator = document.getElementById("new-notifications-indicator");
             newNotificationsIndicator.style.display = "none";
 
-            let notificationBell = document.getElementById("notifications-bell");
-            notificationBell.title = "Δεν υπάρχουν νέες ειδοποίησεις.";
+            let element = document.getElementById("notification-icon");
+            element.setAttribute("data-bs-original-title", "Δεν υπάρχουν νέες ειδοποίησεις.");
         }
 
     }
@@ -94,7 +96,7 @@ export default function UserNotifications() {
             userNotifications.notViewed.length > 0 ? userNotifications.notViewed.map(notification => <li key={notification.id} className="notification-item" onMouseEnter={() => changeIconOnHover(`notification-item${notification.id}`)} onMouseLeave={() => resetIconOnHover(`notification-item${notification.id}`)}>
                 <span className="notification-date">{Helpers.formatDate(notification.dateCreated)}</span>
                 <div className="notification-cotainer">
-                    <i title="Επισήμανση ως αναγνωσμένο" onClick={() => markNotificationAsViewed(notification.id)} id={`notification-item${notification.id}`} style={{ paddingLeft: "10px" }} className="fa-solid fa-circle"></i>
+                    <i title="Επισήμανση ως αναγνωσμένο" data-bs-toggle="tooltip" data-bs-placement="left" onClick={() => markNotificationAsViewed(notification.id)} id={`notification-item${notification.id}`} style={{ paddingLeft: "10px" }} className="fa-solid fa-circle"></i>
                     <span className="notification-text-full">{notification.notificationText}</span>
                 </div>
             </li>) : <li style={{ listStyleType: "none" }}><h6 style={{ textAlign: "center", paddingTop: "1rem" }}>{loading ? "" : "Δεν βρέθηκαν ειδοποιήσεις."}</h6></li>
