@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://localhost:7190/api/";
+const API_BASE_URL = "https://iread-api.azurewebsites.net/api/";
 
 const ENDPOINTS = {
     GET_BOOK: "Book/",
