@@ -9,7 +9,7 @@ export default function FAQ() {
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item" >
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <button class="accordion-button static-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Ποιος μπορεί να γίνει μέλος στην βιβλιοθήκη;
                         </button>
                     </h2>
@@ -21,7 +21,7 @@ export default function FAQ() {
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <button class="accordion-button static-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Υπάρχει κάποιος περιορισμός στον δανεισμό βιβλίων;
                         </button>
                     </h2>
@@ -33,7 +33,7 @@ export default function FAQ() {
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <button class="accordion-button static-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             Υπάρχει κάποια χρέωση για τη διαδικασία δανεισμού βιβλίου;
                         </button>
                     </h2>
@@ -45,7 +45,7 @@ export default function FAQ() {
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <button class="accordion-button static-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                             Υπάρχει κάποιο χρονοδιάγραμμα σχετικά με το δανεισμό βιβλίων;
                         </button>
                     </h2>
@@ -57,7 +57,7 @@ export default function FAQ() {
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFive">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <button class="accordion-button static-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                             Υπάρχουν χρεώσεις στην περίπτωση καθυστέρησης ή ακύρωσης;
                         </button>
                     </h2>

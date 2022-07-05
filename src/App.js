@@ -25,6 +25,8 @@ import EmailForm from "./Components/PasswordReset/EmailForm";
 import NewPasswordForm from "./Components/PasswordReset/NewPasswordForm";
 import Privacy from "./Components/Privacy";
 import FAQ from "./Components/FAQ";
+import Staff from "./Components/Staff";
+import Library from "./Components/Library";
 
 export const UserContext = React.createContext();
 export const BasketContext = React.createContext();
@@ -178,6 +180,8 @@ export default function App() {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/faq" element={<FAQ />} />
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/library" element={<Library />} />
                 <Route path="/error" element={<Error />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
