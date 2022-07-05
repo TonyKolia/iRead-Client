@@ -67,7 +67,7 @@ export default function UserNotifications() {
             newNotificationsIndicator.style.display = "none";
 
             let element = document.getElementById("notification-icon");
-            element.setAttribute("data-bs-original-title", "Δεν υπάρχουν νέες ειδοποίησεις.");
+            element.setAttribute("data-bs-original-title", "Δεν υπάρχουν νέες ειδοποιήσεις.");
         }
 
     }

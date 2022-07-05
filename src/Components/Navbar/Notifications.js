@@ -67,7 +67,7 @@ export default function Notifications() {
         if (notViewedNotifications.length > 0)
             return `Έχετε νέες ειδοποιήσεις.`;
         else
-            return "Δεν υπάρχουν νέες ειδοποίησεις."
+            return "Δεν υπάρχουν νέες ειδοποιήσεις."
 
     }
 

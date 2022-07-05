@@ -14,6 +14,7 @@ export default function BookPageRecommendations(props) {
 
     const [recommendedBooks, setRecommendedBooks] = React.useState({ recommendedForUser: [], recommendedByOthers: [], similar: [] });
     const [selectedTab, setSelectedTab] = React.useState(1);
+    const [favorites, setFavorites] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
@@ -36,7 +37,40 @@ export default function BookPageRecommendations(props) {
                     return response.statusCode == 404 ? setRecommendedBooks({ recommendedForUser: [], recommendedByOthers: [], similar: [] }) : navigate("/error");
             });
 
+        if (user.user.userId !== "") {
+            setLoading(true);
+            Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
+                .then(response => {
+                    setLoading(false);
+                    if (response.success)
+                        return setFavorites(response.data?.map(x => x.book.id));
+                    else
+                        return response.statusCode == 404 ? setFavorites([]) : navigate("/error");
+                });
+        }
+
     }, [props, user]);
+
+    const addFavorite = (bookId) => {
+
+        if (user.user.userId == "") {
+            let loginLink = document.getElementById("loginLink");
+            loginLink.click();
+            return;
+        }
+
+        setLoading(true);
+        Helpers.performPost(API.API_URL_ADD_NEW_FAVORITE, { userId: user.user.userId, bookId: bookId }, user.user.token)
+            .then(response => {
+                setLoading(false);
+                if (response.success) {
+                    Helpers.successMessage("Προστέθηκε σελιδοδείκτης!");
+                    return setFavorites(oldFavorites => [...oldFavorites, bookId]);
+                }
+                else
+                    return navigate("/error");
+            });
+    }
 
     return (
         <>
@@ -56,17 +90,17 @@ export default function BookPageRecommendations(props) {
                     </div>
                     {
                         selectedTab == 1 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.recommendedForUser?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedForUser?.map(book => <BookItem key={book.id} book={book} />)}
+                            {recommendedBooks.recommendedForUser?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedForUser?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                     {
                         selectedTab == 2 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.recommendedByOthers?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedByOthers?.map(book => <BookItem key={book.id} book={book} />)}
+                            {recommendedBooks.recommendedByOthers?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedByOthers?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                     {
                         selectedTab == 3 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.similar?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.similar?.map(book => <BookItem key={book.id} book={book} />)}
+                            {recommendedBooks.similar?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.similar?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                 </div>

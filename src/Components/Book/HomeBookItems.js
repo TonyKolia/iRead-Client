@@ -58,7 +58,7 @@ export default function BookItems(props) {
             .then(response => {
                 setLoading(false);
                 if (response.success) {
-                    Helpers.successMessage("Προστέθηκε στους σελιδοδείκτες!");
+                    Helpers.successMessage("Προστέθηκε σελιδοδείκτης!");
                     return setFavorites(oldFavorites => [...oldFavorites, bookId]);
                 }
                 else
