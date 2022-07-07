@@ -98,16 +98,16 @@ export default function BookPage() {
                             <div className="card-body">
                                 <h4>{book.title}</h4>
                                 <ul className="list-group">
-                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span key={author.id}><a href={"/author/" + author.id}>{author.name}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
-                                    <li key="categories" className="list-group-item">Κατηγορία: {book.categories?.map((category, i, arr) => <span key={category.id}><a href="#">{category.description}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
+                                    <li key="authors" className="list-group-item">Συγγραφείς: {book.authors?.map((author, i, arr) => <span key={author.id}>{author.name}{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
+                                    <li key="categories" className="list-group-item">Κατηγορία: {book.categories?.map((category, i, arr) => <span key={category.id}>{category.description}{Helpers.addCommaIfNeeded(i, arr)}</span>)}</li>
                                     <li key="isbn" className="list-group-item">ISBN: {book.isbn}</li>
-                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span key={publisher.id}><a href="#">{publisher.name}</a>{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
+                                    <li key="publishers" className="list-group-item">Εκδόσεις: {book.publishers?.map((publisher, i, arr) => <span key={publisher.id}>{publisher.name}{Helpers.addCommaIfNeeded(i, arr)}</span>)} </li>
                                     <li key="publishDate" className="list-group-item">Έτος έκδοσης: {Helpers.getYearFromDate(book.publishDate)}</li>
                                     <li key="pages" className="list-group-item">Σελίδες: {book.pageCount}</li>
                                     <li key="description" className="list-group-item" style={{ textAlign: "justify", height: "240px", overflow: "scroll" }}>{book.description}</li>
                                 </ul>
                                 <div className="book-details-actions">
-                                    <div className="book-rating" onClick={scrollToComments} title="Δείτε τις κριτικές">
+                                    <div className="book-rating" onClick={scrollToComments} data-bs-toggle="tooltip" data-bs-placement="right"  title="Δείτε τις κριτικές">
                                         <i className="fa-solid fa-star"></i>
                                         <span style={{ color: "var(--main-detail-color)", fontWeight: "bold" }}>{book.rating}/5  ({book.totalRatings})</span>
                                     </div>
@@ -121,6 +121,8 @@ export default function BookPage() {
                     </div>
                 </div>
                 <BookPageRecommendations bookId={book.id} />
+                <br />
+                <br />
                 <Ratings setReloadBook={setReloadBook} bookId={book.id} bookTitle={book.title} />
             </div >
         </>

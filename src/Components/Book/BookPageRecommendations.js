@@ -78,9 +78,8 @@ export default function BookPageRecommendations(props) {
             <div className="comments-container">
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "1rem" }}>
                     <h4><i className="fa-solid fa-thumbs-up"></i>Προτεινόμενα</h4>
-                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#recommended" aria-expanded="true" aria-controls="recommended"></button>
                 </div>
-                <div id="recommended" className="collapse show">
+                <div id="recommended">
                     <div style={{ marginTop: "10px" }}>
                         <ul className="nav justify-content-center mini-menu">
                             <li onClick={() => setSelectedTab(1)} key="recommended" className={`mini-menu-item fromLeft ${selectedTab == 1 ? "selected" : ""}`}>Για εσάς</li>

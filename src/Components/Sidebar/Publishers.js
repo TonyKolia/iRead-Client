@@ -50,10 +50,10 @@ export default function Publishers(props) {
 
     return (
         <div>
-            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#publishers" aria-expanded="true" aria-controls="publishers">
+            <div className="ex-accordion-button">
                 <h6><i className="fa-solid fa-book"></i>Εκδόσεις</h6>
-            </button>
-            <div className="collapse show" id="publishers">
+            </div>
+            <div id="publishers">
                 <div className="form-control-container" id="filter-search-author">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" value={searchString} name="search-author" onChange={handleSearchChange} placeholder="Αναζήτηση..." />

@@ -43,10 +43,10 @@ export default function Years(props) {
 
     return (
         <div>
-            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#year" aria-expanded="true" aria-controls="year">
+             <div className="ex-accordion-button">
                 <h6><i className="fa-solid fa-calendar"></i>Έτος έκδοσης</h6>
-            </button>
-            <div className="filter-data-container collapse show" style={{overflow:"hidden", borderBottom: "none"}} id="year">
+            </div>
+            <div className="filter-data-container" style={{overflow:"hidden", borderBottom: "none"}} id="year">
                 <div className="year-slider-container">
                     <input type="range" onChange={handleChange} name="min" className="thumb thumb--zindex-3" min={props.years.minYear} max={props.years.maxYear} value={minValue} />
                     <input type="range" onChange={handleChange} name="max" className="thumb thumb--zindex-4" min={props.years.minYear} max={props.years.maxYear} value={maxValue} />

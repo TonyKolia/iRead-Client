@@ -51,10 +51,10 @@ export default function Authors(props) {
 
     return (
         <div>
-            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#authors" aria-expanded="true" aria-controls="authors">
+            <div className="ex-accordion-button">
                 <h6><i className="fa-solid fa-feather-pointed"></i>Συγγραφείς</h6>
-            </button>
-            <div className="collapse show" id="authors">
+            </div>
+            <div id="authors">
                 <div className="form-control-container" id="filter-search-author">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" name="search-author" value={searchString} onChange={handleSearchChange} placeholder="Αναζήτηση..." />

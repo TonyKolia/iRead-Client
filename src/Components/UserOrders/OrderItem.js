@@ -3,21 +3,30 @@ import "../../css/style.css";
 import API from "../../Helpers/API";
 import Helpers from "../../Helpers/Helpers";
 import { useNavigate } from "react-router-dom";
+import { Collapse } from "bootstrap";
 
 export default function Orders(props) {
 
     let navigate = useNavigate();
-    React.useEffect(() => Helpers.setupTooltips(), []);
+    const [collapse, setCollapse] = React.useState(null);
+    React.useEffect(() => {Helpers.setupTooltips(); setupToggle(`order${props.order.id}`)}, []);
+
+    const setupToggle = (id) =>{
+        setCollapse(new Collapse(document.getElementById(id), {toggle: false}));
+    }
+
+    const toggle = () => collapse.toggle();
+
 
     return (
         <>
-            <tr className="order-tr" style={{verticalAlign: "middle"}}>
+            <tr className="order-tr" onClick={toggle} style={{verticalAlign: "middle"}}>
                 <td>{`#${props.order.id}`}</td>
                 <td>{Helpers.formatDate(props.order.orderDate)}</td>
                 <td>{Helpers.formatDate(props.order.returnDate)}</td>
                 <td>{props.order.status}</td>
                 <td style={{width: "1%"}}>
-                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#order${props.order.id}`} aria-expanded="false" aria-controls={`order${props.order.id}`}>
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#order${props.order.id}`} aria-expanded="false" aria-controls={`order${props.order.id}`}>
                     </button>
                 </td>
             </tr>

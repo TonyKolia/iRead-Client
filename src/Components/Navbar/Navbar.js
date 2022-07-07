@@ -20,6 +20,16 @@ export default function Navbar() {
 
     }, []);
 
+    const clearTooltips = () => {
+
+        let elements = document.getElementsByClassName('tooltip');
+        if(elements.length > 0){
+            for(let i=0; i<elements.length; i++)
+                elements[i].remove();
+        }
+
+    }
+
     const setCurrentSize = (currentSize) => setSize(currentSize);
 
     const toggleMobile = () => {
@@ -58,7 +68,7 @@ export default function Navbar() {
         </div>
         <div style={{ width: "70%", display: "flex", justifyContent: "flex-end" }}>
             <ul className="navbar-nav">
-                <li key="notifications" id="notification-icon" data-bs-toggle="tooltip" data-bs-custom-class="navbar-tooltip" data-bs-placement="bottom" title="">
+                <li key="notifications" onClick ={clearTooltips} id="notification-icon" data-bs-toggle="tooltip" data-bs-custom-class="navbar-tooltip" data-bs-placement="bottom" title="">
                     {user.user.userId !== "" && <Notifications />}
                 </li>
                 <li key="login">
