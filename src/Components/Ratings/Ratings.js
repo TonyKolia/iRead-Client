@@ -35,7 +35,7 @@ export default function Ratings(props) {
             {loading && <Loading />}
             <div className="comments-container" id="ratings">
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "1rem" }}>
-                    <h4><i className="fa-solid fa-comment"></i>Σχόλια χρηστών</h4>
+                    <h4><i className="fa-solid fa-comment"></i>Κριτικές χρηστών</h4>
                 </div>
                 <div id="comments">
 

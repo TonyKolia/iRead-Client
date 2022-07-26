@@ -41,7 +41,7 @@ export default function Orders(props) {
                                         return(
                                             <div className="col">
                                                 <div className="order-items-container">
-                                                    <img onClick={() => navigate(`/book/${book.id}`)} title={book.title} data-bs-toggle="tooltip" data-bs-placement="top" className="order-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`}/>
+                                                    <a href={`/book/${book.id}`}><img title={book.title} data-bs-toggle="tooltip" data-bs-placement="top" className="order-img" src={`${API.API_URL_GET_BOOK_IMAGE}${book.imagePath}`}/></a>
                                                 </div>
                                             </div>
                                         );
