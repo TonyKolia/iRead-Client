@@ -17,11 +17,11 @@ export default function BookPage() {
     const [book, setBook] = React.useState({});
     const basket = React.useContext(BasketContext);
     const user = React.useContext(UserContext);
-    const [favorite, setFavorite] = React.useState(false);
+    const [favorite, setFavorite] = React.useState(null);
     const [reloadBook, setReloadBook] = React.useState(false); //used as a toggle to refresh book data
     const [loading, setLoading] = React.useState(false);
     let navigate = useNavigate();
-
+    const [bookFinishedLoading, setBookFinishedLoading] = React.useState(false);
 
     React.useEffect(() => {
 
@@ -51,6 +51,7 @@ export default function BookPage() {
                 if (response.statusCode == 500)
                     return navigate("/error");
 
+                
                 return response.data ? setFavorite(true) : setFavorite(false);
             });
 
@@ -83,6 +84,13 @@ export default function BookPage() {
     };
 
     React.useEffect(() => Helpers.setupTooltips(), []);
+
+    React.useEffect(() => {
+
+        if(Object.keys(book).length > 0 && favorite !== null)
+            setBookFinishedLoading(true);
+
+    }, [book, favorite]);
 
     return (
         <>
@@ -120,10 +128,10 @@ export default function BookPage() {
                         </div>
                     </div>
                 </div>
-                <BookPageRecommendations bookId={book.id} />
+                { bookFinishedLoading && <BookPageRecommendations bookId={book.id} />}
                 <br />
                 <br />
-                <Ratings setReloadBook={setReloadBook} bookId={book.id} bookTitle={book.title} />
+                { bookFinishedLoading && <Ratings setReloadBook={setReloadBook} bookId={book.id} bookTitle={book.title} />}
             </div >
         </>
 

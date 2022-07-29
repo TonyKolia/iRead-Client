@@ -7,12 +7,13 @@ import FieldError from "./FieldError";
 import Loading from "./Loading";
 import { UserContext, USER_ACTIONS } from "../App";
 
-export default function Register(props) {
+export default function Register() {
 
     const [idTypes, setIdTypes] = React.useState([]);
     const [genders, setGenders] = React.useState([]);
     const [errors, setErrors] = React.useState({});
     const [emptyFields, setEmptyFields] = React.useState([]);
+    const [userLoggedIn, setUserLoggedIn] = React.useState(false);
     const [selectedTab, setSelectedTab] = React.useState(1);
     const [categories, setCategories] = React.useState([]);
     const [authors, setAuthors] = React.useState([]);
@@ -50,7 +51,7 @@ export default function Register(props) {
         favoriteAuthors: []
     });
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     React.useEffect(() => {
 
@@ -207,8 +208,11 @@ export default function Register(props) {
 
     //register form submit handler
     const submitRegisterForm = (e) => {
-        setLoading(true);
         e.preventDefault();
+        if(user !== null && user !== undefined && user.user.userId !== "")
+            return setUserLoggedIn(true);
+
+        setLoading(true);
         registerForm.favoriteAuthors = selectedAuthors;
         registerForm.favoriteCategories = selectedCategories;
         Helpers.performPost(API.API_URL_REGISTER, registerForm)
@@ -430,6 +434,7 @@ export default function Register(props) {
                             </div>
                             {emptyFields.length > 0 && <div style={{ marginTop: "15px" }} className="alert alert-danger" role="alert"><i class="fa-solid fa-star-of-life"></i>Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία.</div>}
                             {Object.keys(errors).length > 0 && <div style={{ marginTop: "15px" }} className="alert alert-danger" role="alert"><i className="fa-solid fa-circle-exclamation"></i>Προέκυψαν σφάλματα με τα δεδομένα που δώσατε. Παρακαλώ διορθώστε τα και προσπαθήστε ξανά.</div>}
+                            {userLoggedIn && <div style={{ marginTop: "15px" }} className="alert alert-danger" role="alert"><i className="fa-solid fa-circle-exclamation"></i>Η δημιουργία λογαριασμού δεν είναι δυνατή διότι υπάρχει ήδη συνδεδεμένος χρήστης. Παρακαλώ αποσυνδεθείτε για να συνεχίσετε.</div>}
                             <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
                                 <button onClick={submitRegisterForm} className="btn btn-primary btn-custom"><i className="fa-solid fa-check"></i>Δημιουργία</button>
                             </div>

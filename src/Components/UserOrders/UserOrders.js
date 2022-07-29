@@ -7,6 +7,7 @@ import Orders from "./OrderItem";
 import { UserContext } from "../../App";
 import ReactPaginate from 'react-paginate';
 import Loading from "../Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function UserOrders() {
 
@@ -16,13 +17,13 @@ export default function UserOrders() {
     const [displayedItems, setDisplayedItems] = React.useState([]);
     const [pageCount, setPageCount] = React.useState(0);
     const [itemOffset, setItemOffset] = React.useState(0)
-
+    const navigate = useNavigate();
     const itemsPerPage = 5;
 
     React.useEffect(() => {
 
-        if (user.user.userId === "")
-            return;
+        if (user === null || user === undefined || user.user.userId === "")
+            return navigate("/notfound");
 
         setLoading(true);
         Helpers.performGet(`${API.API_URL_GET_USER_ORDERS}${user.user.userId}`, user.user.token)

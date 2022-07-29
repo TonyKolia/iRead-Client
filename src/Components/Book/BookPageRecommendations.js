@@ -19,7 +19,7 @@ export default function BookPageRecommendations(props) {
 
     React.useEffect(() => {
 
-        if (props.bookId === undefined)
+        if (props.bookId === undefined || (recommendedBooks.recommendedForUser.length > 0 && recommendedBooks.recommendedByOthers.length > 0 && recommendedBooks.similar.length > 0))
             return;
 
         setLoading(true);

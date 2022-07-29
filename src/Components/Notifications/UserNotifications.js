@@ -17,8 +17,9 @@ export default function UserNotifications() {
     React.useEffect(() => Helpers.setupTooltips(), []);
 
     React.useEffect(() => {
-        if (user.user.userId === "")
-            return;
+        if (user === null || user === undefined || user.user.userId === "")
+            return navigate("/notfound");
+
         setLoading(true);
         let url = API.API_URL_GET_ORGANIZED_NOTIFICATIONS.replace(":userId", user.user.userId);
         Helpers.performGet(url, user.user.token)

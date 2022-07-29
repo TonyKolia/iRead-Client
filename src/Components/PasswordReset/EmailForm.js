@@ -4,18 +4,23 @@ import Helpers from "../../Helpers/Helpers";
 import API from "../../Helpers/API";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
+import { UserContext } from "../../App";
 
 export default function EmailForm() {
 
     const [loading, setLoading] = React.useState(false);
     const [emailSent, setEmailSent] = React.useState(false);
     const [error, setError] = React.useState("");
+    const user = React.useContext(UserContext);
     let navigate = useNavigate();
 
     const [email, setEmail] = React.useState("");
 
     const submitEmail = (e) => {
         e.preventDefault();
+
+        if(user !== null && user !== undefined && user.user.userId !== "")
+            return setError("Η επαναφορά κωδικού πρόσβασης δεν είναι δυνατή διότι υπάρχει ήδη συνδεδεμένος χρήστης. Παρακαλώ αποσυνδεθείτε για να συνεχίσετε.")
 
         if (email === "" || email === null)
             return;

@@ -35,7 +35,7 @@ export default function Favorites() {
     };
 
     React.useEffect(() => {
-        if (user.user.userId !== "") {
+        if (user !== null && user !== undefined && user.user.userId !== "") {
             setLoading(true);
             Helpers.performGet(`${API.API_URL_GET_USER_FAVORITES}${user.user.userId}`, user.user.token)
                 .then(response => {
@@ -46,6 +46,8 @@ export default function Favorites() {
                 });
 
         }
+        else    
+            navigate("/notfound");
 
     }, [user, favoriteRemoved]);
 
