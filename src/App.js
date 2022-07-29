@@ -136,6 +136,7 @@ export default function App() {
     let user = localStorage.getItem('user');
     user = user !== null ? JSON.parse(user) : { userId: "", username: "", token: "" };
     dispatchUser({ type: USER_ACTIONS.LOGIN, payload: { user: user } });
+    setUserCheckFinished(true);
   }
 
   const [user, dispatchUser] = React.useReducer(userReducer, { userId: "", username: "", token: "" });
@@ -150,7 +151,7 @@ export default function App() {
 
   React.useEffect(initializeBasket, []);
   React.useEffect(checkForLoggedUser, []);
-
+  const [userCheckFinished, setUserCheckFinished] = React.useState(false);
   React.useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
@@ -164,11 +165,11 @@ export default function App() {
             <div className="container-fluid" id="container">
               <Navbar />
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/books" element={<Main />} />
-                <Route path="/books/:type" element={<Main />} />
+                <Route path="/" element={userCheckFinished && <Home />} />
+                <Route path="/books" element={userCheckFinished && <Main />} />
+                <Route path="/books/:type" element={userCheckFinished && <Main />} />
                 <Route path="/basket" element={<Basket basketItemIds={basket.current} />} />
-                <Route path="/book/:id" element={<BookPage />} />
+                <Route path="/book/:id" element={ userCheckFinished && <BookPage />} />
                 <Route path="/bookmarks" element={<Favorites />} />
                 <Route path="/order-completed/:id" element={<OrderCompleted />} />
                 <Route path="/register" element={<Register />} />
