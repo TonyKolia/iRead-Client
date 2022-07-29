@@ -74,7 +74,7 @@ export default function BookPageRecommendations(props) {
 
     return (
         <>
-            {loading && <Loading />}
+            {(loading || recommendedBooks.recommendedForUser?.length === 0) && <Loading />}
             <div className="comments-container">
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", paddingTop: "1rem" }}>
                     <h4><i className="fa-solid fa-thumbs-up"></i>Προτεινόμενα</h4>
@@ -89,17 +89,17 @@ export default function BookPageRecommendations(props) {
                     </div>
                     {
                         selectedTab == 1 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.recommendedForUser?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedForUser?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
+                            {recommendedBooks.recommendedForUser?.length === 0 ? <div className="not-found-container"></div> : recommendedBooks.recommendedForUser?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                     {
                         selectedTab == 2 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.recommendedByOthers?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.recommendedByOthers?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
+                            {recommendedBooks.recommendedByOthers?.length === 0 ? <div className="not-found-container"></div> : recommendedBooks.recommendedByOthers?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                     {
                         selectedTab == 3 && <div style={{ marginTop: "10px" }} className="row row-cols-1 row-cols-md-4 card-custom-container book-page-recommendations">
-                            {recommendedBooks.similar?.length === 0 ? <div className="not-found-container"><h3>{loading ? "" : "Δεν βρέθηκαν βιβλία."}</h3></div> : recommendedBooks.similar?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
+                            {recommendedBooks.similar?.length === 0 ? <div className="not-found-container"></div> : recommendedBooks.similar?.map(book => <BookItem key={book.id} book={book} isFavorite={favorites?.some(favorite => favorite == book.id)} addFavorite={addFavorite} />)}
                         </div>
                     }
                 </div>
